@@ -56,11 +56,7 @@ module.exports = (sequelize, DataTypes) => {
         otherKey: "spotId"
       });
 
-      User.belongsToMany(models.Spot, {
-        through: models.Review,
-        foreignKey: "userId",
-        otherKey: "spotId"
-      })
+      User.hasMany(models.Review, {foreignKey: "userId", onDelete: "CASCADE", hooks: true})
     }
   };
 
@@ -112,7 +108,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       scopes: {
         currentUser: {
-          attributes: { exclude: ["hashedPassword"] }
+          attributes: { exclude: ["hashedPassword", "createdAt", "updatedAt"] }
         },
         loginUser: {
           attributes: {}
