@@ -4,6 +4,7 @@ const { restoreUser } = require('../../utils/auth.js');
 const { User } = require('../../db/models');
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
+const spotsRouter = require("./spots");
 
 // GET /api/set-token-cookie
 router.get('/set-token-cookie', async (_req, res) => {
@@ -23,6 +24,8 @@ router.use(restoreUser);
 router.use('/session', sessionRouter);
 
 router.use('/users', usersRouter);
+
+router.use("/spots", spotsRouter);
 
 router.post('/test', (req, res) => {
   res.json({ requestBody: req.body });

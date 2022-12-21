@@ -1,6 +1,6 @@
 const express = require("express");
 const sequelize = require("sequelize");
-const { Spot } = require("../../db/models");
+const { Spot, Review, User, SpotImage } = require("../../db/models");
 const router = express.Router();
 const { requireAuth } = require("../../utils/auth");
 const { check } = require("express-validator");
@@ -39,3 +39,166 @@ const validateSpot = [
 ];
 
 // Get all Spots
+
+router.get("/", async (req, res) => {
+
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+    const errors = {};
+    const pagination = {};
+    const where = {};
+
+   if (page) {
+    if (isNaN(page) || page <= 0) {
+        errors.page = "Page must be greater than or equal to 1"
+    } else if (page > 10) {
+        page = 10
+    }
+   } else {
+    page = 1
+   };
+
+   if (size) {
+    if (isNaN(size) || size <= 0) {
+        errors.size = "Size must be greater than or equal to 1"
+    } else if (size > 20) {
+        size = 20
+    }
+   } else {
+    size = 20
+   };
+
+   pagination.limit = +size;
+   pagination.offset = (+page -1) * +size;
+
+   if (minLat) {
+    if (!Number.isInteger(minLat)) {
+        errors.minLat = "Minimum latitude is invalid"
+    }
+    where.lat = {
+        [Op.gte]: minLat
+    }
+   };
+
+   if (maxLat) {
+    if (!Number.isInteger(maxLat)) {
+        errors.maxLat = "Maximum latitude is invalid"
+    } else if (minLat) {
+        if (maxLat < minLat) {
+            errors.maxLat = "Maximum latitude is invalid"
+        }
+    }
+    where.lat = {
+        [Op.lte]: maxLat
+    }
+   };
+
+   if (minLng) {
+    if (!Number.isInteger(minLng)) {
+        errors.minLat = "Minimum longitude is invalid"
+    }
+    where.lng = {
+        [Op.gte]: minLng
+    }
+   };
+
+   if (maxLng) {
+    if (!Number.isInteger(maxLng)) {
+        errors.maxLng = "Maximum latitude is invalid"
+    } else if (minLng) {
+        if (maxLng < minLng) {
+            errors.maxLng = "Maximum latitude is invalid"
+        }
+    }
+    where.lng = {
+        [Op.lte]: maxLng
+    }
+   };
+
+   if (minPrice) {
+    if (!Number.isInteger(minPrice) || minPrice < 0) {
+        errors.minPrice = "Minimum price must be greater than or equal to 0"
+    }
+    where.price = {
+        [Op.gte]: minPrice
+    }
+   };
+
+   if (maxPrice) {
+    if (!Number.isInteger(maxPrice) || maxPrice < 0) {
+        errors.maxPrice = "Maximum price must be greater than or equal to 0"
+    } else if (minPrice) {
+        if (minPrice > maxPrice) {
+            errors.maxPrice = "Maximum price must be greater than or equal to 0"
+        }
+    }
+    where.price = {
+        [Op.lte]: maxPrice
+    }
+   }
+
+   if (errors.length) {
+    res.status(400)
+    return res.json({
+        "message": "Validation Error",
+        "statuscode": 400,
+        "errors": errors
+    })
+   }
+
+    const spots = await Spot.findAll({
+        include: [
+            { model: SpotImage },
+        ],
+        ...pagination
+    });
+
+    let spotList = [];
+
+    spots.forEach(spot => {
+        spotList.push(spot.toJSON())
+    });
+
+    let allSpots = [];
+
+    spotList.forEach(async (spot) => {
+        spot.SpotImages.forEach(image => {
+            // console.log(image.preview)
+            if (image.preview === true) {
+                spot.previewImage = image.url
+            }
+        })
+        if (!spot.previewImage) {
+            spot.previewImage = "no preview image found"
+        }
+        delete spot.SpotImages
+
+        const reviews = await Review.findAll({
+            where: {
+                spotId: spot.id
+            },
+            attributes: ["stars"]
+        });
+
+        let stars = 0;
+        reviews.forEach(review => {
+            stars += review.stars
+        });
+
+        const avgStars = stars/reviews.length;
+
+        if (!avgStars) {
+            spot.avgRating = "This is a new spot, no reviews yet!"
+        } else {
+            spot.avgRating = avgStars;
+        };
+
+        allSpots.push(spot);
+        if (allSpots.length === spotList.length) {
+            res.json({
+                Spots: allSpots
+            });
+        }
+    })
+})
+
+module.exports = router;
