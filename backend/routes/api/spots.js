@@ -198,7 +198,85 @@ router.get("/", async (req, res) => {
                 Spots: allSpots
             });
         }
-    })
+    });
+
+    // Get all spots owned by current user
+
+    router.get("/current", requireAuth, async (req, res) => {
+
+        const ownerId = +req.user.id;
+        const spots = await Spot.findAll({
+            where: {ownerId},
+            attributes: {
+                include: [
+                    [sequelize.col("SpotImages.url"), "previewImage"],
+                    [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"]
+                ],
+                include: [
+                    {
+                        model: Review,
+                        attributes: []
+                    },
+                    {
+                        model: SpotImage,
+                        attributes: []
+                    }
+                ],
+                group: ["Spot.id"]
+            }
+        });
+        res.json(spots)
+    });
+
+
+    //     let spotList = [];
+
+    //     spots.forEach(spot => {
+    //         spotList.push(spot.toJSON())
+    //     });
+
+    //     let allSpots = [];
+
+    //     spotList.forEach(async (spot) => {
+    //         spot.SpotImages.forEach(image => {
+    //             // console.log(image.preview)
+    //             if (image.preview === true) {
+    //                 spot.previewImage = image.url
+    //             }
+    //         })
+    //         if (!spot.previewImage) {
+    //             spot.previewImage = "no preview image found"
+    //         }
+    //         delete spot.SpotImages
+
+    //         const reviews = await Review.findAll({
+    //             where: {
+    //                 spotId: spot.id
+    //             },
+    //             attributes: ["stars"]
+    //         });
+
+    //         let stars = 0;
+    //         reviews.forEach(review => {
+    //             stars += review.stars
+    //         });
+
+    //         const avgStars = stars/reviews.length;
+
+    //         if (!avgStars) {
+    //             spot.avgRating = "This is a new spot, no reviews yet!"
+    //         } else {
+    //             spot.avgRating = avgStars;
+    //         };
+
+    //         allSpots.push(spot);
+    //         if (spot === spotList[spotList.length-1]) {
+    //             res.json({
+    //                 Spots: allSpots
+    //             });
+    //         }
+    //     });
+    // })
 })
 
 module.exports = router;
