@@ -36,7 +36,8 @@ const validateSpot = [
     check("price")
     .notEmpty()
     .isDecimal()
-    .withMessage("Price per day is required")
+    .withMessage("Price per day is required"),
+    handleValidationErrors
 ];
 
 // Get all Spots
