@@ -218,42 +218,84 @@ router.get("/current", requireAuth, async (req, res) => {
     const ownerId = +req.user.id;
     const spots = await Spot.findAll({
         where: {ownerId},
-        attributes: {
-            include: [
-                [sequelize.col("SpotImages.url"), "previewImage"],
-                [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"]
-            ]
-        },
-        include: [
-            {
-                model: Review,
-                attributes: []
-            },
-            {
-                model: SpotImage,
-                attributes: []
+        include: { model: SpotImage }
+    });
+
+    let spotList = [];
+
+    spots.forEach(spot => {
+        spotList.push(spot.toJSON())
+    });
+
+    let allSpots = [];
+
+    spotList.forEach(async (spot) => {
+        spot.SpotImages.forEach(image => {
+            // console.log(image.preview)
+            if (image.preview === true) {
+                spot.previewImage = image.url
             }
-        ],
-        group: ["Spot.id"]
-    })
-    res.json(spots)
+        })
+        if (!spot.previewImage) {
+            spot.previewImage = "no preview image found"
+        }
+        delete spot.SpotImages
+
+        const reviews = await Review.findAll({
+            where: {
+                spotId: spot.id
+            },
+            attributes: ["stars"]
+        });
+
+        let stars = 0;
+        reviews.forEach(review => {
+            stars += review.stars
+        });
+
+        const avgStars = stars/reviews.length;
+
+        if (!avgStars) {
+            spot.avgRating = "This is a new spot, no reviews yet!"
+        } else {
+            spot.avgRating = avgStars;
+        };
+
+        allSpots.push(spot);
+        if (spot === spotList[spotList.length-1]) {
+            res.json({
+                Spots: allSpots
+            });
+        }
+    });
+
+    //     where: {ownerId},
+    //     attributes: {
+    //         include: [
+    //             [sequelize.col("SpotImages.url"), "previewImage"],
+    //             [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"]
+    //         ]
+    //     },
+    //     include: [
+    //         {
+    //             model: Review,
+    //             attributes: []
+    //         },
+    //         {
+    //             model: SpotImage,
+    //             attributes: []
+    //         }
+    //     ],
+    //     group: ["Spot.id"]
+    // })
+    // res.json(spots)
 });
 
 // Get details for a Spot by id
 
 router.get("/:spotId", async (req, res) => {
     const spot = await Spot.findByPk(req.params.spotId, {
-        attributes: {
-            include: [
-                [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"],
-                [sequelize.fn("COUNT", sequelize.col("Reviews.id")), "numReviews"]
-            ]
-        },
         include: [
-            {
-                model: Review,
-                attributes: []
-            },
             {
                 model: SpotImage,
                 attributes: ["id", "url", "preview"]
@@ -263,8 +305,7 @@ router.get("/:spotId", async (req, res) => {
                 as: "Owner",
                 attributes: ["id", "firstName", "lastName"]
             }
-        ],
-        group: ["Spot.id"]
+        ]
     });
 
     if (!spot) {
@@ -273,9 +314,85 @@ router.get("/:spotId", async (req, res) => {
             "message": "Spot couldn't be found",
             "statusCode": 404
         })
+    } else {
+        const numReviews = await Review.count({
+            where: { spotId: spot.id}
+        })
+
+        const reviews = await Review.findAll({
+            where: {
+                spotId: spot.id
+            },
+            attributes: ["stars"]
+        });
+
+        let stars = 0;
+        reviews.forEach(review => {
+            stars += review.stars
+        });
+
+        const avgStars = stars/reviews.length;
+
+        if (!avgStars) {
+            spot.avgRating = "This is a new spot, no reviews yet!"
+        } else {
+            spot.avgRating = avgStars;
+        };
+       
+        return res.json({
+            id: spot.id,
+            ownerId: spot.ownerId,
+            address: spot.address,
+            city: spot.city,
+            state: spot.state,
+            country: spot.country,
+            lat: spot.lat,
+            lng: spot.lng,
+            name: spot.name,
+            description: spot.description,
+            price: spot.price,
+            createdAt: spot.createdAt,
+            updatedAt: spot.updatedAt,
+            numReviews: numReviews,
+            avgStarRating: avgStars,
+            SpotImages: spot.SpotImages,
+            Owner: spot.Owner
+        })
     }
 
-    res.json(spot)
-})
+    //     attributes: {
+    //         include: [
+    //             [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"],
+    //             [sequelize.fn("COUNT", sequelize.col("Reviews.id")), "numReviews"]
+    //         ]
+    //     },
+    //     include: [
+    //         {
+    //             model: Review,
+    //             attributes: []
+    //         },
+    //         {
+    //             model: SpotImage,
+    //             attributes: ["id", "url", "preview"]
+    //         },
+    //         {
+    //             model: User,
+    //             as: "Owner",
+    //             attributes: ["id", "firstName", "lastName"]
+    //         }
+    //     ],
+    //     group: ["Spot.id"]
+    // });
+
+    // if (!spot) {
+    //     res.status(404);
+    //     res.json({
+    //         "message": "Spot couldn't be found",
+    //         "statusCode": 404
+    //     })
+    // }
+
+    // res.json(spot)
+});
 
 module.exports = router;
