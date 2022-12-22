@@ -198,7 +198,84 @@ router.get("/", async (req, res) => {
                 Spots: allSpots
             });
         }
+    });
+});
+
+// Create a spot
+router.post("/", validateSpot, requireAuth, async (req, res) => {
+    const ownerId = req.user.id;
+
+    const newSpot = await Spot.create({ownerId, ...req.body});
+
+    res.json(newSpot)
+});
+
+
+// Get all spots owned by current user
+
+router.get("/current", requireAuth, async (req, res) => {
+
+    const ownerId = +req.user.id;
+    const spots = await Spot.findAll({
+        where: {ownerId},
+        attributes: {
+            include: [
+                [sequelize.col("SpotImages.url"), "previewImage"],
+                [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"]
+            ]
+        },
+        include: [
+            {
+                model: Review,
+                attributes: []
+            },
+            {
+                model: SpotImage,
+                attributes: []
+            }
+        ],
+        group: ["Spot.id"]
     })
+    res.json(spots)
+});
+
+// Get details for a Spot by id
+
+router.get("/:spotId", async (req, res) => {
+    const spot = await Spot.findByPk(req.params.spotId, {
+        attributes: {
+            include: [
+                [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"],
+                [sequelize.fn("COUNT", sequelize.col("Reviews.id")), "numReviews"]
+            ]
+        },
+        include: [
+            {
+                model: Review,
+                attributes: []
+            },
+            {
+                model: SpotImage,
+                attributes: ["id", "url", "preview"]
+            },
+            {
+                model: User,
+                as: "Owner",
+                attributes: ["id", "firstName", "lastName"]
+            }
+        ],
+        group: ["Spot.id"]
+    });
+
+    if (!spot) {
+        res.status(404);
+        res.json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        })
+    }
+
+    res.json(spot)
 })
 
 module.exports = router;
