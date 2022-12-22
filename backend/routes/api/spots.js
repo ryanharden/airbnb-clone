@@ -6,6 +6,7 @@ const { requireAuth } = require("../../utils/auth");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require("sequelize");
+const { response } = require("express");
 
 const validateSpot = [
     check("address")
@@ -454,4 +455,24 @@ router.put("/:spotId", validateSpot,requireAuth, async (req, res) => {
     }
 });
 
+// Delete a spot
+
+router.delete("/:spotId", requireAuth, async (req, res) => {
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    if (!spot) {
+        res.status(404);
+        res.json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        })
+    } else if (spot.ownerId === +req.user.id) {
+        await spot.destroy();
+        res.status(200);
+        res.json({
+            "message": "Successfully deleted",
+            "statusCode": 200
+        })
+    }
+});
 module.exports = router;
