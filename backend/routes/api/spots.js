@@ -423,6 +423,35 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
     });
 
     return res.json(newSpotImage);
-})
+});
+
+// Edit a spot
+
+router.put("/:spotId", validateSpot,requireAuth, async (req, res) => {
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    if (!spot) {
+        res.status(400);
+        res.json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        })
+    } else if (spot.ownerId === +req.user.id) {
+        const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+        if (address) spot.address = address;
+        if (city) spot.city = city;
+        if (state) spot.state = state;
+        if (country) spot.country = country;
+        if (lat) spot.lat = lat;
+        if (lng) spot.lng = lng;
+        if (name) spot.name = name;
+        if (description) spot.description = description;
+        if (price) spot.price = price;
+
+        await spot.save();
+        return res.json(spot);
+    }
+});
 
 module.exports = router;
