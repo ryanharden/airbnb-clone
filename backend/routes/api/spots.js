@@ -338,7 +338,7 @@ router.get("/:spotId", async (req, res) => {
         } else {
             spot.avgRating = avgStars;
         };
-       
+
         return res.json({
             id: spot.id,
             ownerId: spot.ownerId,
@@ -394,5 +394,35 @@ router.get("/:spotId", async (req, res) => {
 
     // res.json(spot)
 });
+
+// Add an image to a Spot based on the Spot's id
+
+router.post("/:spotId/images", requireAuth, async (req, res) => {
+    const { url, preview } = req.body;
+
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    if (!spot) {
+        res.status(404);
+        res.json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        })
+    }
+
+    const spotId = +req.params.spotId;
+
+    const newImage = await SpotImage.create({
+        spotId,
+        url,
+        preview
+    });
+
+    const newSpotImage = await SpotImage.findByPk(newImage.id, {
+        attributes: ["id", "url", "preview"]
+    });
+
+    return res.json(newSpotImage);
+})
 
 module.exports = router;
