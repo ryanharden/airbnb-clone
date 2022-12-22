@@ -10,10 +10,10 @@ const { Op } = require("sequelize");
 const validateReview = [
     check("review")
     .notEmpty()
-    .withMessage("Review text can not be empty"),
+    .withMessage("Review text is required"),
     check("stars")
     .isInt({ min: 1, max: 5 })
-    .withMessage("Stars must be a number between 1 and 5"),
+    .withMessage("Stars must be an integer from 1 and 5"),
     handleValidationErrors
 ];
 

@@ -8,6 +8,16 @@ const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require("sequelize");
 const { response } = require("express");
 
+const validateReview = [
+    check("review")
+    .notEmpty()
+    .withMessage("Review text is required"),
+    check("stars")
+    .isInt({ min: 1, max: 5 })
+    .withMessage("Stars must be an integer from 1 and 5"),
+    handleValidationErrors
+];
+
 const validateSpot = [
     check("address")
     .notEmpty()
@@ -506,6 +516,45 @@ router.get("/:spotId/reviews", async (req, res) => {
         ]
     });
     res.json({Reviews});
-})
+});
+
+// Create a Review for a Spot by Spot Id
+
+router.post("/:spotId/reviews", validateReview, requireAuth, async (req, res) => {
+    const spotId  = req.params.spotId;
+    const { review, stars } = req.body;
+    const spot = await Spot.findByPk(spotId);
+
+    if (!spot) {
+        res.status(404);
+        res.json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        })
+    }
+
+    const userId = +req.user.id;
+    const userReview = await Review.findOne({
+        where: {
+            userId,
+            spotId
+        }
+    });
+
+    if (userReview) {
+        res.status(403);
+        res.json({
+            "message": "User already has a review for this spot",
+            "statusCode": 403
+        })
+    }
+    const newReview = await spot.createReview({
+        userId,
+        spotId,
+        review,
+        stars
+    });
+    res.json(newReview)
+});
 
 module.exports = router;
