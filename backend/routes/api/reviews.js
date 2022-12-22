@@ -104,6 +104,28 @@ router.post("/:reviewId/images", requireAuth, async (req, res) => {
     })
 
     res.json(reviewImage)
-})
+});
+
+// Edit a Review
+
+router.put("/:reviewId", validateReview, requireAuth, async (req, res) => {
+    const reviewId = req.params.reviewId;
+    const { review, stars } = req.body;
+    const oldReview = await Review.findByPk(reviewId);
+
+    if (!oldReview) {
+        res.status(404);
+        res.json({
+            "message": "Review couldn't be found",
+            "statusCode": 404
+        })
+    } else {
+        await oldReview.update({
+            review,
+            stars
+        });
+        res.json(oldReview);
+    }
+});
 
 module.exports = router;
