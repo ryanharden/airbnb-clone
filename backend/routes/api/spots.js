@@ -1,6 +1,6 @@
 const express = require("express");
 const sequelize = require("sequelize");
-const { Spot, Review, User, SpotImage, ReviewImage } = require("../../db/models");
+const { Spot, Review, User, SpotImage, ReviewImage, Booking } = require("../../db/models");
 const router = express.Router();
 const { requireAuth } = require("../../utils/auth");
 const { check } = require("express-validator");
@@ -502,7 +502,7 @@ router.get("/:spotId/reviews", async (req, res) => {
 
     const Reviews = await Review.findAll({
         where: {
-            spotId: req.params.spotId
+            spotId: +req.params.spotId
         },
         include: [
             {
@@ -521,7 +521,7 @@ router.get("/:spotId/reviews", async (req, res) => {
 // Create a Review for a Spot by Spot Id
 
 router.post("/:spotId/reviews", validateReview, requireAuth, async (req, res) => {
-    const spotId  = req.params.spotId;
+    const spotId  = +req.params.spotId;
     const { review, stars } = req.body;
     const spot = await Spot.findByPk(spotId);
 
@@ -556,5 +556,41 @@ router.post("/:spotId/reviews", validateReview, requireAuth, async (req, res) =>
     });
     res.json(newReview)
 });
+
+// Get all Bookings for a Spot based on the Spot's id
+
+router.get("/:spotId/bookings", requireAuth, async (req, res) => {
+    const spotId = +req.params.spotId;
+    const spot = await Spot.findByPk(spotId);
+
+    if (!spot) {
+        res.status(404);
+        res.json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        })
+    };
+
+    if (spot.ownerId !== req.user.id) {
+        const Bookings = await Booking.findAll({
+            where: spotId,
+            attributes: ["spotId", "startDate", "endDate"]
+        });
+        res.json({Bookings})
+    }
+
+    if (spot.ownerId === req.user.id) {
+        const Bookings = await Booking.findAll({
+            where: spotId,
+            include: {
+                model: User,
+                attributes: ["id", "firstName", "lastName"]
+            }
+        });
+        res.json({Bookings})
+    }
+});
+
+
 
 module.exports = router;
