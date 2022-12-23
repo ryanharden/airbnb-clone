@@ -17,6 +17,47 @@ const validateReview = [
     handleValidationErrors
 ];
 
+// Add an Image to a Review based on the Review's id
+
+router.post("/:reviewId/images", requireAuth, async (req, res) => {
+    const reviewId = req.params.reviewId;
+    const { url } = req.body;
+    const review = await Review.findByPk(reviewId);
+
+    if (!review) {
+        res.status(404);
+        res.json({
+            "message": "Review couldn't be found",
+            "statusCode": 404
+        })
+    }
+
+    const reviewImageCount = await ReviewImage.count({
+        where: {
+            reviewId
+        }
+    });
+
+    if (reviewImageCount >= 10) {
+        res.status(403);
+        res.json({
+            "message": "Maximum number of images for this resource was reached",
+            "statusCode": 403
+        })
+    }
+
+    const newReviewImage = await ReviewImage.create({
+        reviewId,
+        url
+    });
+
+    const reviewImage = await ReviewImage.findByPk(newReviewImage.id, {
+        attributes: ["id", "url"]
+    })
+
+    res.json(reviewImage)
+});
+
 // Get all Reviews of the Current User
 
 router.get("/current", requireAuth, async (req, res) => {
@@ -65,46 +106,6 @@ router.get("/current", requireAuth, async (req, res) => {
     res.json({Reviews: reviewList});
 });
 
-// Add an Image to a Review based on the Review's id
-
-router.post("/:reviewId/images", requireAuth, async (req, res) => {
-    const reviewId = req.params.reviewId;
-    const { url } = req.body;
-    const review = await Review.findByPk(reviewId);
-
-    if (!review) {
-        res.status(404);
-        res.json({
-            "message": "Review couldn't be found",
-            "statusCode": 404
-        })
-    }
-
-    const reviewImageCount = await ReviewImage.count({
-        where: {
-            reviewId
-        }
-    });
-
-    if (reviewImageCount >= 10) {
-        res.status(403);
-        res.json({
-            "message": "Maximum number of images for this resource was reached",
-            "statusCode": 403
-        })
-    }
-
-    const newReviewImage = await ReviewImage.create({
-        reviewId,
-        url
-    });
-
-    const reviewImage = await ReviewImage.findByPk(newReviewImage.id, {
-        attributes: ["id", "url"]
-    })
-
-    res.json(reviewImage)
-});
 
 // Edit a Review
 
