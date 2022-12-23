@@ -567,6 +567,13 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
             "statusCode": 404
         })
     }
+    if (spot.ownerId === userId) {
+        res.status(403);
+        res.json({
+            "message": "Can't create booking for your own spot",
+            "statusCode": 403
+        })
+    }
 
     if (startDateInt >= endDateInt) {
         res.status(400);
