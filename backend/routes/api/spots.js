@@ -213,7 +213,7 @@ router.get("/", async (req, res) => {
         allSpots.push(spot);
         if (allSpots.length === spotList.length) {
             res.json({
-                Spots: allSpots
+                Spots: allSpots, page, size
             });
         }
     });
