@@ -148,7 +148,7 @@ router.get("/", async (req, res) => {
     }
    }
 
-   if (errors.length) {
+   if (Object.keys(errors).length) {
     res.status(400)
     return res.json({
         "message": "Validation Error",
@@ -163,7 +163,7 @@ router.get("/", async (req, res) => {
         ],
         ...pagination
     });
-
+    
     let spotList = [];
 
     spots.forEach(spot => {
