@@ -468,6 +468,12 @@ router.put("/:spotId", validateSpot,requireAuth, async (req, res) => {
 
         await spot.save();
         return res.json(spot);
+    } else {
+        res.statusCode = 403;
+        res.json({
+            "message":"You are not authorized",
+            "statusCode": 403
+        })
     }
 });
 
