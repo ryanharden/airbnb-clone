@@ -212,7 +212,7 @@ router.get("/", async (req, res) => {
 
         allSpots.push(spot);
         if (allSpots.length === spotList.length) {
-            res.json({
+            return res.json({
                 Spots: allSpots, page, size
             });
         }
@@ -225,7 +225,7 @@ router.post("/", validateSpot, requireAuth, async (req, res) => {
 
     const newSpot = await Spot.create({ownerId, ...req.body});
 
-    res.json(newSpot)
+   return res.json(newSpot)
 });
 
 // Add an image to a Spot based on the Spot's id
@@ -237,7 +237,7 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
 
     if (!spot) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Spot couldn't be found",
             "statusCode": 404
         })
@@ -310,7 +310,7 @@ router.get("/current", requireAuth, async (req, res) => {
 
         allSpots.push(spot);
         if (spot === spotList[spotList.length-1]) {
-            res.json({
+            return res.json({
                 Spots: allSpots
             });
         }
@@ -357,7 +357,7 @@ router.get("/:spotId", async (req, res) => {
 
     if (!spot) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Spot couldn't be found",
             "statusCode": 404
         })
@@ -449,7 +449,7 @@ router.put("/:spotId", validateSpot,requireAuth, async (req, res) => {
 
     if (!spot) {
         res.status(400);
-        res.json({
+        return res.json({
             "message": "Spot couldn't be found",
             "statusCode": 404
         })
@@ -470,7 +470,7 @@ router.put("/:spotId", validateSpot,requireAuth, async (req, res) => {
         return res.json(spot);
     } else {
         res.statusCode = 403;
-        res.json({
+        return res.json({
             "message":"You are not authorized",
             "statusCode": 403
         })
@@ -486,7 +486,7 @@ router.post("/:spotId/reviews", validateReview, requireAuth, async (req, res) =>
 
     if (!spot) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Spot couldn't be found",
             "statusCode": 404
         })
@@ -502,7 +502,7 @@ router.post("/:spotId/reviews", validateReview, requireAuth, async (req, res) =>
 
     if (userReview) {
         res.status(403);
-        res.json({
+        return res.json({
             "message": "User already has a review for this spot",
             "statusCode": 403
         })
@@ -513,7 +513,7 @@ router.post("/:spotId/reviews", validateReview, requireAuth, async (req, res) =>
         review,
         stars
     });
-    res.json(newReview)
+    return res.json(newReview)
 });
 
 // Get all Reviews by a Spot's Id
@@ -523,7 +523,7 @@ router.get("/:spotId/reviews", async (req, res) => {
 
     if (!spot) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Spot couldn't be found",
             "statusCode": 404
         })
@@ -544,7 +544,7 @@ router.get("/:spotId/reviews", async (req, res) => {
             }
         ]
     });
-    res.json({Reviews});
+    return res.json({Reviews});
 });
 
 // Create a Booking from a Spot based on the Spot's id
@@ -568,14 +568,14 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
 
     if (!spot) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Spot couldn't be found",
             "statusCode": 404
         })
     }
     if (spot.ownerId === userId) {
         res.status(403);
-        res.json({
+        return res.json({
             "message": "Can't create booking for your own spot",
             "statusCode": 403
         })
