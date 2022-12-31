@@ -32,7 +32,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res) => {
 
     if (!review) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Review couldn't be found",
             "statusCode": 404
         })
@@ -108,7 +108,7 @@ router.get("/current", requireAuth, async (req, res) => {
 
         reviewList.push(reviewObject);
     }
-    res.json({Reviews: reviewList});
+    return res.json({Reviews: reviewList});
 });
 
 
@@ -121,7 +121,7 @@ router.put("/:reviewId", validateReview, requireAuth, async (req, res) => {
 
     if (!oldReview) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Review couldn't be found",
             "statusCode": 404
         })
@@ -130,7 +130,7 @@ router.put("/:reviewId", validateReview, requireAuth, async (req, res) => {
             review,
             stars
         });
-        res.json(oldReview);
+        return res.json(oldReview);
     }
 });
 
@@ -146,7 +146,7 @@ router.delete("/:reviewId", requireAuth, async (req, res) => {
 
     if (!review) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Review couldn't be found",
             "statusCode": 404
         })
@@ -154,13 +154,13 @@ router.delete("/:reviewId", requireAuth, async (req, res) => {
         if (req.user.id === review.userId) {
             await review.destroy()
             res.status(200);
-            res.json({
+            return res.json({
                 "message": "Successfully deleted",
                 "statusCode": 200
             })
         } else {
             res.status(403);
-            res.json({
+            return res.json({
                 "message": "This review does not belong to you",
                 "statusCode": 403
             })
