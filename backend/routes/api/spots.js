@@ -7,6 +7,7 @@ const { check } = require("express-validator");
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require("sequelize");
 const { response } = require("express");
+const e = require("express");
 
 const validateReview = [
     check("review")
@@ -83,7 +84,7 @@ router.get("/", async (req, res) => {
    pagination.offset = (+page -1) * +size;
 
    if (minLat) {
-    if (!Number.isInteger(minLat)) {
+    if (isNaN(minLat)) {
         errors.minLat = "Minimum latitude is invalid"
     }
     where.lat = {
@@ -92,7 +93,7 @@ router.get("/", async (req, res) => {
    };
 
    if (maxLat) {
-    if (!Number.isInteger(maxLat)) {
+    if (isNaN(maxLat)) {
         errors.maxLat = "Maximum latitude is invalid"
     } else if (minLat) {
         if (maxLat < minLat) {
@@ -105,7 +106,7 @@ router.get("/", async (req, res) => {
    };
 
    if (minLng) {
-    if (!Number.isInteger(minLng)) {
+    if (isNaN(minLng)) {
         errors.minLat = "Minimum longitude is invalid"
     }
     where.lng = {
@@ -114,7 +115,7 @@ router.get("/", async (req, res) => {
    };
 
    if (maxLng) {
-    if (!Number.isInteger(maxLng)) {
+    if (isNaN(maxLng)) {
         errors.maxLng = "Maximum latitude is invalid"
     } else if (minLng) {
         if (maxLng < minLng) {
@@ -127,7 +128,7 @@ router.get("/", async (req, res) => {
    };
 
    if (minPrice) {
-    if (!Number.isInteger(minPrice) || minPrice < 0) {
+    if (isNaN(minPrice) || minPrice < 0) {
         errors.minPrice = "Minimum price must be greater than or equal to 0"
     }
     where.price = {
@@ -136,7 +137,7 @@ router.get("/", async (req, res) => {
    };
 
    if (maxPrice) {
-    if (!Number.isInteger(maxPrice) || maxPrice < 0) {
+    if (isNaN(maxPrice) || maxPrice < 0) {
         errors.maxPrice = "Maximum price must be greater than or equal to 0"
     } else if (minPrice) {
         if (minPrice > maxPrice) {
@@ -161,6 +162,7 @@ router.get("/", async (req, res) => {
         include: [
             { model: SpotImage },
         ],
+        where,
         ...pagination
     });
 
@@ -633,7 +635,7 @@ router.get("/:spotId/bookings", requireAuth, async (req, res) => {
 
     if (!spot) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Spot couldn't be found",
             "statusCode": 404
         })
@@ -644,7 +646,7 @@ router.get("/:spotId/bookings", requireAuth, async (req, res) => {
             where: { spotId },
             attributes: ["spotId", "startDate", "endDate"]
         });
-        res.json({Bookings})
+        return res.json({Bookings})
     }
 
     if (spot.ownerId === req.user.id) {
@@ -655,7 +657,7 @@ router.get("/:spotId/bookings", requireAuth, async (req, res) => {
                 attributes: ["id", "firstName", "lastName"]
             }
         });
-        res.json({Bookings})
+        return res.json({Bookings})
     }
 });
 
@@ -666,16 +668,24 @@ router.delete("/:spotId", requireAuth, async (req, res) => {
 
     if (!spot) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Spot couldn't be found",
             "statusCode": 404
         })
-    } else if (spot.ownerId === +req.user.id) {
+    }
+
+    if (spot.ownerId === +req.user.id) {
         await spot.destroy();
         res.status(200);
-        res.json({
+        return res.json({
             "message": "Successfully deleted",
             "statusCode": 200
+        })
+    } else {
+        res.status(403);
+        return res.json({
+            "message": "Spot does not belong to you",
+            "statusCode": 403
         })
     }
 });
