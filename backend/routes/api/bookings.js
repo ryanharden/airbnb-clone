@@ -50,7 +50,7 @@ router.get("/current", requireAuth, async (req, res) => {
 
         allBookings.push(booking);
         if (booking === bookingsList[bookingsList.length -1]) {
-            res.json({
+            return res.json({
                 Bookings: allBookings
             });
         }
@@ -76,7 +76,7 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
 
     if (!oldBooking) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Booking couldn't be found",
             "statusCode": 404
         })
@@ -121,7 +121,7 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
         startDate,
         endDate
     });
-    res.json(oldBooking)
+    return res.json(oldBooking)
 });
 
 // Delete a Booking
@@ -132,7 +132,7 @@ router.delete("/:bookingId", requireAuth, async (req, res) => {
 
     if (!booking) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Booking couldn't be found",
             "statusCode": 404
         })
@@ -147,16 +147,22 @@ router.delete("/:bookingId", requireAuth, async (req, res) => {
         const theStartDate = new Date(booking.startDate).getTime();
         if (theStartDate <= Date.now()) {
             res.status(403);
-            res.json({
+            return res.json({
                 "message": "Bookings that have been started can't be deleted",
                 "statusCode": 403
             })
         }
         await booking.destroy();
         res.status(200);
-        res.json({
+        return res.json({
             "message": "Successfully deleted",
             "statusCode": 200
+        })
+    } else {
+        res.status(403);
+        return res.json({
+            "message": "Invalid Authorization",
+            "statusCode": 403
         })
     }
 });
