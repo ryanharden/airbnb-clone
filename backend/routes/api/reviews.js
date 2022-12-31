@@ -20,13 +20,19 @@ const validateReview = [
 // Add an Image to a Review based on the Review's id
 
 router.post("/:reviewId/images", requireAuth, async (req, res) => {
-    const reviewId = req.params.reviewId;
+    const reviewId = +req.params.reviewId;
+    const currentUserId = +req.user.id;
     const { url } = req.body;
-    const review = await Review.findByPk(reviewId);
+    const review = await Review.findOne({
+        where: {
+            id: reviewId,
+            userId: currentUserId
+        }
+    });
 
     if (!review) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Review couldn't be found",
             "statusCode": 404
         })
@@ -38,24 +44,23 @@ router.post("/:reviewId/images", requireAuth, async (req, res) => {
         }
     });
 
-    if (reviewImageCount >= 10) {
+    console.log(reviewImageCount)
+    if (reviewImageCount > 9) {
         res.status(403);
-        res.json({
+        return res.json({
             "message": "Maximum number of images for this resource was reached",
             "statusCode": 403
         })
+    } else {
+        const newReviewImage = await ReviewImage.create({
+            reviewId,
+            url
+        });
+        const reviewImage = await ReviewImage.findByPk(newReviewImage.id, {
+            attributes: ["id", "url"]
+        })
+        return res.json(reviewImage)
     }
-
-    const newReviewImage = await ReviewImage.create({
-        reviewId,
-        url
-    });
-
-    const reviewImage = await ReviewImage.findByPk(newReviewImage.id, {
-        attributes: ["id", "url"]
-    })
-
-    res.json(reviewImage)
 });
 
 // Get all Reviews of the Current User
@@ -103,20 +108,20 @@ router.get("/current", requireAuth, async (req, res) => {
 
         reviewList.push(reviewObject);
     }
-    res.json({Reviews: reviewList});
+    return res.json({Reviews: reviewList});
 });
 
 
 // Edit a Review
 
 router.put("/:reviewId", validateReview, requireAuth, async (req, res) => {
-    const reviewId = req.params.reviewId;
+    const reviewId = +req.params.reviewId;
     const { review, stars } = req.body;
     const oldReview = await Review.findByPk(reviewId);
 
     if (!oldReview) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Review couldn't be found",
             "statusCode": 404
         })
@@ -125,7 +130,7 @@ router.put("/:reviewId", validateReview, requireAuth, async (req, res) => {
             review,
             stars
         });
-        res.json(oldReview);
+        return res.json(oldReview);
     }
 });
 
@@ -141,7 +146,7 @@ router.delete("/:reviewId", requireAuth, async (req, res) => {
 
     if (!review) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Review couldn't be found",
             "statusCode": 404
         })
@@ -149,13 +154,13 @@ router.delete("/:reviewId", requireAuth, async (req, res) => {
         if (req.user.id === review.userId) {
             await review.destroy()
             res.status(200);
-            res.json({
+            return res.json({
                 "message": "Successfully deleted",
                 "statusCode": 200
             })
         } else {
             res.status(403);
-            res.json({
+            return res.json({
                 "message": "This review does not belong to you",
                 "statusCode": 403
             })

@@ -16,32 +16,32 @@ router.delete("/:imageId", requireAuth, async (req, res) => {
 
     if (!spotImage) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Spot Image couldn't be found",
             "statusCode": 404
         })
     }
     // console.log(spotImage);
-    const imageObj = spotImage.toJSON();
+    // const imageObj = spotImage.toJSON();
 
-    const spot = await Spot.findOne({
-        where: {
-            ownerId: currentUserId,
-            id: imageObj.spotId
-        }
-    });
+    // const spot = await Spot.findOne({
+    //     where: {
+    //         ownerId: currentUserId,
+    //         id: imageObj.spotId
+    //     }
+    // });
 
-    if (!spot) {
-        res.status(404);
-        res.json({
-            "message": "Spot couldn't be found",
-            "statusCode": 404
-        })
-    }
+    // if (!spot) {
+    //     res.status(404);
+    //     res.json({
+    //         "message": "Spot couldn't be found",
+    //         "statusCode": 404
+    //     })
+    // }
 
     await spotImage.destroy();
     res.status(200);
-    res.json({
+    return res.json({
         "message": "Successfully deleted",
         "statusCode": 200
     })

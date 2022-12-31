@@ -17,7 +17,7 @@ router.delete("/:imageId", requireAuth, async (req, res) => {
 
     if (!reviewImage) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Review Image couldn't be found",
             "statusCode": 404
         })
@@ -32,8 +32,8 @@ router.delete("/:imageId", requireAuth, async (req, res) => {
     });
 
     if (!review) {
-        res.status(400);
-        res.json({
+        res.status(404);
+        return res.json({
             "message": "Review couldn't be found",
             "statusCode": 404
         })
@@ -41,7 +41,7 @@ router.delete("/:imageId", requireAuth, async (req, res) => {
 
     await reviewImage.destroy();
     res.status(200);
-    res.json({
+    return res.json({
         "message": "Successfully deleted",
         "statusCode": 200
     })
