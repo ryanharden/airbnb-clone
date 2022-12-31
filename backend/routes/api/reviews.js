@@ -20,9 +20,15 @@ const validateReview = [
 // Add an Image to a Review based on the Review's id
 
 router.post("/:reviewId/images", requireAuth, async (req, res) => {
-    const reviewId = req.params.reviewId;
+    const reviewId = +req.params.reviewId;
+    const currentUserId = +req.user.id;
     const { url } = req.body;
-    const review = await Review.findByPk(reviewId);
+    const review = await Review.findOne({
+        where: {
+            id: reviewId,
+            userId: currentUserId
+        }
+    });
 
     if (!review) {
         res.status(404);
@@ -38,24 +44,23 @@ router.post("/:reviewId/images", requireAuth, async (req, res) => {
         }
     });
 
-    if (reviewImageCount >= 10) {
+    console.log(reviewImageCount)
+    if (reviewImageCount > 9) {
         res.status(403);
-        res.json({
+        return res.json({
             "message": "Maximum number of images for this resource was reached",
             "statusCode": 403
         })
+    } else {
+        const newReviewImage = await ReviewImage.create({
+            reviewId,
+            url
+        });
+        const reviewImage = await ReviewImage.findByPk(newReviewImage.id, {
+            attributes: ["id", "url"]
+        })
+        return res.json(reviewImage)
     }
-
-    const newReviewImage = await ReviewImage.create({
-        reviewId,
-        url
-    });
-
-    const reviewImage = await ReviewImage.findByPk(newReviewImage.id, {
-        attributes: ["id", "url"]
-    })
-
-    res.json(reviewImage)
 });
 
 // Get all Reviews of the Current User
