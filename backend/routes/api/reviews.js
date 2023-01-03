@@ -125,12 +125,18 @@ router.put("/:reviewId", validateReview, requireAuth, async (req, res) => {
             "message": "Review couldn't be found",
             "statusCode": 404
         })
-    } else {
+    } else if (oldReview.userId === +req.user.id) {
         await oldReview.update({
             review,
             stars
         });
         return res.json(oldReview);
+    } else {
+        res.status(403);
+        return res.json({
+            "message": "You are not authorized",
+            "statusCode": 403
+        })
     }
 });
 
