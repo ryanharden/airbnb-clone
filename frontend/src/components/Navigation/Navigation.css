@@ -1,0 +1,39 @@
+.nav-bar {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: white;
+}
+
+li.login-signup-links > a {
+    padding: 10px;
+}
+
+/* Profile button styles */
+.profile-button {
+  border: none;
+  background-color: transparent;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Profile dropdown styles */
+.profile-dropdown {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    list-style: none;
+}
+.profile-dropdown > li {
+    padding: 10px;
+}
+.hidden {
+    display: none;
+}
+
+li.right-navbar {
+    display: flex;
+    flex-direction: column;
+}
