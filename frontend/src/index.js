@@ -6,7 +6,10 @@ import './index.css';
 import App from './App';
 import configureStore from './store';
 import { restoreCSRF, csrfFetch } from './store/csrf';
+import { ModalProvider } from './context/Modal';
+import { Modal } from './context/Modal';
 import * as sessionActions from "./store/session";
+
 
 const store = configureStore();
 
@@ -18,13 +21,20 @@ if (process.env.NODE_ENV !== 'production') {
   window.sessionActions = sessionActions;
 }
 
+// Wrap the application with the Modal provider and render the Modal component
+// after the App component so that all the Modal content will be layered as
+// HTML elements on top of the all the other HTML elements:
+
 function Root() {
   return (
-    <ReduxProvider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ReduxProvider>
+    <ModalProvider>
+      <ReduxProvider store={store}>
+        <BrowserRouter>
+          <App />
+          <Modal />
+        </BrowserRouter>
+      </ReduxProvider>
+    </ModalProvider>
   );
 }
 

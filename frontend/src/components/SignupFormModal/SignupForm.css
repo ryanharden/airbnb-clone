@@ -1,0 +1,55 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Form inputs */
+  input[type="text"], input[type="password"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 2px solid #ccc;;
+    font-size: 18px;
+  }
+
+  /* Form labels */
+  label {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    width: 30%;
+    padding: 10px;
+  }
+
+  /* Form submit button */
+  input[type="submit"] {
+    background-color: #ff5a5f;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  /* Form submit button hover effect */
+  input[type="submit"]:hover {
+    background-color: #ff7f82;
+  }
+
+  /* Error message */
+  .error {
+    width: 100%;
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+  }
