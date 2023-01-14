@@ -1,37 +1,75 @@
-/* Center the login form on the page */
-.form-container {
-  width: 50%;
-  margin: 0 auto;
+.form-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: solid 0.75px rgba(0,0,0,0.1);
+  padding: 11px;
+  font-size: 8px;
+  letter-spacing: 0.5px;
+  font-family: 'Circular',-apple-system,'BlinkMacSystemFont','Roboto','Helvetica Neue',sans-serif;
 }
 
-/* Style the input fields */
-input[type="text"], input[type="password"] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
+.form-container{
+  padding: 35px;
+  padding-top: 20px;
+}
+
+.form {
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; */
+  background-color: white;
+  font-family: 'Circular',-apple-system,'BlinkMacSystemFont','Roboto','Helvetica Neue',sans-serif;
+}
+/* .form-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+} */
+
+.form-input-credential {
+  border-radius: 8px 8px 0px 0px;
+  /* inset: 0px 0px -1px; */
+  width: 100% !important;
+  height: 36px;
+  padding: 10px;
+  border: solid 1px rgba(0,0,0,0.4);
   box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
 }
 
-/* Style the submit button */
-input[type="submit"] {
-  width: 100%;
-  background-color: #4CAF50;
+.form-input-password {
+  border-radius: 0px 0px 8px 8px;
+  /* inset: 0px 0px -1px; */
+  width: 100% !important;
+  height: 36px;
+  padding: 10px;
+  border: solid 1px rgba(0,0,0,0.4);
+  box-sizing: border-box;
+}
+.form-input {
+  border-radius: 8px;
+  /* inset: 0px 0px -1px; */
+  width: 100% !important;
+  height: 36px;
+  padding: 10px;
+  border: solid 1px rgba(0,0,0,0.4);
+  box-sizing: border-box;
+}
+
+button.log-in {
   color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
+  padding: 15px 20px;
+  border-radius: 7px;
   border: none;
-  border-radius: 4px;
+  font-size: 16px;
+  letter-spacing: 0.5px;
   cursor: pointer;
-}
-
-input[type="submit"]:hover {
-  background-color: #45a049;
-}
-
-
-label {
-  font-size: 18px;
-  font-weight: bold;
+  color: rgb(255, 255, 255);
+  transition: opacity 1.25s ease 0s !important;
+  background-image: radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%);
+  width: 100%;
+  margin-top: 25px;
 }

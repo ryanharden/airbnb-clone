@@ -15,10 +15,19 @@
     right: 0;
     left: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.5);
   }
 
   #modal-content {
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
+    box-sizing: border-box;
     position: absolute;
     background-color:white;
+    border-radius: 12px;
+    transition: height 0.3s ease-out;
+    width: 100%;
+    max-width: 568px;
+    max-height: 568px;
   }
