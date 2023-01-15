@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
+  padding: 30px;
   background-color: white;
 }
 
@@ -12,12 +12,15 @@ li.login-signup-links > a {
 }
 
 /* Profile button styles */
-.profile-button {
-  border: none;
-  background-color: transparent;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
+/* .profile-button {
+    display: flex;
+    flex-direction: column;
+    border: none;
+    background-color: transparent;
+    font-size: 1.2rem;
+    cursor: pointer;
+    position: sticky;
+} */
 
 /* Profile dropdown styles */
 .profile-dropdown {
@@ -26,14 +29,43 @@ li.login-signup-links > a {
     background-color: white;
     list-style: none;
 }
+
 .profile-dropdown > li {
     padding: 10px;
 }
+
 .hidden {
     display: none;
 }
 
-li.right-navbar {
+.logo {
+    height: 50px;
+    width: 75px;
+}
+
+i.fas.fa-user-circle {
+    width: 50px;
+    color: #717171;
+}
+
+i.fa-sharp.fa-solid.fa-bars {
+    color: #717171;
+    margin-left: 8px;
+    margin-right: 12px;
+}
+
+.profile-button {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    width: 79px;
+    height: 42px;
+    border-radius: 21px;
+    border: solid 1px rgba(0,0,0,0.15);
+    background: transparent;
+    cursor: pointer;
+}
+
+.profile-button:hover {
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
 }

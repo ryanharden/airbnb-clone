@@ -10,10 +10,12 @@ function Navigation({ isLoaded }){
   return (
     <ul className="nav-bar">
       <li>
-        <NavLink exact to="/">Home</NavLink>
+        <NavLink exact to="/">
+            <img className='logo' src={require('../../NomadNest-logo.png')} alt="NomadNest-logo"></img>
+        </NavLink>
       </li>
       {isLoaded && (
-        <li className='right-navbar'>
+        <li className='li-profile-button'>
         <ProfileButton user={sessionUser} />
       </li>
       )}
