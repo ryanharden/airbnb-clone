@@ -15,6 +15,8 @@ const AllSpots = () => {
         dispatch(getSpotsThunk())
     }, [dispatch]);
 
+    if (!allSpots) return null;
+    
     const spotItems = allSpotsArr.map((spot) => {
         return <SpotIndexItem key={spot.id} spot={spot} />
     })

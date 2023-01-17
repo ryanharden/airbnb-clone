@@ -17,7 +17,7 @@ const SpotShow = () => {
     useEffect(() => {
         dispatch(getSpotThunk(spotId))
         .catch(() => history.push("/"))
-    }, [dispatch, spotId])
+    }, [dispatch, spotId, history])
 
     if (!spot) return null;
 
@@ -31,15 +31,15 @@ const SpotShow = () => {
                 <span id="city-state-country">{spot.city}, {spot.state}, {spot.country}</span>
                 </div>
             </div>
-            {/* <div className='spot-images'>
+            <div className='spot-images'>
                 <img className='spot-main-image' src={spot.SpotImages[0].url} alt="not-found" />
-                <div className="spot-other-images">
+                {/* <div className="spot-other-images">
                     <img className="spot-other-image" src={spot.SpotImagesArr[1].url} alt="not-found" />
                     <img className="spot-other-image" src={spot.SpotImages[2].url} alt="" />
                     <img className="spot-other-image" src={spot.SpotImages[3].url} alt="" />
                     <img className="spot-other-image" src={spot.SpotImages[4].url} alt="" />
-                </div>
-            </div> */}
+                </div> */}
+            </div>
         </div>
     )
 }
