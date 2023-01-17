@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { getSpotsThunk } from "../../store/spots";
 import "./allSpots.css";
-import SpotCard from "./SpotCard";
+import SpotIndexItem from "./SpotIndexItem";
 
 const AllSpots = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
+    // const history = useHistory();
     const allSpots = useSelector((state) => state.Spots.allSpots);
     const allSpotsArr = Object.values(allSpots);
 
@@ -15,13 +15,15 @@ const AllSpots = () => {
         dispatch(getSpotsThunk())
     }, [dispatch]);
 
+    const spotItems = allSpotsArr.map((spot) => {
+        return <SpotIndexItem key={spot.id} spot={spot} />
+    })
+
     return (
-        <div className="all-spots-container">
-            <div className="spots-grid">
-                {allSpotsArr.map(spot => (
-                  <SpotCard key={spot.id} spot={spot} />
-                ))}
-            </div>
+        <div className="spots-container">
+            <ul>
+                {spotItems}
+            </ul>
         </div>
     )
 }

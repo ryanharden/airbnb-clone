@@ -15,9 +15,9 @@ function Navigation({ isLoaded }){
         </NavLink>
       </li>
       {isLoaded && (
-        <li className='li-profile-button'>
+        <li>
         <ProfileButton user={sessionUser} />
-      </li>
+        </li>
       )}
     </ul>
   );

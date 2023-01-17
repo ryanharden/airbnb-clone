@@ -3,56 +3,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   background-color: white;
+  border-top: solid 1px rgba(0,0,0,0.07);
+  border-bottom: solid 1px rgba(0,0,0,0.07);
+  margin-top: 30px;
+  margin-bottom: 30px;
+
 }
 
-li.login-signup-links > a {
-    padding: 10px;
-}
-
-/* Profile button styles */
-/* .profile-button {
-    display: flex;
-    flex-direction: column;
-    border: none;
-    background-color: transparent;
-    font-size: 1.2rem;
-    cursor: pointer;
-    position: sticky;
-} */
-
-/* Profile dropdown styles */
-.profile-dropdown {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    list-style: none;
-}
-
-.profile-dropdown > li {
-    padding: 10px;
-}
-
-.hidden {
-    display: none;
-}
-
+/* Nomad Nest Logo */
 .logo {
     height: 50px;
     width: 75px;
 }
 
-i.fas.fa-user-circle {
-    width: 50px;
-    color: #717171;
-}
-
-i.fa-sharp.fa-solid.fa-bars {
-    color: #717171;
-    margin-left: 8px;
-    margin-right: 12px;
-}
+/* Profile Button */
 
 .profile-button {
     display: flex;
@@ -68,4 +37,102 @@ i.fa-sharp.fa-solid.fa-bars {
 
 .profile-button:hover {
     box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+}
+
+i.fas.fa-user-circle {
+    width: 50px;
+    color: #717171;
+}
+
+i.fa-sharp.fa-solid.fa-bars {
+    color: black;
+    margin-left: 8px;
+    margin-right: 12px;
+}
+
+/* Profile dropdown styles */
+
+.profile-dropdown {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    list-style: none;
+    position: absolute;
+    top: 110px;
+    right: 40px;
+    padding-top: 7px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    border: solid 1px rgba(0,0,0,0.15);
+    border-radius: 15px;
+    height: 250px;
+    width: 225px;
+}
+
+.hidden {
+    display: none;
+}
+
+.if-logged-in > li{
+    margin: 0px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    font-family: 'Circular',-apple-system,'BlinkMacSystemFont','Roboto','Helvetica Neue',sans-serif;
+    font-size: 13px;
+}
+
+.if-logged-in > li:hover {
+    background-color: #fef5f5;
+    cursor: pointer;
+}
+
+.login-signup {
+    border-bottom: solid 1px rgba(0,0,0,0.2);
+}
+
+.dropdown-menu-item-login {
+    margin: 0px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    letter-spacing: 0.3px;
+    font-family: 'Circular',-apple-system,'BlinkMacSystemFont','Roboto','Helvetica Neue',sans-serif;
+    font-size: 13px;
+}
+
+
+.dropdown-menu-item-signup {
+    margin: 0px;
+    margin-bottom: 8px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    letter-spacing: 0.3px;
+    font-family: 'Circular',-apple-system,'BlinkMacSystemFont','Roboto','Helvetica Neue',sans-serif;
+    font-size: 13px;
+    /* border-bottom: solid 1px rgba(0,0,0,0.2); */
+}
+
+.dropdown-menu-item-login:hover {
+    background-color: #fef5f5;
+    cursor: pointer;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.dropdown-menu-item-signup:hover {
+    background-color: #fef5f5;
+    cursor: pointer;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
