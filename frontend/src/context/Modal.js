@@ -20,6 +20,7 @@ export function ModalProvider({ children }) {
     }
   };
 
+
   const contextValue = {
     modalRef, // reference to modal div
     modalContent, // React component to render inside modal
@@ -44,6 +45,7 @@ export function Modal() {
   // truthy value, render nothing:
   if (!modalRef || !modalRef.current || !modalContent) return null;
 
+  
   // Render the following component to the div referenced by the modalRef
   return ReactDOM.createPortal(
     <div id="modal">

@@ -30,66 +30,61 @@ function SignupFormModal() {
   };
 
   return (
-    <form className="form-container" onSubmit={handleSubmit}>
+    <>
+    <div className="form-header-signup">
+      <h1>Sign Up</h1>
+    </div>
+    <div className="form-container-signup">
+    <form className="form-signup" onSubmit={handleSubmit}>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
-      <label>
-        Email
-        <input
+        <input className='form-input'
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          placeholder="Email"
         />
-      </label>
-      <label>
-        Username
-        <input
+        <input className='form-input'
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          placeholder="Username"
         />
-      </label>
-      <label>
-        First Name
-        <input
+        <input className='form-input'
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           required
+          placeholder="First Name"
         />
-      </label>
-      <label>
-        Last Name
-        <input
+        <input className='form-input'
           type="text"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
           required
+          placeholder="Last Name"
         />
-      </label>
-      <label>
-        Password
-        <input
+        <input className='form-input'
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          placeholder="Password"
         />
-      </label>
-      <label>
-        Confirm Password
-        <input
+        <input className='form-input'
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
+          placeholder="Confirm Password"
         />
-      </label>
-      <button type="submit">Sign Up</button>
+      <button className="signup" type="submit">Sign Up</button>
     </form>
+    </div>
+    </>
   );
 }
 
