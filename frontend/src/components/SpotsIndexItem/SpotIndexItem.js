@@ -1,4 +1,4 @@
-import "./allSpots.css";
+import "./SpotsIndexItem.css";
 import star from "../../assets/star.png";
 import { Link } from "react-router-dom";
 

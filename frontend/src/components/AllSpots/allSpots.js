@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { useHistory } from "react-router-dom";
 import { getSpotsThunk } from "../../store/spots";
 import "./allSpots.css";
-import SpotIndexItem from "./SpotIndexItem";
+import SpotIndexItem from "../SpotsIndexItem/SpotIndexItem";
 
 const AllSpots = () => {
     const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const AllSpots = () => {
     }, [dispatch]);
 
     if (!allSpots) return null;
-    
+
     const spotItems = allSpotsArr.map((spot) => {
         return <SpotIndexItem key={spot.id} spot={spot} />
     })

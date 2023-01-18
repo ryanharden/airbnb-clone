@@ -1,22 +1,4 @@
-/* All Spots */
-
-.spots-container {
-    display: flex;
-    margin-top: 0px;
-    padding-top: 0px;
-}
-
-.spots-container ul {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-    margin-top: 0px;
-    padding-left: 0px;
-}
-
-/* .spot-index-item {
+.spot-index-item {
     width: 300px;
     height: 280px;
     box-sizing: border-box;
@@ -70,37 +52,4 @@
 .show-spot-index-item {
     color: black;
     text-decoration: none;
-} */
-
-
-/* SpotShow */
-/*
-.spot-images {
-    display: flex;
-    flex-direction: row;
-    width: 80%;
 }
-
-.spot-images:hover {
-    cursor: pointer;
-}
-
-.spot-other-images {
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 5px;
-    width: 50%;
-    height: auto;
-}
-
-.spot-main-image {
-    width: 48%;
-    height: auto;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-}
-
-.spot-other-image {
-    width: 100%;
-    height: auto;
-} */

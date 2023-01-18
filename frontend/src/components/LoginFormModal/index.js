@@ -30,7 +30,7 @@ function LoginFormModal() {
       </div>
       <div className='form-container'>
         <form className="form" onSubmit={handleSubmit}>
-          <ul>
+          <ul className='errors-login'>
             {errors.map((error, idx) => <li key={idx}>{error}</li>)}
           </ul>
             <input className='form-input-credential'

@@ -5,6 +5,8 @@ import "./Navigation.css";
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import OpenModalButton from "../OpenModalButton";
+import CreateSpot from "../CreateSpot/CreateSpot";
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
@@ -42,19 +44,25 @@ function ProfileButton({ user }) {
 
     return (
         <>
-            <button className="profile-button" onClick={openMenu}>
-                <i class="fa-sharp fa-solid fa-bars fa-lg"></i>
-                <i className="fas fa-user-circle fa-2x" />
-            </button>
+            <div className="right-nav-bar">
+                <OpenModalButton className="spot-button"
+                    modalComponent={<CreateSpot />}
+                    buttonText="List your nest"
+                />
+                <button className="profile-button" onClick={openMenu}>
+                    <i className="fa-sharp fa-solid fa-bars fa-lg"></i>
+                    <i className="fas fa-user-circle fa-2x" />
+                </button>
+            </div>
             <ul className={ulClassName} ref={ulRef}>
                 {user ? (
                     <>
-                    <div className="if-logged-in">
-                        <li>{user.username}</li>
-                        <li>{user.firstName} {user.lastName}</li>
-                        <li>{user.email}</li>
-                        <li className="logout-button" onClick={logout}>Log Out</li>
-                    </div>
+                        <div className="if-logged-in">
+                            <li>{user.username}</li>
+                            <li>{user.firstName} {user.lastName}</li>
+                            <li>{user.email}</li>
+                            <li className="logout-button" onClick={logout}>Log Out</li>
+                        </div>
                     </>
                 ) : (
                     <>

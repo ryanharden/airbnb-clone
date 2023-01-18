@@ -1,0 +1,98 @@
+@media (min-width: 0px) {
+    .spot-show-page {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .spot-show-page {
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+}
+
+.spot-header {
+    margin-top: 20px;
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif
+}
+
+.spot-name {
+    font-weight: 450;
+    letter-spacing: 1px;
+    font-size: 26px;
+    margin-bottom: 0px;
+}
+
+.avgStarRating-numReviews-location {
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 19px;
+}
+
+#avgStarRating {
+    display: flex;
+    align-items: center;
+    padding-right: 4px;
+}
+
+#numReviews {
+    padding-left: 3px;
+    padding-right: 5px;
+}
+
+#star {
+    margin-left: -4px;
+}
+
+#period {
+    /* padding-bottom: 5px; */
+    color: rgb(0, 0, 0, 0.5)
+}
+
+#city-state-country {
+    padding-left: 5px
+}
+
+.spot-images-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-height: 536px;
+    object-fit: contain;
+}
+
+.main-image-container {
+    width: 50%;
+    height: auto;
+}
+.main-image-container img {
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.other-images-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: 50%;
+    gap: 8px;
+    margin-left: 8px;
+    width: 50%;
+}
+
+.other-images-container img {
+    width: 100%;
+    height: fit-content
+}
+
+#image-3 {
+    border-top-right-radius: 20px;
+}
+
+#image-5 {
+    border-bottom-right-radius: 20px;
+}
