@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useModal } from "../../context/Modal";
 import { createSpotThunk } from '../../store/spots';
@@ -15,19 +15,19 @@ const CreateSpot = () => {
     const [state, setState] = useState('');
     const [country, setCountry] = useState('');
     const [description, setDescription] = useState('');
-    const [price, setPrice] = useState(1);
-    const [url, setUrl] = useState('');
+    const [price, setPrice] = useState("");
+    const [previewImage, setPreviewImage] = useState("");
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
 
-
+    const [newSpot, setNewSpot] = useState();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         setErrors([]);
 
-        const newSpot = {
+        const newSpotData = {
             name,
             address,
             city,
@@ -39,16 +39,23 @@ const CreateSpot = () => {
             price,
         };
 
-        return dispatch(createSpotThunk(newSpot, url))
-            .then((res) => history.push(`/spots/${res.id}`))
-            // .then((res) => console.log(res))
-            .then(closeModal)
-            .catch(async (res) => {
-                const errorData = await res.json();
-                if (errorData && errorData.errors) setErrors([errorData.errors])
-            });
-
+        dispatch(createSpotThunk(newSpotData, previewImage))
+        // .then((res) => history.push(`/spots/${res.id}`))
+        .then((res) => setNewSpot(res))
+        // .then((res) => console.log(res))
+        .then(closeModal())
+        .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors)
+        });
     };
+
+    useEffect(() => {
+        if (newSpot) {
+            history.push(`/spots/${newSpot.id}`)
+        }
+    }, [newSpot, history])
+
 
     return (
         <>
@@ -114,8 +121,8 @@ const CreateSpot = () => {
                         type="url"
                         placeholder="Preview Image Link"
                         required
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
+                        value={previewImage}
+                        onChange={(e) => setPreviewImage(e.target.value)}
                     />
                     <button className='spot-form-button' type="submit">Create New Spot</button>
                 </form>

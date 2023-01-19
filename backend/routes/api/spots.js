@@ -74,10 +74,10 @@ router.get("/", async (req, res) => {
     if (isNaN(size) || size <= 0) {
         errors.size = "Size must be greater than or equal to 1"
     } else if (size > 20) {
-        size = 20
+        size = 200
     }
    } else {
-    size = 20
+    size = 200
    };
 
    pagination.limit = +size;
