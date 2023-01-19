@@ -23,6 +23,12 @@
     margin-bottom: 0px;
 }
 
+.details-edit-spot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .avgStarRating-numReviews-location {
     display: flex;
     flex-direction: row;
@@ -32,9 +38,40 @@
     padding-bottom: 19px;
 }
 
+
 .edit-spot-button {
-    margin-left: 420px;
+    display: flex;
+    align-items: center;
     padding-right: 0px;
+    padding-top: 10px;
+    padding-bottom: 19px;
+    border: none;
+    background-color: transparent;
+}
+
+.fa-regular.fa-pen-to-square {
+    height: 14.5px
+}
+
+.fa-regular.fa-pen-to-square:hover {
+    text-decoration: underline;
+}
+
+.OpenModalButton.edit-spot-modal-button {
+    padding-right: 0px;
+    padding-left: 5px;
+    font-size: 14px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.OpenModalButton.edit-spot-modal-button:hover {
+    text-decoration: underline;
+}
+
+button.edit-spot-button:hover {
+    cursor: pointer;
 }
 
 #avgStarRating {

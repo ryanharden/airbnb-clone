@@ -20,7 +20,7 @@ const CreateSpot = () => {
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
 
-    const [newSpot, setNewSpot] = useState();
+    // const [newSpot, setNewSpot] = useState();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,8 +40,8 @@ const CreateSpot = () => {
         };
 
         dispatch(createSpotThunk(newSpotData, previewImage))
-        // .then((res) => history.push(`/spots/${res.id}`))
-        .then((res) => setNewSpot(res))
+        .then((res) => history.push(`/spots/${res.id}`))
+        // .then((res) => setNewSpot(res))
         // .then((res) => console.log(res))
         .then(closeModal())
         .catch(async (res) => {
@@ -50,11 +50,11 @@ const CreateSpot = () => {
         });
     };
 
-    useEffect(() => {
-        if (newSpot) {
-            history.push(`/spots/${newSpot.id}`)
-        }
-    }, [newSpot])
+    // useEffect(() => {
+    //     if (newSpot) {
+    //         history.push(`/spots/${newSpot.id}`)
+    //     }
+    // }, [newSpot])
 
 
     return (

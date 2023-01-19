@@ -45,7 +45,7 @@ function ProfileButton({ user }) {
     return (
         <>
             <div className="right-nav-bar">
-                <OpenModalButton className="spot-button"
+                <OpenModalButton className="add-spot-button"
                     modalComponent={<CreateSpot />}
                     buttonText="List your nest"
                 />

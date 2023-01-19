@@ -128,7 +128,7 @@ const initialState = {
 // Reducer
 
 export default function spotReducer(state = initialState, action) {
-    let newState;
+    let newState = {...state}
     switch(action.type) {
 
         // Get All Spots
@@ -141,20 +141,18 @@ export default function spotReducer(state = initialState, action) {
 
         // Get details of Spot by Id
         case LOAD_SPOT:
-        return { ...state, singleSpot:{ ...state.singleSpot, [action.spot.id]: action.spot }}
+        return { ...state, singleSpot: action.spot }
 
         // Create Spot
         case CREATE_SPOT:
-            newState = { allSpots: {}, singleSpot: {} };
             newState.allSpots = {...state.allSpots, [action.spot.id]: action.spot}
-            newState.singleSpot = {...state.singleSpot, [action.spot.id]: action.spot }
             return newState;
 
+        // Edit Spot
         case UPDATE_SPOT:
-            newState = {...state, singleSpot: {}};
-            newState.allSpots[action.spot.id] = action.spot;
-            newState.singleSpot = action.spot;
-            return newState
+            return {...state, singleSpot: action.spot}
+
+        // Default
         default:
             return state;
     }
