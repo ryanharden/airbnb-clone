@@ -11,7 +11,7 @@ const CREATE_SPOT = "/spots/addSpot";
 
 const UPDATE_SPOT = "/spots/updateSpot";
 
-// const DELETE_SPOT = "/spots/deleteSpot";
+const DELETE_SPOT = "/spots/deleteSpot";
 
 // Action Creators
 
@@ -43,14 +43,17 @@ const updateSpot = (spot) => {
     }
 }
 
-// const deleteSpot = (spotId) => {
-//     type: DELETE_SPOT;
-//     spotId
-// }
+const deleteSpot = (spotId) => {
+    return {
+        type: DELETE_SPOT,
+        spotId
+    }
+}
 
 
 // Thunk Action Creators
 
+// Get Spots
 export const getSpotsThunk = () => async (dispatch) => {
     const res = await csrfFetch("/api/spots");
 
@@ -61,6 +64,7 @@ export const getSpotsThunk = () => async (dispatch) => {
     }
 };
 
+// Get Spot
 export const getSpotThunk = (spotId) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}`)
 
@@ -69,8 +73,9 @@ export const getSpotThunk = (spotId) => async (dispatch) => {
         dispatch(loadSpot(spot));
         return spot;
     }
-}
+};
 
+// Create Spot
 export const createSpotThunk = (newSpotData, previewImage) => async (dispatch) => {
     // const {name, address, city, state, country, lat = 32.7157, lng = 117.1611, description, price, url } = spot
     const res = await csrfFetch("/api/spots", {
@@ -101,8 +106,9 @@ export const createSpotThunk = (newSpotData, previewImage) => async (dispatch) =
             return newSpot;
         }
     };
-}
+};
 
+// Edit Spot
 export const updateSpotThunk = (editedSpot, spotDetails) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotDetails.id}`, {
         method: "PUT",
@@ -115,15 +121,28 @@ export const updateSpotThunk = (editedSpot, spotDetails) => async (dispatch) => 
         const actualSpot = {...updatedSpot, ...spotDetails}
         dispatch(updateSpot(actualSpot));
         return updatedSpot;
+    };
+};
+
+// Delete Spot
+export const deleteSpotThunk = (spotId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}`, {
+        method: "DELETE"
+    });
+
+    if (res.ok) {
+        const deletedSpot = await res.json();
+        dispatch(deleteSpot(spotId))
+        return deletedSpot
     }
-}
+};
 
 // Initial State
 
 const initialState = {
     allSpots: {},
     singleSpot: {}
-}
+};
 
 // Reducer
 
@@ -151,6 +170,10 @@ export default function spotReducer(state = initialState, action) {
         // Edit Spot
         case UPDATE_SPOT:
             return {...state, singleSpot: action.spot}
+
+        case DELETE_SPOT:
+            delete newState.allSpots[action.spotId];
+            return newState
 
         // Default
         default:

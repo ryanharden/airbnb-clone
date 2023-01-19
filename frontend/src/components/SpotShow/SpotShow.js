@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSpotThunk } from '../../store/spots';
 import EditSpotForm from '../EditSpotFormModal/EditSpotForm';
+import DeleteSpotForm from '../DeleteSpot/DeleteSpotForm';
 import OpenModalButton from '../OpenModalButton';
 import star from "../../assets/star.png";
 import "./SpotShow.css";
@@ -37,14 +38,24 @@ const SpotShow = () => {
                             <div id='period'>.</div>
                             <div id="city-state-country">{spot.city}, {spot.state}, {spot.country}</div>
                         </div>
-                        <button className='edit-spot-button'>
-                        <i class="fa-regular fa-pen-to-square"></i>
-                        <OpenModalButton
-                            className= "edit-spot-modal-button"
-                            modalComponent={<EditSpotForm />}
-                            buttonText="Edit Spot"
-                        />
-                        </button>
+                        <div className='edit-delete-actions'>
+                            <button className='edit-spot-button'>
+                                <i className="fa-regular fa-pen-to-square"></i>
+                                <OpenModalButton
+                                    className="edit-spot-modal-button"
+                                    modalComponent={<EditSpotForm />}
+                                    buttonText="Edit Spot"
+                                />
+                            </button>
+                            <button className='delete-spot-button'>
+                                <i className="fa-solid fa-trash-can"></i>
+                                <OpenModalButton
+                                    className="delete-spot-modal-button"
+                                    modalComponent={<DeleteSpotForm />}
+                                    buttonText="Delete Spot"
+                                />
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div className='spot-images-container'>

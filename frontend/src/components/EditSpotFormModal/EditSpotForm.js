@@ -144,4 +144,4 @@ const EditSpotForm = () => {
     )
 }
 
-            export default EditSpotForm;
+export default EditSpotForm;
