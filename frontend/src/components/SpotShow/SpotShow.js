@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSpotThunk } from '../../store/spots';
+import EditSpotForm from '../EditSpotFormModal/EditSpotForm';
+import OpenModalButton from '../OpenModalButton';
 import star from "../../assets/star.png";
 import "./SpotShow.css";
 
@@ -11,7 +13,7 @@ const SpotShow = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    console.log(spot);
+    // console.log(spot);
 
     useEffect(() => {
         dispatch(getSpotThunk(spotId))
@@ -33,13 +35,15 @@ const SpotShow = () => {
                     <div className="avgStarRating-numReviews-location">
                         <div id="avgStarRating"><img id="star" src={star} alt="" />{spot.avgStarRating}</div>
                         <div id='period'>.</div>
-                        {/* <OpenModalButton
-                    modalComponent={}
-                    buttonText={spot.numReviews} review(s)
-                /> */}
                         <div id="numReviews">{spot.numReviews} review(s)</div>
                         <div id='period'>.</div>
                         <div id="city-state-country">{spot.city}, {spot.state}, {spot.country}</div>
+                        <div className='edit-spot-button'>
+                        <OpenModalButton
+                            modalComponent={<EditSpotForm />}
+                            buttonText="Edit Spot"
+                        />
+                    </div>
                     </div>
                 </div>
                 <div className='spot-images-container'>
@@ -53,7 +57,9 @@ const SpotShow = () => {
                         <img id="image-5" src={spot.SpotImages[4].url} alt="none" />
                     </div> */}
                 </div>
+
             </div>
+
         </div>
     )
 }

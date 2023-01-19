@@ -14,7 +14,6 @@
 
 .spot-header {
     margin-top: 20px;
-    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif
 }
 
 .spot-name {
@@ -31,6 +30,11 @@
     font-size: 14px;
     padding-top: 10px;
     padding-bottom: 19px;
+}
+
+.edit-spot-button {
+    margin-left: 420px;
+    padding-right: 0px;
 }
 
 #avgStarRating {
