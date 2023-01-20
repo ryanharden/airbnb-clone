@@ -23,11 +23,11 @@ const AllSpots = () => {
 
     return (
         <div className="spots-container">
-            <ul>
+            <ul className="spots-wrapper">
                 {spotItems}
             </ul>
         </div>
     )
-}
+};
 
 export default AllSpots;

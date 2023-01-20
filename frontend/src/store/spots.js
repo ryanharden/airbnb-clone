@@ -3,7 +3,7 @@ import { csrfFetch } from "./csrf";
 
 // Constant Action Variables
 
-const LOAD_SPOTS = "spots/loadSpots";
+const LOAD_SPOTS = "/spots/loadSpots";
 
 const LOAD_SPOT = "/spots/loadSpot";
 

@@ -3,6 +3,17 @@
     font-weight: 400;
     color: red;
     padding: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.not-logged-in {
+    font-size: 25px;
+    font-weight: 400;
+    color: red;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
 }
 
 .edit-spot-form-header {

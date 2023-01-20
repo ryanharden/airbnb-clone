@@ -5,6 +5,7 @@ import { getSpotThunk } from '../../store/spots';
 import EditSpotForm from '../EditSpotFormModal/EditSpotForm';
 import DeleteSpotForm from '../DeleteSpot/DeleteSpotForm';
 import OpenModalButton from '../OpenModalButton';
+import SpotReviews from '../SpotReviews/SpotReviews';
 import star from "../../assets/star.png";
 import "./SpotShow.css";
 
@@ -68,9 +69,10 @@ const SpotShow = () => {
                         {spot.SpotImages.length > 3 ? <img src={spot.SpotImages[3].url} alt="none" /> : null}
                         {spot.SpotImages.length > 4 ? <img id="image-5" src={spot.SpotImages[4].url} alt="none" /> : null}
                     </div>
-
                 </div>
-
+                <div className='spot-reviews'>
+                    <SpotReviews />
+                </div>
             </div>
         </div>
     )

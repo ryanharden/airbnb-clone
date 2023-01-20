@@ -26,13 +26,13 @@ const EditSpotForm = () => {
 
     useEffect(() => {
         const errors = [];
-        if (name.length === 0) errors.push("You must enter a name.");
-        if (address.length === 0) errors.push("You must enter an address.");
-        if (city.length === 0) errors.push("You must enter a city.");
-        if (state.length === 0) errors.push("You must enter a valid state.");
-        if (country.length === 0) errors.push("You must enter a valid country.");
-        if (description.length === 0) errors.push("You must enter a valid description.");
-        if (price <= 0) errors.push("You must enter a valid price.");
+        if (name.length === 0) errors.push("Please enter a name.");
+        if (address.length === 0) errors.push("Please enter an address.");
+        if (city.length === 0) errors.push("Please enter a city.");
+        if (state.length === 0) errors.push("Please enter a state.");
+        if (country.length === 0) errors.push("Please enter a country.");
+        if (description.length === 0) errors.push("Please enter a description.");
+        if (price <= 0) errors.push("Please enter a price.");
 
         setErrors(errors);
     }, [name, address, city, state, country, description, price]);
@@ -74,7 +74,8 @@ const EditSpotForm = () => {
 
     return (
         <>
-            {sessionUser.id !== spot.ownerId ? <div className='not-owner'>Nice try bucko, you are not the owner of this spot!</div>
+            {sessionUser ?
+                sessionUser.id !== spot.ownerId ? <div className='not-owner'>Nice try bucko, you are not the owner of this spot!</div>
                 :
                 <>
                     <div className='edit-spot-form-header'>
@@ -139,6 +140,7 @@ const EditSpotForm = () => {
                         </form>
                     </div>
                 </>
+                : <div className='not-logged-in'>Sorry bucko, Please be logged in to do this.</div>
             }
         </>
     )

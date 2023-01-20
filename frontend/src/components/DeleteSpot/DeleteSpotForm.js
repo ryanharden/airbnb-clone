@@ -32,7 +32,8 @@ const DeleteSpotForm = () => {
 
     return (
         <>
-            {sessionUser.id !== spot.ownerId ? <div className='not-owner'>Nice try bucko, you are not the owner of this spot!</div>
+            {sessionUser ?
+                sessionUser.id !== spot.ownerId ? <div className='not-owner'>Nice try bucko, you are not the owner of this spot!</div>
                 :
                 <>
                     <div className='delete-spot-form-header'>
@@ -72,6 +73,7 @@ const DeleteSpotForm = () => {
                         </form>
                     </div>
                 </>
+                : <div className='not-logged-in'>Sorry bucko, You must be logged in to do this.</div>
             }
         </>
     )
