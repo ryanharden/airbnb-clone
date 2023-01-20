@@ -15,7 +15,7 @@ const SpotShow = () => {
     const dispatch = useDispatch();
     // const history = useHistory();
 
-    // console.log(spot);
+    console.log(spot);
 
     useEffect(() => {
         dispatch(getSpotThunk(spotId))
@@ -34,9 +34,9 @@ const SpotShow = () => {
                     <div className='details-edit-spot'>
                         <div className="avgStarRating-numReviews-location">
                             <div id="avgStarRating"><img id="star" src={star} alt="" />{spot.avgStarRating}</div>
-                            <div id='period'>.</div>
+                            <div id='period'>•</div>
                             <div id="numReviews">{spot.numReviews} review(s)</div>
-                            <div id='period'>.</div>
+                            <div id='period'>•</div>
                             <div id="city-state-country">{spot.city}, {spot.state}, {spot.country}</div>
                         </div>
                         <div className='edit-delete-actions'>
@@ -63,12 +63,25 @@ const SpotShow = () => {
                     <div className='main-image-container'>
                         {spot.SpotImages.length > 0 ? <img src={spot.SpotImages[0].url} alt="none" /> : <p>No images available</p>}
                     </div>
-                    <div className="other-images-container">
+                    {/* <div className="other-images-container">
                         {spot.SpotImages.length > 1 ? <img src={spot.SpotImages[1].url} alt="none" /> : null}
                         {spot.SpotImages.length > 2 ? <img id="image-3" src={spot.SpotImages[2].url} alt="none" /> : null}
                         {spot.SpotImages.length > 3 ? <img src={spot.SpotImages[3].url} alt="none" /> : null}
                         {spot.SpotImages.length > 4 ? <img id="image-5" src={spot.SpotImages[4].url} alt="none" /> : null}
+                    </div> */}
+                    <div className='other-images-container'>
+                        {spot.SpotImages && (
+                            spot.SpotImages.slice(1, 5).map((image, index) => (
+                                <img src={image.url} alt={spot.name} key={image.id} className={`image-${index}`}/>
+                            ))
+                        )}
                     </div>
+                </div>
+                <div className='single-spot-description'>
+                    {spot.Owner && (
+                        <h2>Entire home hosted By {spot.Owner.firstName}</h2>
+                    )}
+                    <p>{spot.description}</p>
                 </div>
                 <div className='spot-reviews'>
                     <SpotReviews />

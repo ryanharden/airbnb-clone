@@ -45,7 +45,6 @@ const deleteReview = (reviewId) => {
 // GET SPOT REVIEWS
 export const getSpotReviewsThunk = (spotId) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`);
-
     if (res.ok) {
         const data = await res.json();
         const reviews = data.Reviews;

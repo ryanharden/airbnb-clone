@@ -8,15 +8,15 @@ import "./SpotReviews.css";
 
 const SpotReviews = () => {
     const dispatch = useDispatch();
-    const { spotId } = useParams;
+    const { spotId } = useParams();
 
     const spot = useSelector(state => state.Spots.singleSpot);
-    console.log(spot);
+    // console.log(spot);
 
     const spotReviews = useSelector(state => state.Reviews.spot);
-    console.log(spotReviews);
+    // console.log(spotReviews);
     const spotReviewsArr = Object.values(spotReviews);
-
+    // console.log(spotReviewsArr)
     useEffect(() => {
         dispatch(getSpotReviewsThunk(spotId))
     }, [dispatch, spotId]);
@@ -32,8 +32,8 @@ const SpotReviews = () => {
             <div className='spot-reviews-container'>
                 <div className='spot-reviews-header'>
                     <div className='avgStarRating-numReviews'>
-                        <div id="avgStarRating"><img id="star" src={star} alt="" />{spot.avgStarRating}</div>
-                        <div id='period'>.</div>
+                        <div id="avgStarRating"><img id="review-star" src={star} alt="" />{spot.avgStarRating}</div>
+                        <div id='review-period'>•</div>
                         <div id="numReviews">{spot.numReviews} review(s)</div>
                     </div>
                 </div>

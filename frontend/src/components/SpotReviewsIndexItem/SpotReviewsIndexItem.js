@@ -1,6 +1,7 @@
 import "./SpotReviewsIndexItem.css";
 import star from "../../assets/star.png";
 import OpenModalButton from "../OpenModalButton";
+import profPic from "../../assets/prof-pic.jpeg";
 
 const SpotReviewsIndexItem = ({ review, spot }) => {
     return (
@@ -8,11 +9,14 @@ const SpotReviewsIndexItem = ({ review, spot }) => {
             <div className="spot-review-item-container">
                 <div className="spot-review-item-header">
                     <div className="creator-pic">
-                    <i className="fa-duotone fa-circle-user"></i>
+                    <img className="prof-pic" src={profPic} alt="No picture" />
                     </div>
                     <div className="creator-name">
                         {review.User.firstName}
                     </div>
+                </div>
+                <div className="review-text">
+                    {review.review}
                 </div>
             </div>
         </>
