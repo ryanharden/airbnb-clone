@@ -1,16 +1,20 @@
 import "./SpotReviewsIndexItem.css";
-import OpenModalButton from "../OpenModalButton";
 import profPic from "../../assets/prof-pic.jpeg";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteReviewThunk } from "../../store/reviews";
 
 const SpotReviewsIndexItem = ({ review, spot }) => {
+    const dispatch = useDispatch();
     const date = new Date(review.createdAt);
     const dateString = date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+    const currentUser = useSelector(state => state.session.user);
+
     return (
         <>
             <div className="spot-review-item-container">
                 <div className="spot-review-item-header">
                     <div className="creator-pic">
-                        <img className="prof-pic" src={profPic} alt="No picture" />
+                        <img className="prof-pic" src={profPic} alt="" />
                     </div>
                     <div className="name-date">
                         <div className="creator-name">
@@ -24,16 +28,12 @@ const SpotReviewsIndexItem = ({ review, spot }) => {
                 <div className="review-text">
                     {review.review}
                 </div>
-                {/* <div className='delete-review-actions'>
-                    <button className='delete-review-button'>
-                        <i className="fa-solid fa-trash-can"></i>
-                        <OpenModalButton
-                            className="delete-review-modal-button"
-                            modalComponent={<DeleteReviewForm />}
-                            buttonText="Delete Review"
-                        />
-                    </button>
-                </div> */}
+                {currentUser && currentUser.id === review.userId && (
+                    <div className="delete-review-container">
+                        {/* <i className="fa-solid fa-trash-can"></i> */}
+                        <button onClick={() => dispatch(deleteReviewThunk(review.id))} className="delete-review-button">Delete review</button>
+                    </div>
+                )}
             </div>
         </>
     )

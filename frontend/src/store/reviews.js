@@ -136,6 +136,7 @@ export default function reviewReducer(state = initialState, action) {
 
         // Delete Review
         case DELETE_REVIEW:
+            newState.spot = {...state.spot}
             delete newState.spot[action.reviewId]
             return newState
 

@@ -15,7 +15,7 @@ const CreateReview = () => {
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
     const currentUser = useSelector(state => state.session.user);
-
+    const spot = useSelector(state => state.Spots.singleSpot);
     const spotId = useSelector((state) => state.Spots.singleSpot.id);
 
 
@@ -46,6 +46,8 @@ const CreateReview = () => {
     return (
         <>
             {currentUser ?
+                currentUser.id === spot.ownerId ? <div className='not-owner'>You can not create a review for your own spot.</div>
+                :
                 <>
                     <div className='review-form-header'>
                         <h1>Create a review</h1>
