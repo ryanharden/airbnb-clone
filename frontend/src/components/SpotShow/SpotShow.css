@@ -42,6 +42,12 @@
     display: flex;
 }
 
+@media (max-width: 715px) {
+    .edit-delete-actions {
+        display: none
+    }
+}
+
 .edit-spot-button {
     display: flex;
     align-items: center;
@@ -64,11 +70,11 @@
 }
 
 .fa-regular.fa-pen-to-square {
-    height: 14.5px
+    height: 16.5px
 }
 
 .fa-solid.fa-trash-can {
-    height: 14.5px;
+    height: 16.5px;
 }
 
 .OpenModalButton.edit-spot-modal-button {
@@ -84,7 +90,7 @@
     text-decoration: underline;
 }
 
-button.edit-spot-button:hover {
+.edit-spot-button:hover {
     cursor: pointer;
 }
 
@@ -101,11 +107,9 @@ button.edit-spot-button:hover {
     text-decoration: underline;
 }
 
-button.delete-spot-button:hover {
+.delete-spot-button:hover {
     cursor: pointer;
 }
-
-
 
 #avgStarRating {
     display: flex;
@@ -154,7 +158,7 @@ button.delete-spot-button:hover {
 .other-images-container {
     display: grid;
     grid-template-columns: auto auto;
-    grid-template-rows: 50%;
+    /* grid-template-rows: 50 %; */
     gap: 8px;
     margin-left: 8px;
     width: 50%;
@@ -164,7 +168,7 @@ button.delete-spot-button:hover {
 .other-images-container img {
     width: 100%;
     /* height: fit-content; */
-    object-fit: contain;
+    /* object-fit: contain; */
 }
 
 .image-1 {
@@ -180,6 +184,41 @@ button.delete-spot-button:hover {
     border-bottom: solid 1px rgba(0,0,0,0.2);
 }
 
+.left-spot-description {
+    width: 66%
+}
+
+.more-description {
+    padding-top: 20px;
+}
+
+.self-check-in {
+    display: flex;
+    align-items: center;
+}
+
+.title-p {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 20px;
+}
+
+.fa-door-closed {
+    height: 30px
+}
+
+.check-in-title {
+    margin-bottom: 0px;
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.title-p p {
+    margin-top: 5px;
+    font-size: 13px;
+}
+
 h2 {
     font-size: 20px;
     font-weight: 450;
@@ -190,30 +229,3 @@ p {
     font-weight: 300;
 }
 
-.spot-reviews-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.spot-reviews-header {
-    display: flex;
-    flex-direction: row;
-    padding-bottom: 25px;
-}
-.avgStarRating-numReviews {
-    display: flex;
-    padding-top: 38px;
-    font-size: 21px;
-    font-weight: 450;
-}
-
-#review-star {
-    margin-left: -4px;
-    padding-right: 3px;
-}
-
-#review-period {
-    font-size: 15px;
-    padding-top: 4px;
-    padding-right: 2px;
-}

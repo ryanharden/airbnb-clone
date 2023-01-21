@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
@@ -22,7 +22,7 @@ const DeleteSpotForm = () => {
         e.preventDefault();
 
         dispatch(deleteSpotThunk(spot.id))
-            .then(history.push('/'))
+            .then(() => history.push('/'))
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();

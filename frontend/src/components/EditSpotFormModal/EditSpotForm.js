@@ -63,7 +63,7 @@ const EditSpotForm = () => {
         }
 
         dispatch(updateSpotThunk(editedSpot, spotDetails))
-            .then(history.push(`/spots/${id}`))
+            .then(() => history.push(`/spots/${id}`))
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();

@@ -172,6 +172,7 @@ export default function spotReducer(state = initialState, action) {
             return {...state, singleSpot: action.spot}
 
         case DELETE_SPOT:
+            newState.allSpots = {...state.allSpots}
             delete newState.allSpots[action.spotId];
             return newState
 

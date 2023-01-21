@@ -1,5 +1,4 @@
 import "./SpotReviewsIndexItem.css";
-import star from "../../assets/star.png";
 import OpenModalButton from "../OpenModalButton";
 import profPic from "../../assets/prof-pic.jpeg";
 
@@ -25,6 +24,16 @@ const SpotReviewsIndexItem = ({ review, spot }) => {
                 <div className="review-text">
                     {review.review}
                 </div>
+                {/* <div className='delete-review-actions'>
+                    <button className='delete-review-button'>
+                        <i className="fa-solid fa-trash-can"></i>
+                        <OpenModalButton
+                            className="delete-review-modal-button"
+                            modalComponent={<DeleteReviewForm />}
+                            buttonText="Delete Review"
+                        />
+                    </button>
+                </div> */}
             </div>
         </>
     )

@@ -11,6 +11,20 @@
         padding-right: 80px;
     }
 }
+/* 
+@media (min-width: 0px) {
+    .profile-dropdown {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .profile-dropdown {
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+} */
 
 .nav-bar {
   list-style: none;

@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getSpotReviewsThunk } from '../../store/reviews';
 import SpotReviewsIndexItem from "../SpotReviewsIndexItem/SpotReviewsIndexItem";
+import CreateReview from '../CreateReviewFormModal/CreateReviewForm';
 import star from "../../assets/star.png";
 import "./SpotReviews.css";
+import OpenModalButton from '../OpenModalButton';
 
 const SpotReviews = () => {
     const dispatch = useDispatch();
@@ -15,34 +17,73 @@ const SpotReviews = () => {
 
     const spotReviews = useSelector(state => state.Reviews.spot);
     // console.log(spotReviews);
+
     const spotReviewsArr = Object.values(spotReviews);
     // console.log(spotReviewsArr)
+
     useEffect(() => {
         dispatch(getSpotReviewsThunk(spotId))
     }, [dispatch, spotId]);
 
-    if (!spotReviewsArr.length) return null;
+    // if (!spotReviewsArr.length) return null;
 
     const reviewItems = spotReviewsArr.map((review) => {
         return <SpotReviewsIndexItem key={review.id} review={review} spot={spot} />
     });
 
+    let avgSpotRating = 0;
+
+    if (spotReviewsArr.length > 0) {
+        spotReviewsArr.forEach(review => {
+            avgSpotRating += review.stars;
+        })
+        avgSpotRating = avgSpotRating/spotReviewsArr.length
+    }
+
     return (
         <>
-            <div className='spot-reviews-container'>
-                <div className='spot-reviews-header'>
-                    <div className='avgStarRating-numReviews'>
-                        <div id="avgStarRating"><img id="review-star" src={star} alt="" />{spot.avgStarRating}</div>
-                        <div id='review-period'>•</div>
-                        <div id="numReviews">{spot.numReviews} review(s)</div>
+            {spotReviewsArr.length ? (
+                <>
+                    <div className='spot-reviews-container'>
+                        <div className='spot-reviews-header'>
+                            <div className='avgStarRating-numReviews'>
+                                <div id="avgStarRating"><img id="review-star" src={star} alt="" />{avgSpotRating.toFixed(1)}</div>
+                                <div id='review-period'>•</div>
+                                <div id="numReviews">{spotReviewsArr.length} review(s)</div>
+                            </div>
+                            <div className='create-review-modal-button'>
+                                <img className='review-icon' src="https://cdn-icons-png.flaticon.com/512/2983/2983706.png" alt="review-icon" />
+                                <OpenModalButton
+                                    className="create-review-modal"
+                                    modalComponent={<CreateReview />}
+                                    buttonText="Create a review"
+                                />
+                            </div>
+                        </div>
+                        <div className='spot-reviews-item-container'>
+                            <ul className='reviews-wrapper'>
+                                {reviewItems}
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div className='spot-reviews-item-container'>
-                    <ul className='reviews-wrapper'>
-                        {reviewItems}
-                    </ul>
-                </div>
-            </div>
+                </>
+            ) : (
+                <>
+                    <div className='no-reviews-container'>
+                        <div className='no-reviews-header'>
+                            <h2 className="no-reviews">There are no reviews yet!</h2>
+                            <div className='no-create-review-modal-button'>
+                                <img className='review-icon' src="https://cdn-icons-png.flaticon.com/512/2983/2983706.png" alt="review-icon" />
+                                <OpenModalButton
+                                    className="create-review-modal"
+                                    modalComponent={<CreateReview />}
+                                    buttonText="Create a review"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
         </>
     )
 };

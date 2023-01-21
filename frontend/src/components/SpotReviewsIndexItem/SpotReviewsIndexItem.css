@@ -1,5 +1,11 @@
 .reviews-wrapper {
     padding-left: 0px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-column-gap: 100px;
+    grid-row-gap: 50px;
+    max-height: 550px;
 }
 
 .spot-review-item-container {
@@ -32,9 +38,15 @@
 .created-review-date {
     font-size: 14px;
     font-weight: 300;
+    color: rgb(0, 0, 0, 0.55)
 }
 
 .prof-pic {
     height: 50px;
     margin-left: -4px;
+}
+
+.review-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
