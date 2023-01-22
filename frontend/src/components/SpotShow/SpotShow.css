@@ -48,7 +48,7 @@
     display: flex;
 }
 
-@media (max-width: 715px) {
+@media (max-width: 640px) {
     .edit-delete-actions {
         display: none
     }
