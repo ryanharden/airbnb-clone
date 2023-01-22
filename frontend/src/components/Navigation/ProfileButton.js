@@ -60,29 +60,43 @@ function ProfileButton({ user }) {
             <ul className={ulClassName} ref={ulRef}>
                 {user ? (
                     <>
-                        <div className="if-logged-in">
-                            <li>{user.username}</li>
-                            <li>{user.firstName} {user.lastName}</li>
-                            <li>{user.email}</li>
-                            <li className="logout-button" onClick={logout}>Log Out</li>
+                        <div className="dropdown-container-in">
+                            <div className="if-logged-in">
+                                <li className="username">{user.username}</li>
+                                <li>{user.firstName} {user.lastName}</li>
+                                <li>{user.email}</li>
+                                <li><OpenModalButton className="add-spot-li-button"
+                                    modalComponent={<CreateSpot />}
+                                    buttonText="List your nest"
+                                /></li>
+                            </div>
+                            <div className="logout">
+                                <li className="logout-button" onClick={logout}>Log Out</li>
+                            </div>
                         </div>
                     </>
                 ) : (
                     <>
-                        <div className="login-signup">
-                            <div className="dropdown-menu-item-login">
-                                <OpenModalMenuItem
-                                    itemText="Log In"
-                                    onItemClick={closeMenu}
-                                    modalComponent={<LoginFormModal />}
-                                />
+                        <div className="dropdown-container-out">
+                            <div className="login-signup">
+                                <div className="dropdown-menu-item-login">
+                                    <OpenModalMenuItem
+                                        itemText="Log In"
+                                        onItemClick={closeMenu}
+                                        modalComponent={<LoginFormModal />}
+                                    />
+                                </div>
+                                <div className="dropdown-menu-item-signup">
+                                    <OpenModalMenuItem
+                                        itemText="Sign Up"
+                                        onItemClick={closeMenu}
+                                        modalComponent={<SignupFormModal />}
+                                    />
+                                </div>
                             </div>
-                            <div className="dropdown-menu-item-signup">
-                                <OpenModalMenuItem
-                                    itemText="Sign Up"
-                                    onItemClick={closeMenu}
-                                    modalComponent={<SignupFormModal />}
-                                />
+                            <div className="host-help">
+                                <div className="host-experience">Host an experience</div>
+                                <div className="help">Help</div>
                             </div>
                         </div>
                     </>

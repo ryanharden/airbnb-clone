@@ -189,18 +189,26 @@ i.fa-sharp.fa-solid.fa-bars {
     position: absolute;
     top: 110px;
     right: 40px;
-    padding-top: 7px;
+    padding-top: 0px;
     padding-left: 0px;
     padding-right: 0px;
     padding-bottom: 0px;
     border: solid 1px rgba(0, 0, 0, 0.15);
     border-radius: 15px;
-    height: 250px;
+    height: auto;
     width: 225px;
 }
 
 .hidden {
     display: none;
+}
+
+.if-logged-in {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.2);
 }
 
 .if-logged-in>li {
@@ -212,11 +220,12 @@ i.fa-sharp.fa-solid.fa-bars {
     width: 100%;
     font-family: 'Circular', -apple-system, 'BlinkMacSystemFont', 'Roboto', 'Helvetica Neue', sans-serif;
     font-size: 13px;
+    box-sizing: border-box;
+
 }
 
 .if-logged-in>li:hover {
     background-color: #fef5f5;
-    cursor: pointer;
 }
 
 .login-signup {
@@ -224,7 +233,7 @@ i.fa-sharp.fa-solid.fa-bars {
 }
 
 .dropdown-menu-item-login {
-    margin: 0px;
+    margin-top: 12px;
     padding-top: 12px;
     padding-bottom: 12px;
     padding-left: 15px;
@@ -239,7 +248,7 @@ i.fa-sharp.fa-solid.fa-bars {
 
 .dropdown-menu-item-signup {
     margin: 0px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     padding-top: 12px;
     padding-bottom: 12px;
     padding-left: 15px;
@@ -280,4 +289,82 @@ i.fa-sharp.fa-solid.fa-bars {
     border: solid 1px rgba(0, 0, 0, 0.02);
     border-radius: 21px;
     background-color: rgba(0, 0, 0, 0.03);
+}
+
+.OpenModalButton.add-spot-li-button {
+    border: none;
+    background-color: transparent;
+    font-family: 'Circular', -apple-system, 'BlinkMacSystemFont', 'Roboto', 'Helvetica Neue', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    padding-left: 0;
+}
+
+.OpenModalButton.add-spot-li-button:hover {
+    cursor: pointer;
+}
+
+.logout-button {
+    margin: 0px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    font-family: 'Circular', -apple-system, 'BlinkMacSystemFont', 'Roboto', 'Helvetica Neue', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.logout-button:hover {
+    background-color: #fef5f5;
+    cursor: pointer;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.logout {
+    padding: 12px 0;
+}
+
+.host-experience {
+    margin-top: 12px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    letter-spacing: 0.3px;
+    font-family: 'Circular', -apple-system, 'BlinkMacSystemFont', 'Roboto', 'Helvetica Neue', sans-serif;
+    font-size: 13px;
+}
+
+.help {
+    margin: 0px;
+    margin-bottom: 12px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    letter-spacing: 0.3px;
+    font-family: 'Circular', -apple-system, 'BlinkMacSystemFont', 'Roboto', 'Helvetica Neue', sans-serif;
+    font-size: 13px;
+}
+
+.host-experience:hover {
+    background-color: #fef5f5;
+    cursor: pointer;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.help:hover {
+    background-color: #fef5f5;
+    cursor: pointer;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
