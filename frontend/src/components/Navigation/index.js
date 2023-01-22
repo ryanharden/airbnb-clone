@@ -17,7 +17,7 @@ function Navigation({ isLoaded }) {
       <div className={navClassName}>
         <NavLink exact to="/">
           <div className='logo-text'>
-            <img className='logo' src={require('../../NomadNest-logo.png')} alt="NomadNest-logo"></img>
+            <img className='logo' src={require('../../assets/NomadNest-logo.png')} alt="NomadNest-logo"></img>
             <div className='nomad-nest'>Nomad Nest</div>
           </div>
         </NavLink>
