@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from "../../context/Modal";
+import DemoUser from '../DemoUser/DemoUser';
 import "./LoginForm.css";
 
 
@@ -48,6 +49,7 @@ function LoginFormModal() {
               placeholder='Password'
             />
           <button className="log-in" type="submit">Log in</button>
+          <DemoUser />
         </form>
       </div>
     </>

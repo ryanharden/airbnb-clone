@@ -1,3 +1,27 @@
+/* @media (max-width: 1127px) {
+    .spot-index-item {
+        width: 320px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .spot-preview-image {
+        width: 320px;
+        height: 300px;
+    }
+}
+
+@media (min-width: 1128px) {
+    .spot-index-item {
+        width: 245px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .spot-preview-image {
+        width: 245px;
+        height: 235px;
+    }
+} */
+
 .spot-index-item {
     width: 300px;
     height: 280px;
@@ -5,7 +29,7 @@
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 15px;
-    margin-bottom: 90px;
+    margin-bottom: 75px;
     letter-spacing: 0.2px;
     font-family: 'Circular',-apple-system,'BlinkMacSystemFont','Roboto','Helvetica Neue',sans-serif;
 }

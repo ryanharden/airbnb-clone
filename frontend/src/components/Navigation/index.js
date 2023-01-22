@@ -2,24 +2,32 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import { useLocation } from "react-router-dom";
 import './Navigation.css';
 
-function Navigation({ isLoaded }){
+function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
+  const location = useLocation();
+  const navClassName = location.pathname === "/" ? "allSpotNav" : "showNav";
+
+  console.log(navClassName);
   return (
-    <ul className="nav-bar">
-      <li>
+    <div className='nav-bar-wrapper'>
+      <div className={navClassName}>
         <NavLink exact to="/">
+          <div className='logo-text'>
             <img className='logo' src={require('../../NomadNest-logo.png')} alt="NomadNest-logo"></img>
+            <div className='nomad-nest'>Nomad Nest</div>
+          </div>
         </NavLink>
-      </li>
-      {isLoaded && (
-        <li>
-        <ProfileButton user={sessionUser} />
-        </li>
-      )}
-    </ul>
+        {isLoaded && (
+          <div>
+            <ProfileButton user={sessionUser} />
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 

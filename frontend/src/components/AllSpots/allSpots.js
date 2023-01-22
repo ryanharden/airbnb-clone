@@ -5,9 +5,9 @@ import { getSpotsThunk } from "../../store/spots";
 import "./allSpots.css";
 import SpotIndexItem from "../SpotsIndexItem/SpotIndexItem";
 
+
 const AllSpots = () => {
     const dispatch = useDispatch();
-    // const history = useHistory();
     const allSpots = useSelector((state) => state.Spots.allSpots);
     const allSpotsArr = Object.values(allSpots);
 

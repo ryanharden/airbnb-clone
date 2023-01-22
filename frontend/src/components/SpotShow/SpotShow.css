@@ -1,19 +1,24 @@
-@media (min-width: 0px) {
-    .spot-show-page {
-        padding-left: 40px;
-        padding-right: 40px;
-    }
-}
-
-@media (min-width: 1440px) {
+@media (min-width: 1127px) {
     .spot-show-page {
         padding-left: 80px ;
         padding-right: 80px;
     }
 }
 
-.spot-header {
-    margin-top: 20px;
+/* @media (max-width: 1127px) {
+    .spot-show-page {
+        width: 90.5vw;
+    }
+} */
+
+.spot-show-page {
+    width: 86.32vw;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    max-width: 1120px;
+    justify-self: center;
+    padding: 0 40px;
 }
 
 .spot-name {
@@ -21,6 +26,7 @@
     letter-spacing: 1px;
     font-size: 26px;
     margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 .details-edit-spot {
@@ -138,45 +144,64 @@
 .spot-images-container {
     display: flex;
     flex-direction: row;
-    width: 100%;
-    max-height: 536px;
-    object-fit: contain;
+    max-width: 1120px;
+    min-width: 650px;
     margin-bottom: 20px;
     padding-bottom: 20px;
+    justify-content: space-between;
+    aspect-ratio: 2/1;
 }
 
 .main-image-container {
     width: 50%;
-    height: auto;
+    height: 100%;
 }
+
 .main-image-container img {
-    width: 100%;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
+    /* width: 100%; */
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
 }
 
-.other-images-container {
-    display: grid;
-    grid-template-columns: auto auto;
-    /* grid-template-rows: 50 %; */
-    gap: 8px;
-    margin-left: 8px;
-    width: 50%;
-    max-height: 536px;
+.main-image {
+    height: 100%;
+    width: 98.9%;
+    object-fit: cover;
+    aspect-ratio: 1;
 }
 
-.other-images-container img {
-    width: 100%;
-    /* height: fit-content; */
-    /* object-fit: contain; */
+.second-col-images-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 25%;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.image-1 {
-    border-top-right-radius: 20px;
+.third-col-images-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 25%;
+    justify-content: space-between;
+    align-items: flex-end;
 }
 
-.image-3 {
-    border-bottom-right-radius: 20px;
+.other-image {
+    height: 49.25%;
+    width: 97.8%;
+    object-fit: cover;
+    overflow: hidden;
+    aspect-ratio: 1;
+}
+
+#image-3 {
+    border-top-right-radius: 12px;
+}
+
+#image-4 {
+    border-bottom-right-radius: 12px;
 }
 
 .single-spot-description {
@@ -228,4 +253,3 @@ p {
     font-size: 16px;
     font-weight: 300;
 }
-

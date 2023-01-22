@@ -3,7 +3,8 @@ import star from "../../assets/star.png";
 import { Link } from "react-router-dom";
 
 const SpotIndexItem = ({ spot }) => {
-    const rating = parseFloat(spot.avgRating) ? parseFloat(spot.avgRating).toFixed(1) : "N/A";
+
+    const rating = parseFloat(spot.avgRating) ? parseFloat(spot.avgRating).toFixed(2) : "N/A";
     return (
         <div className="spot-index-item">
             <Link className="show-spot-index-item" to={`/spots/${spot.id}`}>
