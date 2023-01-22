@@ -7,8 +7,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    ![Screenshot](NomadNest-logo.png)
-" alt="Logo" width="80" height="80">
+<img src="https://https://github.com/ryanharden/airbnb-clone/blob/main/frontend/src/assets/NomadNest-logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Nomad Nest</h3>
@@ -60,11 +59,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project!
 
-![Screen Shot 2022-12-19 at 3 43 42 AM]()
+<img width="650" height="466.07" src="https://https://github.com/ryanharden/airbnb-clone/blob/main/frontend/src/assets/Nomad-Nest-HomeScreen.png" alt="home-screen">
 
 
 Nomad Nest is a home rental platform that provides an intuitive way to plan your next adventure!
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
@@ -76,7 +75,7 @@ Nomad Nest is a home rental platform that provides an intuitive way to plan your
 *Redux
 *CSS
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
@@ -101,7 +100,7 @@ Nomad Nest is a home rental platform that provides an intuitive way to plan your
    const API_KEY = 'ENTER YOUR API';
    ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
@@ -111,7 +110,7 @@ Nomad Nest is a home rental platform that provides an intuitive way to plan your
 
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
@@ -128,7 +127,7 @@ Nomad Nest is a home rental platform that provides an intuitive way to plan your
 
 See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
@@ -146,7 +145,7 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
@@ -155,7 +154,7 @@ Don't forget to give the project a star! Thanks again!
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
@@ -166,7 +165,7 @@ Ryan Harden - ryanharden20@gmail.com
 
 Project Link : https://github.com/ryanharden/airbnb-clone
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
@@ -183,7 +182,7 @@ Project Link : https://github.com/ryanharden/airbnb-clone
 * [Font Awesome](https://fontawesome.com)
 * [React Icons](https://react-icons.github.io/react-icons/search)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
