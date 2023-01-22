@@ -40,7 +40,7 @@
     transition: height 0.3s ease-out;
     width: 100%;
     max-width: 568px;
-    max-height: 568px;
+    max-height: auto;
 
     transition-timing-function: ease-in-out;
     animation: slideIn 0.3s;

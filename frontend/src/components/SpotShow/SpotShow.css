@@ -1,0 +1,255 @@
+@media (min-width: 1127px) {
+    .spot-show-page {
+        padding-left: 80px ;
+        padding-right: 80px;
+    }
+}
+
+/* @media (max-width: 1127px) {
+    .spot-show-page {
+        width: 90.5vw;
+    }
+} */
+
+.spot-show-page {
+    width: 86.32vw;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    max-width: 1120px;
+    justify-self: center;
+    padding: 0 40px;
+}
+
+.spot-name {
+    font-weight: 450;
+    letter-spacing: 1px;
+    font-size: 26px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.details-edit-spot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.avgStarRating-numReviews-location {
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 19px;
+}
+
+.edit-delete-actions {
+    display: flex;
+}
+
+@media (max-width: 715px) {
+    .edit-delete-actions {
+        display: none
+    }
+}
+
+.edit-spot-button {
+    display: flex;
+    align-items: center;
+    padding-right: 0px;
+    padding-top: 10px;
+    padding-bottom: 19px;
+    border: none;
+    background-color: transparent;
+}
+
+.delete-spot-button {
+    display: flex;
+    align-items: center;
+    padding-right: 0px;
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 19px;
+    border: none;
+    background-color: transparent;
+}
+
+.fa-regular.fa-pen-to-square {
+    height: 16.5px
+}
+
+.fa-solid.fa-trash-can {
+    height: 16.5px;
+}
+
+.OpenModalButton.edit-spot-modal-button {
+    padding-right: 0px;
+    padding-left: 5px;
+    font-size: 14px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.OpenModalButton.edit-spot-modal-button:hover {
+    text-decoration: underline;
+}
+
+.edit-spot-button:hover {
+    cursor: pointer;
+}
+
+.OpenModalButton.delete-spot-modal-button {
+    padding-right: 0px;
+    padding-left: 5px;
+    font-size: 14px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.OpenModalButton.delete-spot-modal-button:hover {
+    text-decoration: underline;
+}
+
+.delete-spot-button:hover {
+    cursor: pointer;
+}
+
+#avgStarRating {
+    display: flex;
+    align-items: center;
+    padding-right: 4px;
+}
+
+#numReviews {
+    padding-left: 3px;
+    padding-right: 5px;
+}
+
+#star {
+    margin-left: -4px;
+}
+
+#period {
+    /* padding-bottom: 5px; */
+    color: black;
+}
+
+#city-state-country {
+    padding-left: 5px
+}
+
+.spot-images-container {
+    display: flex;
+    flex-direction: row;
+    max-width: 1120px;
+    min-width: 650px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    justify-content: space-between;
+    aspect-ratio: 2/1;
+}
+
+.main-image-container {
+    width: 50%;
+    height: 100%;
+}
+
+.main-image-container img {
+    /* width: 100%; */
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.main-image {
+    height: 100%;
+    width: 98.9%;
+    object-fit: cover;
+    aspect-ratio: 1;
+}
+
+.second-col-images-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 25%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.third-col-images-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 25%;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.other-image {
+    height: 49.25%;
+    width: 97.8%;
+    object-fit: cover;
+    overflow: hidden;
+    aspect-ratio: 1;
+}
+
+#image-3 {
+    border-top-right-radius: 12px;
+}
+
+#image-4 {
+    border-bottom-right-radius: 12px;
+}
+
+.single-spot-description {
+    padding-bottom: 25px;
+    border-bottom: solid 1px rgba(0,0,0,0.2);
+}
+
+.left-spot-description {
+    width: 66%
+}
+
+.more-description {
+    padding-top: 20px;
+}
+
+.self-check-in {
+    display: flex;
+    align-items: center;
+}
+
+.title-p {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 20px;
+}
+
+.fa-door-closed {
+    height: 30px
+}
+
+.check-in-title {
+    margin-bottom: 0px;
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.title-p p {
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 450;
+}
+
+p {
+    font-size: 16px;
+    font-weight: 300;
+}

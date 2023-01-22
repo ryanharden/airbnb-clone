@@ -1,0 +1,79 @@
+/* @media (max-width: 1127px) {
+    .spot-index-item {
+        width: 320px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .spot-preview-image {
+        width: 320px;
+        height: 300px;
+    }
+}
+
+@media (min-width: 1128px) {
+    .spot-index-item {
+        width: 245px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .spot-preview-image {
+        width: 245px;
+        height: 235px;
+    }
+} */
+
+.spot-index-item {
+    width: 300px;
+    height: 280px;
+    box-sizing: border-box;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 15px;
+    margin-bottom: 75px;
+    letter-spacing: 0.2px;
+    font-family: 'Circular',-apple-system,'BlinkMacSystemFont','Roboto','Helvetica Neue',sans-serif;
+}
+
+.spot-preview-image {
+    max-width: 300px;
+    height: 280px;
+    border-radius: 15px;
+}
+
+.spot-location-rating {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+#title {
+    font-weight: 500;
+    font-size: 15px;
+}
+
+#rating {
+    display: flex;
+    align-items: center;
+    font-weight: 325;
+    font-size: 14.5px;
+}
+
+#star {
+    height: 17px
+}
+
+#price {
+    font-size: 14px;
+}
+
+.dollars {
+    font-weight: 500;
+}
+
+.show-spot-index-item {
+    color: black;
+    text-decoration: none;
+}

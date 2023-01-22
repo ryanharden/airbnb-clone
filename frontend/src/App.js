@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import * as sessionActions from "./store/session";
 import AllSpots from "./components/AllSpots/allSpots";
-import SpotShow from "./components/AllSpots/SpotShow";
+import SpotShow from "./components/SpotShow/SpotShow";
 
 function App() {
   const dispatch = useDispatch();

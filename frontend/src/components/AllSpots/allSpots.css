@@ -1,9 +1,16 @@
 /* All Spots */
+@media (min-width: 1440px) {
+    .spots-container {
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+}
 
 .spots-container {
     display: flex;
     margin-top: 0px;
     padding-top: 0px;
+    margin-top: 20px;
 }
 
 .spots-container ul {
@@ -13,94 +20,10 @@
     justify-content: center;
     width: 100%;
     margin-top: 0px;
-    padding-left: 0px;
-}
-
-.spot-index-item {
-    width: 300px;
-    height: 280px;
-    box-sizing: border-box;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 15px;
-    margin-bottom: 90px;
-    letter-spacing: 0.2px;
-    font-family: 'Circular',-apple-system,'BlinkMacSystemFont','Roboto','Helvetica Neue',sans-serif;
-}
-
-.spot-preview-image {
-    max-width: 300px;
-    height: 280px;
-    border-radius: 15px;
-}
-
-.spot-location-rating {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 7px;
-    padding-bottom: 7px;
-}
-
-#title {
-    font-weight: 500;
-    font-size: 15px;
-}
-
-#rating {
-    display: flex;
-    align-items: center;
-    font-weight: 325;
-    font-size: 14.5px;
-}
-
-#star {
-    height: 17px
-}
-
-#price {
-    font-size: 14px;
-}
-
-.dollars {
-    font-weight: 500;
-}
-
-.show-spot-index-item {
-    color: black;
-    text-decoration: none;
-}
-
-
-/* SpotShow */
-
-.spot-images {
-    display: flex;
-    flex-direction: row;
-    width: 80%;
-}
-
-.spot-images:hover {
-    cursor: pointer;
-}
-
-.spot-other-images {
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 5px;
-    width: 50%;
-    height: auto;
-}
-
-.spot-main-image {
-    width: 48%;
-    height: auto;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-}
-
-.spot-other-image {
-    width: 100%;
-    height: auto;
+    /* padding-left: 32px;
+    padding-right: 32px */
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 15px;
+    margin-right: 15px;
 }
