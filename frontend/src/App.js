@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import * as sessionActions from "./store/session";
@@ -10,9 +10,15 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const isLoggedIn = useSelector(state => state.session.user != null);
+
   useEffect(() => {
+    if (!isLoggedIn)  {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-  }, [dispatch]);
+    } else {
+      setIsLoaded(true);
+    }
+  }, [dispatch, isLoggedIn]);
 
   return (
     <>
