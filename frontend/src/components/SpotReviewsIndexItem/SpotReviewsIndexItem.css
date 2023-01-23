@@ -6,6 +6,7 @@
     grid-column-gap: 100px;
     grid-row-gap: 30px;
     max-height: 550px;
+    margin-bottom: 80px
 }
 
 .spot-review-item-container {
