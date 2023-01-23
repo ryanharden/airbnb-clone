@@ -33,7 +33,7 @@
     }
 } */
 
-@media (max-width: 1127px) {
+@media (max-width: 500px) {
     .nomad-nest {
       display: none;
     }
