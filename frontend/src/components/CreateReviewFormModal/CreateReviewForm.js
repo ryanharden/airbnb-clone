@@ -18,11 +18,19 @@ const CreateReview = () => {
     const spot = useSelector(state => state.Spots.singleSpot);
     const spotId = useSelector((state) => state.Spots.singleSpot.id);
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         setErrors([]);
+
+        const errors = [];
+        if (review.length === 0) errors.push("Please enter a review.");
+        if (stars <= 0 || isNaN(stars)) errors.push("Please select a number of stars.");
+
+        if (errors.length > 0) {
+            setErrors(errors);
+            return
+        }
 
         const newReviewData = {
             review,

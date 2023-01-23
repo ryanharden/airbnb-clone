@@ -27,6 +27,8 @@ const SpotReviews = () => {
 
     // if (!spotReviewsArr.length) return null;
 
+    const first6Reviews = spotReviewsArr.slice(0, 6);
+
     const reviewItems = spotReviewsArr.map((review) => {
         return <SpotReviewsIndexItem key={review.id} review={review} spot={spot} />
     });
@@ -37,7 +39,7 @@ const SpotReviews = () => {
         spotReviewsArr.forEach(review => {
             avgSpotRating += review.stars;
         })
-        avgSpotRating = avgSpotRating/spotReviewsArr.length
+        avgSpotRating = avgSpotRating / spotReviewsArr.length
     }
 
     return (
@@ -47,7 +49,7 @@ const SpotReviews = () => {
                     <div className='spot-reviews-container'>
                         <div className='spot-reviews-header'>
                             <div className='avgStarRating-numReviews'>
-                                <div id="avgStarRating"><img id="review-star" src={star} alt="" />{avgSpotRating.toFixed(1)}</div>
+                                <div id="avgStarRating"><img id="review-star" src={star} alt="" />{avgSpotRating.toFixed(2)}</div>
                                 <div id='review-period'>•</div>
                                 <div id="numReviews">{spotReviewsArr.length} review(s)</div>
                             </div>
@@ -62,9 +64,31 @@ const SpotReviews = () => {
                         </div>
                         <div className='spot-reviews-item-container'>
                             <ul className='reviews-wrapper'>
-                                {reviewItems}
+                                {first6Reviews.map((review) => {
+                                    return <SpotReviewsIndexItem key={review.id} review={review} spot={spot} />
+                                })}
                             </ul>
                         </div>
+                        {spotReviewsArr.length > 6 && (
+                            <div className='extra-reviews'>
+                                <OpenModalButton
+                                    className="all-reviews-modal"
+                                    modalComponent={
+                                        <div className="reviewItems">
+                                            <div className='reviewItems-header'>
+                                                <div className='avgStarRating-numReviews-modal'>
+                                                    <div id="avgStarRating"><img id="review-star-modal" src={star} alt="" />{avgSpotRating.toFixed(2)}</div>
+                                                    <div id='review-period'>•</div>
+                                                    <div id="numReviews">{spotReviewsArr.length} review(s)</div>
+                                                </div>
+                                            </div>
+                                            {reviewItems}
+                                        </div>}
+                                    buttonText={`Show all ${spotReviewsArr.length} reviews`}
+                                />
+                            </div>
+
+                        )}
                     </div>
                 </>
             ) : (

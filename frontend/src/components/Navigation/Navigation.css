@@ -138,8 +138,8 @@
 
 .nomad-nest {
     font-size: 21px;
-    font-weight: 900;
-    padding: 7px;
+    font-weight: 800;
+    padding: 8px;
 }
 
 a {
@@ -187,7 +187,7 @@ i.fa-sharp.fa-solid.fa-bars {
     background-color: white;
     list-style: none;
     position: absolute;
-    top: 110px;
+    top: 80px;
     right: 40px;
     padding-top: 0px;
     padding-left: 0px;
@@ -197,6 +197,22 @@ i.fa-sharp.fa-solid.fa-bars {
     border-radius: 15px;
     height: auto;
     width: 225px;
+}
+
+.item-def {
+    font-weight: 550;
+}
+
+@media (max-width: 1439px) {
+    .profile-dropdown {
+        margin: 0px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .profile-dropdown {
+        margin: 0 40px;
+    }
 }
 
 .hidden {
@@ -355,7 +371,7 @@ i.fa-sharp.fa-solid.fa-bars {
     font-size: 13px;
 }
 
-.host-experience:hover {
+/* .host-experience:hover {
     background-color: #fef5f5;
     cursor: pointer;
     border-top-left-radius: 4px;
@@ -367,4 +383,4 @@ i.fa-sharp.fa-solid.fa-bars {
     cursor: pointer;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
-}
+} */

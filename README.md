@@ -7,7 +7,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-<img src="https://github.com/ryanharden/airbnb-clone/blob/main/frontend/src/assets/NomadNest-logo.png" alt="Logo" width="80" height="80">
+<img src="https://github.com/ryanharden/airbnb-clone/blob/main/frontend/src/assets/NomadNest-logo.png" alt="Logo" width="100" height="80">
   </a>
 
   <h3 align="center">Nomad Nest</h3>
@@ -59,7 +59,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project!
 
-<img width="650" height="466.07" src="https://github.com/ryanharden/airbnb-clone/blob/main/frontend/src/assets/Nomad-Nest-HomeScreen.png" alt="home-screen">
+<img width="750" height="550" src="https://github.com/ryanharden/airbnb-clone/blob/main/frontend/src/assets/Nomad-Nest-HomeScreen.png" alt="home-screen">
 
 
 Nomad Nest is a home rental platform that provides an intuitive way to plan your next adventure!

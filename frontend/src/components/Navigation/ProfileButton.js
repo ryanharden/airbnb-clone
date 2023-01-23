@@ -62,9 +62,9 @@ function ProfileButton({ user }) {
                     <>
                         <div className="dropdown-container-in">
                             <div className="if-logged-in">
-                                <li className="username">{user.username}</li>
-                                <li>{user.firstName} {user.lastName}</li>
-                                <li>{user.email}</li>
+                                <li className="username"><span className="item-def">Username: </span>{user.username}</li>
+                                <li><span className="item-def">Name: </span>{user.firstName} {user.lastName}</li>
+                                <li><span className="item-def">Email: </span>{user.email}</li>
                                 <li><OpenModalButton className="add-spot-li-button"
                                     modalComponent={<CreateSpot />}
                                     buttonText="List your nest"
