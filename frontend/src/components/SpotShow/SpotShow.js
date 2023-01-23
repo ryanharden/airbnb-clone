@@ -6,7 +6,11 @@ import EditSpotForm from '../EditSpotFormModal/EditSpotForm';
 import DeleteSpotForm from '../DeleteSpot/DeleteSpotForm';
 import OpenModalButton from '../OpenModalButton';
 import SpotReviews from '../SpotReviews/SpotReviews';
+import door from "../../assets/icons8-door-48.png";
+import pin from "../../assets/icons8-location-pin-64.png";
+import calendar from "../../assets/icons8-calendar-64.png";
 import star from "../../assets/star.png";
+import comingSoon from "../../assets/image_coming_soon.jpeg";
 import "./SpotShow.css";
 
 const SpotShow = () => {
@@ -77,15 +81,15 @@ const SpotShow = () => {
             </div>
             <div className='spot-images-container'>
                 <div className='main-image-container'>
-                    {spot.SpotImages.length > 0 ? <img className="main-image" src={spot.SpotImages[0].url} alt="none" /> : <p>No images available</p>}
+                    {spot.SpotImages.length > 0 ? <img className="main-image" src={spot.SpotImages[0].url} alt="none" /> : <img className='main-image' src={comingSoon} alt="" />}
                 </div>
                 <div className="second-col-images-container">
-                        {spot.SpotImages.length > 1 ? <img className="other-image" src={spot.SpotImages[1].url} alt="none" /> : null}
-                        {spot.SpotImages.length > 2 ? <img className="other-image" src={spot.SpotImages[2].url} alt="none" /> : null}
+                    {spot.SpotImages.length > 1 ? <img className="other-image" src={spot.SpotImages[1].url} alt="none" /> : <img className='other-image' src={comingSoon} alt="" />}
+                    {spot.SpotImages.length > 2 ? <img className="other-image" src={spot.SpotImages[2].url} alt="none" /> : <img className='other-image' src={comingSoon} alt="" />}
                 </div>
                 <div className='third-col-images-container'>
-                        {spot.SpotImages.length > 3 ? <img className="other-image" id="image-3" src={spot.SpotImages[3].url} alt="none" /> : null}
-                        {spot.SpotImages.length > 4 ? <img className="other-image" id="image-4" src={spot.SpotImages[4].url} alt="none" /> : null}
+                    {spot.SpotImages.length > 3 ? <img className="other-image" id="image-3" src={spot.SpotImages[3].url} alt="none" /> : <img className='other-image' src={comingSoon} alt="" />}
+                    {spot.SpotImages.length > 4 ? <img className="other-image" id="image-4" src={spot.SpotImages[4].url} alt="none" /> : <img className='other-image' src={comingSoon} alt="" />}
                 </div>
                 {/* <div className='second-col-images-container'>
                     {spot.SpotImages && (
@@ -110,26 +114,31 @@ const SpotShow = () => {
             </div>
             <div className='left-spot-description'>
                 <div className='more-description'>
-                    <div className='self-check-in'>
-                        <i className="fa-regular fa-door-closed"></i>
+                    <div className='detail-title'>
+                        <img className="icons-8-door" src={door} alt="" />
                         <div className='title-p'>
                             <h3 className='check-in-title'>Self check-in</h3>
                             <p>Check yourself in with the lockbox.</p>
                         </div>
                     </div>
-                    <div className='great-location'>
-                        <i className="fa-light fa-location-dot"></i>
-                        <h3 className='location-title'>Great location</h3>
-                        <p>95% of recent guest gave the location a 5-star rating.</p>
+                    <div className='detail-title'>
+                        <img className='pin' src={pin} alt="" />
+                        <div className='title-p'>
+                            <h3 className='location-title'>Great location</h3>
+                            <p>95% of recent guest gave the location a 5-star rating.</p>
+                        </div>
                     </div>
-                    <div className='cancellation'>
-                        <i className="fa-light fa-calendar-circle-minus"></i>
-                        <h3 className='cancellation-title'>Free cancellation for 48 hours.</h3>
+                    <div className='detail-title'>
+                        <img className='calendar' src={calendar} alt="" />
+                        <div className='title-p'>
+                            <h3 className='cancellation-title'>Free cancellation for 48 hours.</h3>
+                            <p></p>
+                        </div>
                     </div>
                 </div>
                 <div className='aircover'>
                     <img className='aircover-image' src="https://a0.muscache.com/im/pictures/54e427bb-9cb7-4a81-94cf-78f19156faad.jpg" alt='aircover' />
-                    <h3 className='aircover-description'>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</h3>
+                    <h4 className='aircover-description'>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</h4>
                 </div>
             </div>
             <div className='spot-reviews'>

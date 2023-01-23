@@ -2,8 +2,10 @@ import "./SpotReviewsIndexItem.css";
 import profPic from "../../assets/prof-pic.jpeg";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteReviewThunk } from "../../store/reviews";
+import { useModal } from "../../context/Modal";
 
 const SpotReviewsIndexItem = ({ review, spot }) => {
+    const { closeModal } = useModal();
     const dispatch = useDispatch();
     const date = new Date(review.createdAt);
     const dateString = date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
@@ -31,7 +33,7 @@ const SpotReviewsIndexItem = ({ review, spot }) => {
                 {currentUser && currentUser.id === review.userId && (
                     <div className="delete-review-container">
                         {/* <i className="fa-solid fa-trash-can"></i> */}
-                        <button onClick={() => dispatch(deleteReviewThunk(review.id))} className="delete-review-button">Delete review</button>
+                        <button onClick={() => dispatch(deleteReviewThunk(review.id)).then(closeModal())} className="delete-review-button">Delete review</button>
                     </div>
                 )}
             </div>
