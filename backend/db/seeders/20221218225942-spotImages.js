@@ -17,22 +17,22 @@ module.exports = {
       },
       {
         spotId: 1,
-        url: "https://lh3.googleusercontent.com/bgOs9hnzZWfZS-fjJF5-LzA1l6IofDFTu1hqrJFzmN-4o7-oeClaLCYKdFyth96XrzlMS33eeOS4wWfaAtBGaQwVwtoszzQv4gxUfkWw-OIeg4Cq90FUKapK2nAESg6JSF1FsUrgubXHupO6Pq45KqvWjvkxm1V1rdwu=w1280",
+        url: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-755137040389728919/original/334e3fe6-e50e-4423-a49b-10eabca6f993.jpeg?im_w=720",
         preview: false
       },
       {
         spotId: 1,
-        url: "https://lh3.googleusercontent.com/bgOs9hnzZWfZS-fjJF5-LzA1l6IofDFTu1hqrJFzmN-4o7-oeClaLCYKdFyth96XrzlMS33eeOS4wWfaAtBGaQwVwtoszzQv4gxUfkWw-OIeg4Cq90FUKapK2nAESg6JSF1FsUrgubXHupO6Pq45KqvWjvkxm1V1rdwu=w1280",
+        url: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-755137040389728919/original/72860fa4-77ef-4455-945f-0197e8b875fe.jpeg?im_w=720",
         preview: false
       },
       {
         spotId: 1,
-        url: "https://lh3.googleusercontent.com/bgOs9hnzZWfZS-fjJF5-LzA1l6IofDFTu1hqrJFzmN-4o7-oeClaLCYKdFyth96XrzlMS33eeOS4wWfaAtBGaQwVwtoszzQv4gxUfkWw-OIeg4Cq90FUKapK2nAESg6JSF1FsUrgubXHupO6Pq45KqvWjvkxm1V1rdwu=w1280",
+        url: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-755137040389728919/original/7951385c-cc79-41fb-8c7a-1a2fc5f99f5c.jpeg?im_w=720",
         preview: false
       },
       {
         spotId: 1,
-        url: "https://lh3.googleusercontent.com/bgOs9hnzZWfZS-fjJF5-LzA1l6IofDFTu1hqrJFzmN-4o7-oeClaLCYKdFyth96XrzlMS33eeOS4wWfaAtBGaQwVwtoszzQv4gxUfkWw-OIeg4Cq90FUKapK2nAESg6JSF1FsUrgubXHupO6Pq45KqvWjvkxm1V1rdwu=w1280",
+        url: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-755137040389728919/original/51f42c88-7d14-49cd-9b32-1d3b3330b437.jpeg?im_w=720",
         preview: false
       },
       {
