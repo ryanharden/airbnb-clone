@@ -1,6 +1,6 @@
 # Airbnb Clone
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][https://www.linkedin.com/in/ryan-harden-0a8b6821a/]
+[![LinkedIn][linkedin-shield]][https://www.linkedin.com/in/ryanharden-dev/]
 
 
 
