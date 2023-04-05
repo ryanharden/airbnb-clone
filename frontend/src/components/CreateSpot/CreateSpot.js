@@ -14,15 +14,24 @@ const CreateSpot = () => {
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
-    const [country, setCountry] = useState('');
+    const [country, setCountry] = useState('United States');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState("");
+    const [lng, setLng] = useState(117.1611);
+    const [lat, setLat] = useState(32.7157);
     const [previewImage, setPreviewImage] = useState("");
     const [category, setCategory] = useState("");
     const [guests, setGuests] = useState();
     const [bedrooms, setBedrooms] = useState();
     const [beds, setBeds] = useState();
     const [bathrooms, setBathrooms] = useState();
+    const [wifi, setWifi] = useState(false);
+    const [parking, setParking] = useState(false);
+    const [kitchen, setKitchen] = useState(false);
+    const [pets, setPets] = useState(false);
+    const [washer, setWasher] = useState(false);
+    const [dryer, setDryer] = useState(false);
+
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
 
@@ -184,15 +193,45 @@ const CreateSpot = () => {
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                             />
-                            <input className='spot-form-input'
-                                type="number"
-                                placeholder="Price per night"
-                                required
-                                min="1"
-                                max="2000"
-                                value={price}
-                                onChange={(e) => setPrice(e.target.value)}
-                            />
+                            <div className='price-lng-lat'>
+                                <input className='spot-form-input price'
+                                    type="number"
+                                    placeholder="Price per night"
+                                    required
+                                    min="1"
+                                    max="2000"
+                                    value={price}
+                                    onChange={(e) => setPrice(e.target.value)}
+                                />
+                                <div className='input-lat'>
+                                    <span className='lattext'>Lat</span>
+                                    <input
+                                        className='spot-form-input lat'
+                                        min="-90"
+                                        max="90"
+                                        type="number"
+                                        value={lat.toFixed(8)}
+                                        onChange={(e) => setLat(parseFloat(e.target.value))}
+                                        placeholder="Latitude"
+                                        step='any'
+                                        disabled
+                                        required />
+                                </div>
+                                <div className='input-lng'>
+                                    <span className='lngtext'>Lng</span>
+                                    <input
+                                        className='spot-form-input lng'
+                                        min="-180"
+                                        max="180"
+                                        type="number"
+                                        value={lng.toFixed(8)}
+                                        onChange={(e) => setLng(parseFloat(e.target.value))}
+                                        placeholder="Longitude"
+                                        step='any'
+                                        disabled
+                                        required />
+                                </div>
+                            </div>
                             <input className='spot-form-input-url'
                                 type="url"
                                 placeholder="Preview Image Link"
