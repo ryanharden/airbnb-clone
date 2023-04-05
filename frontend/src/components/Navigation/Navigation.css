@@ -299,6 +299,8 @@ i.fa-sharp.fa-solid.fa-bars {
     padding-left: 15px;
     padding-right: 15px;
     cursor: pointer;
+    box-sizing: border-box;
+    border: solid 1px transparent;
 }
 
 .OpenModalButton.add-spot-button:hover {

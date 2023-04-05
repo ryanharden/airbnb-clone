@@ -18,10 +18,18 @@ const CreateSpot = () => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState("");
     const [previewImage, setPreviewImage] = useState("");
+    const [category, setCategory] = useState("");
+    const [guests, setGuests] = useState();
+    const [bedrooms, setBedrooms] = useState();
+    const [beds, setBeds] = useState();
+    const [bathrooms, setBathrooms] = useState();
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
 
-    // const [newSpot, setNewSpot] = useState();
+    const categories = ["Beach", "Cabin", "Camping", "Countryside", "Desert", "Lake", "National Parks", "Tropical", "Vineyard"]
+    const guestNums = Array.from({ length: 15 }, (_, i) => i + 1);
+    const bedroomNums = Array.from({ length: 10 }, (_, i) => i + 1);
+    const bathNums = Array.from({ length: 5 }, (_, i) => i + 1);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -38,6 +46,7 @@ const CreateSpot = () => {
             lng: 117.1611,
             description,
             price,
+            category,
         };
 
         dispatch(createSpotThunk(newSpotData, previewImage))
@@ -72,40 +81,104 @@ const CreateSpot = () => {
                             </ul>
                             <input className='spot-form-input-name'
                                 type="text"
-                                placeholder="Name"
+                                placeholder="Title"
                                 required
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
-                            <input className='spot-form-input'
+                            <input className='spot-form-input address'
                                 type="text"
                                 placeholder="Address"
                                 required
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}
                             />
-                            <input className='spot-form-input'
-                                type="text"
-                                placeholder="City"
-                                required
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
-                            />
-                            <input className='spot-form-input'
-                                type="text"
-                                placeholder="State"
-                                required
-                                value={state}
-                                onChange={(e) => setState(e.target.value)}
-                            />
-                            <input className='spot-form-input'
-                                type="text"
-                                placeholder="Country"
-                                required
-                                value={country}
-                                onChange={(e) => setCountry(e.target.value)}
-                            />
-                            <textarea className='spot-form-input'
+                            <div className='city-state-country'>
+                                <input className='location-input city'
+                                    type="text"
+                                    placeholder="City"
+                                    required
+                                    value={city}
+                                    onChange={(e) => setCity(e.target.value)}
+                                />
+                                <input className='location-input'
+                                    type="text"
+                                    placeholder="State"
+                                    required
+                                    value={state}
+                                    onChange={(e) => setState(e.target.value)}
+                                />
+                                <input className='location-input country'
+                                    type="text"
+                                    placeholder="Country"
+                                    required
+                                    value={country}
+                                    onChange={(e) => setCountry(e.target.value)}
+                                />
+                            </div>
+                            <select className='category-select'
+                                id="category"
+                                value={category}
+                                onChange={(e) => setCategory(e.target.value)}
+                            >
+                                <option>--Select a Category--</option>
+                                {categories.map((ele, indx) => (
+                                    <option key={indx} value={ele}>
+                                        {ele}
+                                    </option>
+                                ))}
+                            </select>
+                            <div className='guest-rooms'>
+                                <select className='room-select'
+                                    id="guests"
+                                    value={guests}
+                                    onChange={(e) => setGuests(e.target.value)}
+                                >
+                                    <option selected="true" disabled="disabled">Guests</option>
+                                    {guestNums.map((ele, indx) => (
+                                        <option key={indx} value={ele}>
+                                            {ele}
+                                        </option>
+                                    ))}
+                                </select>
+                                <select className='room-select'
+                                    id="bedroooms"
+                                    value={bedrooms}
+                                    onChange={(e) => setBedrooms(e.target.value)}
+                                >
+                                    <option selected="true" disabled="disabled">Bedrooms</option>
+                                    {bedroomNums.map((ele, indx) => (
+                                        <option key={indx} value={ele}>
+                                            {ele}
+                                        </option>
+                                    ))}
+                                </select>
+                                <select className='room-select'
+                                    id="beds"
+                                    value={beds}
+                                    onChange={(e) => setBeds(e.target.value)}
+                                >
+                                    <option selected="true" disabled="disabled" >Beds</option>
+                                    {guestNums.map((ele, indx) => (
+                                        <option key={indx} value={ele}>
+                                            {ele}
+                                        </option>
+                                    ))}
+                                </select>
+                                <select className='room-select'
+                                    id="bathrooms"
+                                    value={bathrooms}
+                                    onChange={(e) => setBathrooms(e.target.value)}
+                                >
+                                    <option selected="true" disabled="disabled">Bathrooms</option>
+                                    {bathNums.map((ele, indx) => (
+                                        <option key={indx} value={ele}>
+                                            {ele}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <textarea className='spot-form-input description'
                                 placeholder="Description"
                                 required
                                 value={description}
@@ -113,7 +186,7 @@ const CreateSpot = () => {
                             />
                             <input className='spot-form-input'
                                 type="number"
-                                placeholder="Price"
+                                placeholder="Price per night"
                                 required
                                 min="1"
                                 max="2000"

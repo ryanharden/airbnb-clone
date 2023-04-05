@@ -21,6 +21,7 @@ const SpotShow = () => {
     // const history = useHistory();
 
     // console.log(spot);
+    const user = useSelector(state => state.session.user);
 
     const spotReviews = useSelector(state => state.Reviews.spot);
     // console.log(spotReviews);
@@ -59,24 +60,26 @@ const SpotShow = () => {
                         <div id='period'>•</div>
                         <div id="city-state-country">{spot.city}, {spot.state}, {spot.country}</div>
                     </div>
-                    <div className='edit-delete-actions'>
-                        <div className='edit-spot-button'>
-                            <i className="fa-regular fa-pen-to-square"></i>
-                            <OpenModalButton
-                                className="edit-spot-modal-button"
-                                modalComponent={<EditSpotForm />}
-                                buttonText="Edit Spot"
-                            />
+                    {user?.id == spot.ownerId &&
+                        <div className='edit-delete-actions'>
+                            <div className='edit-spot-button'>
+                                <i className="fa-regular fa-pen-to-square"></i>
+                                <OpenModalButton
+                                    className="edit-spot-modal-button"
+                                    modalComponent={<EditSpotForm />}
+                                    buttonText="Edit Spot"
+                                />
+                            </div>
+                            <div className='delete-spot-button'>
+                                <i className="fa-solid fa-trash-can"></i>
+                                <OpenModalButton
+                                    className="delete-spot-modal-button"
+                                    modalComponent={<DeleteSpotForm />}
+                                    buttonText="Delete Spot"
+                                />
+                            </div>
                         </div>
-                        <div className='delete-spot-button'>
-                            <i className="fa-solid fa-trash-can"></i>
-                            <OpenModalButton
-                                className="delete-spot-modal-button"
-                                modalComponent={<DeleteSpotForm />}
-                                buttonText="Delete Spot"
-                            />
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
             <div className='spot-images-container'>

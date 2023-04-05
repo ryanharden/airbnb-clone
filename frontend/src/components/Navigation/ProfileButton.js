@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import "./Navigation.css";
 import OpenModalMenuItem from './OpenModalMenuItem';
@@ -49,7 +49,7 @@ function ProfileButton({ user }) {
         <>
             <div className="right-nav-bar">
                 <OpenModalButton className="add-spot-button"
-                    modalComponent={<CreateSpot />}
+                    modalComponent={user ? <CreateSpot /> : <LoginFormModal />}
                     buttonText="List your nest"
                 />
                 <button className="profile-button" onClick={openMenu}>
