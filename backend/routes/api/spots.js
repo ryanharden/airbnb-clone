@@ -8,6 +8,10 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require("sequelize");
 const { response } = require("express");
 const e = require("express");
+const {
+	multipleMulterUpload,
+	multiplePublicFileUpload,
+} = require("../../awsS3");
 
 const validateReview = [
     check("review")
@@ -232,33 +236,51 @@ router.post("/", validateSpot, requireAuth, async (req, res) => {
 
 // Add an image to a Spot based on the Spot's id
 
-router.post("/:spotId/images", requireAuth, async (req, res) => {
-    const { url, preview } = req.body;
+// router.post("/:spotId/images", requireAuth, async (req, res) => {
+//     const { url, preview } = req.body;
 
-    const spot = await Spot.findByPk(req.params.spotId);
+//     const spot = await Spot.findByPk(req.params.spotId);
 
-    if (!spot) {
-        res.status(404);
-        return res.json({
-            "message": "Spot couldn't be found",
-            "statusCode": 404
-        })
+//     if (!spot) {
+//         res.status(404);
+//         return res.json({
+//             "message": "Spot couldn't be found",
+//             "statusCode": 404
+//         })
+//     }
+
+//     const spotId = +req.params.spotId;
+
+//     const newImage = await SpotImage.create({
+//         spotId,
+//         url,
+//         preview
+//     });
+
+//     const newSpotImage = await SpotImage.findByPk(newImage.id, {
+//         attributes: ["id", "url", "preview"]
+//     });
+
+//     return res.json(newSpotImage);
+// });
+
+// Add an image to a Spot with aws
+
+router.post("/:spotId/images", requireAuth, multipleMulterUpload("images"), async (req, res) => {
+    const { spotId } = req.params;
+
+    const awsUploadedFiles = await multiplePublicFileUpload(req.files);
+    const newSpotImages = [];
+    for (let awsFile of awsUploadedFiles) {
+        const newImage = await SpotImage.create({
+            spotId: Number(spotId),
+            urL: awsFile,
+            preview: true
+        });
+        newSpotImages.push(newImage);
     }
-
-    const spotId = +req.params.spotId;
-
-    const newImage = await SpotImage.create({
-        spotId,
-        url,
-        preview
-    });
-
-    const newSpotImage = await SpotImage.findByPk(newImage.id, {
-        attributes: ["id", "url", "preview"]
-    });
-
-    return res.json(newSpotImage);
-});
+    return res.json(newSpotImages);
+})
 
 // Get all spots owned by current user
 
