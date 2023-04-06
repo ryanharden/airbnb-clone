@@ -21,6 +21,10 @@
     padding: 0 40px;
 }
 
+.single-spot-bottom-left {
+    width: 50vw;
+}
+
 .spot-name {
     font-weight: 450;
     letter-spacing: 1px;
@@ -211,13 +215,20 @@
     border-bottom-right-radius: 12px;
 }
 
-.single-spot-description {
+.single-spot-header {
     padding-bottom: 25px;
     border-bottom: solid 1px rgba(0,0,0,0.15);
 }
 
+.hosted-by {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
 .left-spot-description {
-    width: 60%;
+    width: 100%;
 }
 
 .more-description {
@@ -286,7 +297,12 @@ p {
 }
 
 .aircover {
-    padding: 30px 0;
+    padding: 32px 0;
+    border-bottom: solid 1px rgba(0,0,0,0.15);
+}
+
+.aircover-description {
+    letter-spacing: 0.3px;
 }
 
 .aircover-image {
@@ -297,4 +313,70 @@ h4 {
     font-size: 16px;
     font-weight: 349;
     margin-bottom: 0;
+}
+
+.guest-room-details {
+    display: flex;
+    flex-direction: row;
+    color: #222222;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.bed-dot {
+    padding: 0 5px 0 5px;
+}
+
+.spot-description {
+    font-weight: 300 !important;
+    font-size: 16px;
+    padding: 32px 0;
+    letter-spacing: 0.3px;
+    border-bottom: solid 1px rgba(0,0,0,0.15);
+}
+
+.where-sleep-container {
+    padding: 48px 0;
+    border-bottom: solid 1px rgba(0,0,0,0.15);
+}
+
+.where-sleep-header, .place-offers-header {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.show-sleep-box-container {
+    margin-top: 24px;
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 12px;
+    padding: 24px;
+    width: 159px;
+    height: 116px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sleep-box-content {
+    height: 100%;
+}
+
+.bed-svg {
+    margin-bottom: 18px;
+}
+
+.bed-area {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.spot-beds-queen {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.place-offers-container {
+    padding: 48px 0;
 }

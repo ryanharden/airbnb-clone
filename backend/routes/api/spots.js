@@ -428,7 +428,17 @@ router.get("/:spotId", async (req, res) => {
             numReviews: numReviews,
             avgStarRating: avgStars,
             SpotImages: spot.SpotImages,
-            Owner: spot.Owner
+            Owner: spot.Owner,
+            guests: spot.guests,
+            bedrooms: spot.bedrooms,
+            beds: spot.beds,
+            bathrooms: spot.bathrooms,
+            wifi: spot.wifi,
+            parking: spot.parking,
+            kitchen: spot.kitchen,
+            pets: spot.pets,
+            washer: spot.washer,
+            dryer: spot.dryer
         })
     }
 
