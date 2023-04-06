@@ -271,16 +271,17 @@ router.post("/:spotId/images", requireAuth, multipleMulterUpload("images"), asyn
 
     const awsUploadedFiles = await multiplePublicFileUpload(req.files);
     const newSpotImages = [];
-    for (let awsFile of awsUploadedFiles) {
+    for (let i = 0; i < awsUploadedFiles.length; i++) {
+        const awsFile = awsUploadedFiles[i];
         const newImage = await SpotImage.create({
             spotId: Number(spotId),
             url: awsFile,
-            preview: true
+            preview: i === 0 // Set preview to true only for the first image
         });
         newSpotImages.push(newImage);
     }
     return res.json(newSpotImages);
-})
+});
 
 // Get all spots owned by current user
 

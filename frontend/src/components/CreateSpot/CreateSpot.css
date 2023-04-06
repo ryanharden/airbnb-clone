@@ -6,6 +6,7 @@
     padding: 11px;
     font-size: 8px;
     letter-spacing: 0.5px;
+    box-sizing: border-box;
 }
 
 .spot-form-container {
@@ -16,6 +17,7 @@
 .spot-form {
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
 }
 
 .spot-form-input {
@@ -47,18 +49,26 @@
     justify-content: space-between;
     box-sizing: border-box;
     margin-bottom: 15px;
+    /* border: 1px solid black; */
+    /* padding: 1px 0; */
 }
 
 .room-select {
-    padding: 8px;
-    border-radius: 8px;
-    border: solid 1px rgba(0, 0, 0, 0.4);
+    /* padding: 8px; */
+    border: none;
+    /* border-radius: 8px;
+    border: solid 1px rgba(0, 0, 0, 0.4); */
+    margin-top: 2px;
     color: #717171;
+    width: 27px;
+    box-sizing: border-box;
+    /* margin: 2px 0; */
 }
 
 .room-select:focus {
     outline: none;
-    border: 2px solid black;
+    /* border-color: black;
+    box-shadow: 0 0 0 1px black; */
 }
 
 .location-input {
@@ -90,6 +100,7 @@
 textarea {
     font-family: 'Circular', -apple-system, 'BlinkMacSystemFont', 'Roboto', 'Helvetica Neue', sans-serif;
     padding-top: 8px;
+    box-sizing: border-box;
 }
 
 .category-select {
@@ -169,6 +180,11 @@ textarea {
     border-radius: 8px 0 0 8px;
 }
 
+.spot-form-input.price:focus {
+    outline: none;
+    border: 2px solid black;
+}
+
 .input-lng {
     display: flex;
     align-items: center;
@@ -213,4 +229,139 @@ textarea {
     border-right: none;
     box-sizing: border-box;
     background-color: white;
+}
+
+.add-photo {
+    display: flex;
+    align-items: center;
+    height: 36px;
+    font-size: 14px;
+    color: #717171;
+    /* line-height: 24px; */
+    border: solid 1px rgba(0, 0, 0, 0.4);
+    padding: 7px 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.photo-info {
+    font-size: 13px;
+    color: #717171;
+    margin-left: 5px;
+}
+
+.add-photo:hover {
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.total-images-container {
+    display: flex;
+    /* align-items: flex-start; */
+    /* justify-content: space-between; */
+    width: 100%;
+    padding-bottom: 15px;
+    /* gap: 5px; */
+    border-bottom: 1px solid #d5d9d9;
+}
+
+#images.spot-file-input {
+    border: none;
+    display: none;
+}
+
+.add-photo-input {
+    height: 36px;
+    display: flex;
+    align-items: center;
+}
+
+.preview-image-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 6px;
+    gap: 6px;
+}
+
+.preview-images-image {
+    height: 90px;
+    width: 90px;
+    object-fit: cover;
+    margin-left: -22px;
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+.preview-image-btn-container {
+    position: relative;
+    top: 5px;
+    left: 61px;
+    height: 22px;
+    width: 22px;
+    z-index: 3;
+    border-radius: 9999px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px 0 rgb(88 88 88 / 75%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.preview-image-btn {
+    background-image: url("https://d1irxr40exwge2.cloudfront.net/x-icon.png");
+    /* opacity: .64; */
+    width: 10px;
+    height: 9px;
+    background-position: -297px -5px;
+    align-self: center;
+    vertical-align: baseline;
+    z-index: 4;
+}
+
+.checkboxes {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.wifi-checkbox,
+.parking-checkbox,
+.kitchen-checkbox,
+.pets-checkbox,
+.washer-checkbox {
+    border-right: solid 1px rgba(0, 0, 0, 0.4);
+    margin-right: 5px;
+    padding-right: 5px;
+    display: flex;
+    align-items: center;
+    color: #717171
+}
+
+.dryer-checkbox {
+    display: flex;
+    align-items: center;
+    color: #717171;
+    font-size: 14px;
+}
+
+.select-div {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    border: solid 1px rgba(0, 0, 0, 0.4);
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.select-label:focus {
+    outline: none;
+    border-color: black;
+    box-shadow: 0 0 0 1px black;
+}
+
+.select-label {
+    font-size: 14px;
+    color: #717171;
 }

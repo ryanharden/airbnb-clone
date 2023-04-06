@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from "../../context/Modal";
 import { createSpotThunk } from '../../store/spots';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './CreateSpot.css';
+
+const validFileTypes = ["image/jpeg", "image/png", "image/gif", "image/jpg"];
 
 const CreateSpot = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const sessionUser = useSelector((state) => state.session.user);
     const [name, setName] = useState('');
@@ -19,7 +21,8 @@ const CreateSpot = () => {
     const [price, setPrice] = useState("");
     const [lng, setLng] = useState(117.1611);
     const [lat, setLat] = useState(32.7157);
-    const [previewImage, setPreviewImage] = useState("");
+    // const [previewImage, setPreviewImage] = useState("");
+    const [images, setImages] = useState([]);
     const [category, setCategory] = useState("");
     const [guests, setGuests] = useState();
     const [bedrooms, setBedrooms] = useState();
@@ -31,14 +34,16 @@ const CreateSpot = () => {
     const [pets, setPets] = useState(false);
     const [washer, setWasher] = useState(false);
     const [dryer, setDryer] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
 
     const categories = ["Beach", "Cabin", "Camping", "Countryside", "Desert", "Lake", "National Parks", "Tropical", "Vineyard"]
     const guestNums = Array.from({ length: 15 }, (_, i) => i + 1);
-    const bedroomNums = Array.from({ length: 10 }, (_, i) => i + 1);
-    const bathNums = Array.from({ length: 5 }, (_, i) => i + 1);
+    const bedroomNums = Array.from({ length: 11 }, (_, i) => i + 0);
+    const bedNums = Array.from({ length: 11 }, (_, i) => i + 0);
+    const bathNums = Array.from({ length: 6 }, (_, i) => i + 0);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -51,15 +56,25 @@ const CreateSpot = () => {
             city,
             state,
             country,
-            lat: 32.7157,
-            lng: 117.1611,
+            lat,
+            lng,
             description,
             price,
             category,
+            guests,
+            bedrooms,
+            beds,
+            bathrooms,
+            wifi,
+            parking,
+            kitchen,
+            pets,
+            washer,
+            dryer
         };
 
-        dispatch(createSpotThunk(newSpotData, previewImage))
-            .then((res) => history.push(`/spots/${res.id}`))
+        dispatch(createSpotThunk(newSpotData, images))
+            .then((res) => navigate(`/spots/${res.id}`))
             // .then((res) => setNewSpot(res))
             // .then((res) => console.log(res))
             .then(closeModal())
@@ -69,12 +84,58 @@ const CreateSpot = () => {
             });
     };
 
-    // useEffect(() => {
-    //     if (newSpot) {
-    //         history.push(`/spots/${newSpot.id}`)
-    //     }
-    // }, [newSpot])
+    const handleImages = async (e) => {
+        const files = e.target.files;
+        const invalidFiles = Array.from(files).filter(file => !validFileTypes.includes(file.type));
+        if (invalidFiles.length > 0) {
+            setErrors(["Invalid file type, please try again"]);
+            return;
+        }
+        if (images.length + files.length > 5) {
+            setErrors(["A spot can have a max of 5 images"]);
+            return;
+        }
+        const imageFiles = Array.from(files);
+        if (imageFiles.length > 0) {
+            setImages([...images, ...imageFiles]);
+        }
+    }
 
+    const handleImageRemove = (e, i) => {
+        e.preventDefault();
+        const newImages = [...images];
+        // const newPrevImages = [...prevImages];
+        newImages.splice(i, 1);
+        setImages(newImages);
+        // newPrevImages.splice(i, 1);
+        // setPrevImages(newPrevImages);
+        // if (newImages.length === 1) {
+        //     setImage(newImages[0])
+        // }
+    }
+
+    let previewImages;
+    if (images.length) {
+        previewImages = (
+            images.map((image, i) => {
+                return (
+                    <React.Fragment key={i}>
+                        <div className="preview-image-btn-container">
+                            <div
+                                className="preview-image-btn"
+                                onClick={(e) => handleImageRemove(e, i)}
+                            />
+                        </div>
+                        <img
+                            className={'preview-images-image'}
+                            src={image.url ? image.url : URL.createObjectURL(image)}
+                            alt={'preview'}
+                        />
+                    </React.Fragment>
+                )
+            })
+        )
+    }
 
     return (
         <>
@@ -138,54 +199,66 @@ const CreateSpot = () => {
                                 ))}
                             </select>
                             <div className='guest-rooms'>
-                                <select className='room-select'
-                                    id="guests"
-                                    value={guests}
-                                    onChange={(e) => setGuests(e.target.value)}
-                                >
-                                    <option selected="true" disabled="disabled">Guests</option>
-                                    {guestNums.map((ele, indx) => (
-                                        <option key={indx} value={ele}>
-                                            {ele}
-                                        </option>
-                                    ))}
-                                </select>
-                                <select className='room-select'
-                                    id="bedroooms"
-                                    value={bedrooms}
-                                    onChange={(e) => setBedrooms(e.target.value)}
-                                >
-                                    <option selected="true" disabled="disabled">Bedrooms</option>
-                                    {bedroomNums.map((ele, indx) => (
-                                        <option key={indx} value={ele}>
-                                            {ele}
-                                        </option>
-                                    ))}
-                                </select>
-                                <select className='room-select'
-                                    id="beds"
-                                    value={beds}
-                                    onChange={(e) => setBeds(e.target.value)}
-                                >
-                                    <option selected="true" disabled="disabled" >Beds</option>
-                                    {guestNums.map((ele, indx) => (
-                                        <option key={indx} value={ele}>
-                                            {ele}
-                                        </option>
-                                    ))}
-                                </select>
-                                <select className='room-select'
-                                    id="bathrooms"
-                                    value={bathrooms}
-                                    onChange={(e) => setBathrooms(e.target.value)}
-                                >
-                                    <option selected="true" disabled="disabled">Bathrooms</option>
-                                    {bathNums.map((ele, indx) => (
-                                        <option key={indx} value={ele}>
-                                            {ele}
-                                        </option>
-                                    ))}
-                                </select>
+                                <div className='select-div'>
+                                    <label className="select-label" htmlFor='guests'>Guests:</label>
+                                    <select className='room-select'
+                                        id="guests"
+                                        value={guests}
+                                        onChange={(e) => setGuests(e.target.value)}
+                                    >
+                                        {/* <option selected="true" disabled="disabled">Guests</option> */}
+                                        {guestNums.map((ele, indx) => (
+                                            <option key={indx} value={ele}>
+                                                {ele}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className='select-div'>
+                                    <label className="select-label" htmlFor='bedrooms'>Bedrooms:</label>
+                                    <select className='room-select'
+                                        id="bedroooms"
+                                        value={bedrooms}
+                                        onChange={(e) => setBedrooms(e.target.value)}
+                                    >
+                                        {/* <option selected="true" disabled="disabled">Bedrooms</option> */}
+                                        {bedroomNums.map((ele, indx) => (
+                                            <option key={indx} value={ele}>
+                                                {ele}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className='select-div'>
+                                    <label className="select-label" htmlFor='beds'>Beds:</label>
+                                    <select className='room-select'
+                                        id="beds"
+                                        value={beds}
+                                        onChange={(e) => setBeds(e.target.value)}
+                                    >
+                                        {/* <option selected="true" disabled="disabled" >Beds</option> */}
+                                        {bedNums.map((ele, indx) => (
+                                            <option key={indx} value={ele}>
+                                                {ele}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className='select-div'>
+                                    <label className="select-label" htmlFor='baths'>Baths:</label>
+                                    <select className='room-select'
+                                        id="bathrooms"
+                                        value={bathrooms}
+                                        onChange={(e) => setBathrooms(e.target.value)}
+                                    >
+                                        {/* <option selected="true" disabled="disabled">Bathrooms</option> */}
+                                        {bathNums.map((ele, indx) => (
+                                            <option key={indx} value={ele}>
+                                                {ele}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
                             </div>
                             <textarea className='spot-form-input description'
                                 placeholder="Description"
@@ -232,13 +305,73 @@ const CreateSpot = () => {
                                         required />
                                 </div>
                             </div>
-                            <input className='spot-form-input-url'
-                                type="url"
-                                placeholder="Preview Image Link"
-                                required
-                                value={previewImage}
-                                onChange={(e) => setPreviewImage(e.target.value)}
-                            />
+                            <div className='checkboxes'>
+                                <div className='wifi-checkbox'>
+                                    <label htmlFor="wifi-checkbox">Wifi</label>
+                                    <input
+                                        id='wifi-checkbox'
+                                        type="checkbox"
+                                        onChange={() => setWifi(!wifi)} />
+                                </div>
+                                <div className='parking-checkbox'>
+                                    <label htmlFor="parking-checkbox">Parking</label>
+                                    <input
+                                        id='parking-checkbox'
+                                        type="checkbox"
+                                        onChange={() => setParking(!parking)} />
+                                </div>
+                                <div className='kitchen-checkbox'>
+                                    <label htmlFor="kitchen-checkbox">Kitchen</label>
+                                    <input
+                                        id='kitchen-checkbox'
+                                        type="checkbox"
+                                        onChange={() => setKitchen(!kitchen)} />
+                                </div>
+                                <div className='pets-checkbox'>
+                                    <label htmlFor="pets-checkbox">Pets allowed</label>
+                                    <input
+                                        id='pets-checkbox'
+                                        type="checkbox"
+                                        onChange={() => setPets(!pets)} />
+                                </div>
+                                <div className='washer-checkbox'>
+                                    <label htmlFor="washer-checkbox">Washer</label>
+                                    <input
+                                        id='washer-checkbox'
+                                        type="checkbox"
+                                        onChange={() => setWasher(!washer)} />
+                                </div>
+                                <div className='dryer-checkbox'>
+                                    <label htmlFor="dryer-checkbox">Dryer</label>
+                                    <input
+                                        id='dryer-checkbox'
+                                        type="checkbox"
+                                        onChange={() => setDryer(!dryer)} />
+                                </div>
+                            </div>
+
+                            <div className="preview-image-input">
+                                <div className='add-photo-input'>
+                                    <label htmlFor="images" className="add-photo">
+                                        Add photo
+                                    </label>
+                                    <div className='photo-info'>
+                                        (Your first image will be the preview image)
+                                    </div>
+                                    <input
+                                        type="file"
+                                        name="images"
+                                        multiple
+                                        accept="image/*"
+                                        id="images"
+                                        onChange={handleImages}
+                                        className="spot-file-input"
+                                    />
+                                </div>
+                                <div className="total-images-container">
+                                    {previewImages}
+                                </div>
+                            </div>
                             <button className='spot-form-button' type="submit">Create New Spot</button>
                         </form>
                     </div>

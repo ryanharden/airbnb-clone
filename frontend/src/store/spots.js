@@ -78,6 +78,7 @@ export const getSpotThunk = (spotId) => async (dispatch) => {
 // Create Spot
 export const createSpotThunk = (newSpotData, images) => async (dispatch) => {
     // const {name, address, city, state, country, lat = 32.7157, lng = 117.1611, description, price, url } = spot
+    console.log("store-images: ", images);
     const res = await csrfFetch("/api/spots", {
         method: "POST",
         headers: { "Content-Type": "application/json"},
@@ -87,7 +88,7 @@ export const createSpotThunk = (newSpotData, images) => async (dispatch) => {
 
     if (res.ok) {
         const newSpot = await res.json();
-        // console.log("newSpot :", newSpot)
+        console.log("newSpot :", newSpot)
 
         const formData = new FormData();
         for (let image of images) {

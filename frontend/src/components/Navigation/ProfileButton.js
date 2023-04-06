@@ -7,11 +7,11 @@ import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import OpenModalButton from "../OpenModalButton";
 import CreateSpot from "../CreateSpot/CreateSpot";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
 
@@ -40,7 +40,7 @@ function ProfileButton({ user }) {
         e.preventDefault();
         dispatch(sessionActions.logout());
         closeMenu();
-        history.push("/")
+        navigate("/")
     };
 
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -67,6 +67,7 @@ function ProfileButton({ user }) {
                                 <li><span className="item-def">Email: </span>{user.email}</li>
                                 <li><OpenModalButton className="add-spot-li-button"
                                     modalComponent={<CreateSpot />}
+                                    onItemClick={closeMenu}
                                     buttonText="List your nest"
                                 /></li>
                             </div>

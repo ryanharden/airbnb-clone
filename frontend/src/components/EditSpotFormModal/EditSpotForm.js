@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
 import { updateSpotThunk } from '../../store/spots';
 import "./EditSpotForm.css";
 
 const EditSpotForm = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
     const { closeModal } = useModal();
     const spot = useSelector(state => state.Spots.singleSpot);
     // console.log(spot);
@@ -63,7 +63,7 @@ const EditSpotForm = () => {
         }
 
         dispatch(updateSpotThunk(editedSpot, spotDetails))
-            .then(() => history.push(`/spots/${id}`))
+            .then(() => navigate(`/spots/${id}`))
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();

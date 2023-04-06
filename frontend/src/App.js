@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import * as sessionActions from "./store/session";
 import AllSpots from "./components/AllSpots/allSpots";
@@ -24,14 +24,11 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
-        <Switch>
-          <Route exact path="/">
-            <AllSpots />
-          </Route>
-          <Route path="/spots/:spotId">
-            <SpotShow />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/" element={<AllSpots />} />
+
+          <Route path="/spots/:spotId" element={<SpotShow />} />
+        </Routes>
       )}
     </>
   );
