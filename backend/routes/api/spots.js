@@ -43,8 +43,8 @@ const validateSpot = [
     .isDecimal()
     .withMessage("Longitude is not valid"),
     check("name")
-    .isLength({max: 50})
-    .withMessage("Name must be less than 50 characters"),
+    .isLength({max: 100})
+    .withMessage("Name must be less than 100 characters"),
     check("description")
     .notEmpty()
     .withMessage("Description is required"),
@@ -274,7 +274,7 @@ router.post("/:spotId/images", requireAuth, multipleMulterUpload("images"), asyn
     for (let awsFile of awsUploadedFiles) {
         const newImage = await SpotImage.create({
             spotId: Number(spotId),
-            urL: awsFile,
+            url: awsFile,
             preview: true
         });
         newSpotImages.push(newImage);
