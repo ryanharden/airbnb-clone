@@ -137,10 +137,6 @@ const SpotShow = () => {
                     <div className='spot-description'>
                         {spot.description}
                     </div>
-                    <div className='aircover'>
-                        <img className='aircover-image' src="https://a0.muscache.com/im/pictures/54e427bb-9cb7-4a81-94cf-78f19156faad.jpg" alt='aircover' />
-                        <h4 className='aircover-description'>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</h4>
-                    </div>
                     <div className='where-sleep-container'>
                         <div className='where-sleep-header'>
                             Where you'll sleep
@@ -158,8 +154,12 @@ const SpotShow = () => {
                             What this place offers
                         </div>
                         <div className='place-offers-content'>
-                            
+
                         </div>
+                    </div>
+                    <div className='aircover'>
+                        <img className='aircover-image' src="https://a0.muscache.com/im/pictures/54e427bb-9cb7-4a81-94cf-78f19156faad.jpg" alt='aircover' />
+                        <h4 className='aircover-description'>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</h4>
                     </div>
                 </div>
                 <div className='spot-reviews'>
