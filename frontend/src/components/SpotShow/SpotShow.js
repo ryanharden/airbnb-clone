@@ -20,7 +20,7 @@ const SpotShow = () => {
     // const [avgRating, setAvgRating] = useState(0);
     // const history = useHistory();
 
-    console.log(spot);
+    // console.log(spot);
     const user = useSelector(state => state.session.user);
 
     const spotReviews = useSelector(state => state.Reviews.spot);

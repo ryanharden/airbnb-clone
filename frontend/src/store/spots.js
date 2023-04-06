@@ -13,6 +13,7 @@ const UPDATE_SPOT = "/spots/updateSpot";
 
 const DELETE_SPOT = "/spots/deleteSpot";
 
+const DELETE_IMAGE = "spots/DELETE_IMAGE";
 // Action Creators
 
 const loadSpots = (spots) => {
@@ -50,6 +51,10 @@ const deleteSpot = (spotId) => {
     }
 }
 
+const deleteImage = (imageId) => ({
+    type: DELETE_IMAGE,
+    imageId
+})
 
 // Thunk Action Creators
 
@@ -78,7 +83,7 @@ export const getSpotThunk = (spotId) => async (dispatch) => {
 // Create Spot
 export const createSpotThunk = (newSpotData, images) => async (dispatch) => {
     // const {name, address, city, state, country, lat = 32.7157, lng = 117.1611, description, price, url } = spot
-    console.log("store-images: ", images);
+    // console.log("store-images: ", images);
     const res = await csrfFetch("/api/spots", {
         method: "POST",
         headers: { "Content-Type": "application/json"},
@@ -88,7 +93,7 @@ export const createSpotThunk = (newSpotData, images) => async (dispatch) => {
 
     if (res.ok) {
         const newSpot = await res.json();
-        console.log("newSpot :", newSpot)
+        // console.log("newSpot :", newSpot)
 
         const formData = new FormData();
         for (let image of images) {
@@ -151,9 +156,24 @@ export const updateSpotThunk = (editedSpot, spotDetails) => async (dispatch) => 
 
     if (res.ok) {
         const updatedSpot = await res.json();
-        const actualSpot = {...updatedSpot, ...spotDetails}
-        dispatch(updateSpot(actualSpot));
-        return updatedSpot;
+
+        const formData = new FormData();
+        for (let image of spotDetails.SpotImages) {
+            formData.append("images", image);
+        }
+
+        const addImages = await csrfFetch(`/api/spots/${spotDetails.id}/images`, {
+            method: "POST",
+            headers: {"Content-Type": "multipart/form-data"},
+            body: formData
+        });
+
+        if (addImages.ok) {
+            const images = await addImages.json();
+            const actualSpot = {...updatedSpot, ...spotDetails}
+            dispatch(createSpot(actualSpot, images));
+            return actualSpot;
+        }
     };
 };
 
@@ -169,6 +189,23 @@ export const deleteSpotThunk = (spotId) => async (dispatch) => {
         return deletedSpot
     }
 };
+
+// Delete Spot Image
+export const deleteImageThunk = (imageId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/images/${imageId}`, {
+        method: "DELETE"
+    });
+    // console.log("storeRes: ", res)
+
+    if (res.ok) {
+        dispatch(deleteImage(imageId));
+    } else {
+        const data = await res.json();
+        if (data.errors) {
+            return data;
+        }
+    }
+}
 
 // Initial State
 

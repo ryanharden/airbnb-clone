@@ -23,7 +23,6 @@ const CreateSpot = () => {
     const [price, setPrice] = useState("");
     const [lng, setLng] = useState(117.1611);
     const [lat, setLat] = useState(32.7157);
-    // const [previewImage, setPreviewImage] = useState("");
     const [images, setImages] = useState([]);
     const [category, setCategory] = useState("");
     const [guests, setGuests] = useState(0);
@@ -54,21 +53,14 @@ const CreateSpot = () => {
         if (form.guests < 1) {
             errors.push("Must have at least one guest");
         }
-        if (!form.address) {
-            errors.push("Must have an address");
-        }
-        if (!form.city) {
-            errors.push("Must have a city");
-        }
-        if (!form.country) {
-            errors.push("Must have a country");
-        }
-        if (!form.name) {
-            errors.push("Must have a title");
-        }
+        if (!form.name) errors.push("Please enter a name.");
+        if (!form.address) errors.push("Please enter an address.");
+        if (!form.city) errors.push("Please enter a city.");
+        if (!form.state) errors.push("Please enter a state.");
+        if (!form.country) errors.push("Please enter a country.");
 
         if (!form.description) {
-            errors.push("Description is required");
+            errors.push("Please enter a description.");
         } else if (form.description.length > 5000) {
             errors.push("Description must be less than 5000 characters");
         } else if (form.description.length < 3) {
@@ -76,9 +68,9 @@ const CreateSpot = () => {
         }
 
         if (!form.category) {
-            errors.push("Category is required");
+            errors.push("Please select a category");
         }
-
+        if (!form.price) errors.push("Please enter a price.");
         if (form.price === "" || parseFloat(form.price) === 0 || parseFloat(form.price) > 99999.99) {
             errors.push("Price must be a number greater than 0 and less than 99999.99");
         } else if (isNaN(form.price)) {
@@ -171,10 +163,9 @@ const CreateSpot = () => {
                 return (
                     <React.Fragment key={i}>
                         <div className="preview-image-btn-container">
-                            <div
-                                className="preview-image-btn"
-                                onClick={(e) => handleImageRemove(e, i)}
-                            />
+                            <div className="preview-image-btn" onClick={(e) => handleImageRemove(e, i)}>
+                                <i onClick={(e) => handleImageRemove(e, i)} className="fa-solid fa-xmark"></i>
+                            </div>
                         </div>
                         <img
                             className={'preview-images-image'}

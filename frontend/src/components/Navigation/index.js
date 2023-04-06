@@ -11,7 +11,7 @@ function Navigation({ isLoaded }) {
   const location = useLocation();
   const navClassName = location.pathname === "/" ? "allSpotNav" : "showNav";
 
-  console.log(navClassName);
+  // console.log(navClassName);
   return (
     <div className='nav-bar-wrapper'>
       <div className={navClassName}>

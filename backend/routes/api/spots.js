@@ -429,6 +429,7 @@ router.get("/:spotId", async (req, res) => {
             avgStarRating: avgStars,
             SpotImages: spot.SpotImages,
             Owner: spot.Owner,
+            category: spot.category,
             guests: spot.guests,
             bedrooms: spot.bedrooms,
             beds: spot.beds,
@@ -489,7 +490,7 @@ router.put("/:spotId", validateSpot,requireAuth, async (req, res) => {
             "statusCode": 404
         })
     } else if (spot.ownerId === +req.user.id) {
-        const { address, city, state, country, lat, lng, name, description, price } = req.body;
+        const { address, city, state, country, lat, lng, name, description, price, category, guests, bedrooms, beds, bathrooms, wifi, parking, kitchen, pets, washer, dryer } = req.body;
 
         if (address) spot.address = address;
         if (city) spot.city = city;
@@ -500,6 +501,17 @@ router.put("/:spotId", validateSpot,requireAuth, async (req, res) => {
         if (name) spot.name = name;
         if (description) spot.description = description;
         if (price) spot.price = price;
+        if (category) spot.category = category;
+        if (guests) spot.guests = guests;
+        if (bedrooms) spot.bedrooms = bedrooms;
+        if (beds) spot.beds = beds;
+        if (bathrooms) spot.bathrooms = bathrooms;
+        if (wifi) spot.wifi = wifi;
+        if (parking) spot.parking = parking;
+        if (kitchen) spot.kitchen = kitchen;
+        if (pets) spot.pets = pets;
+        if (washer) spot.washer = washer;
+        if (dryer) spot.dryer = dryer;
 
         await spot.save();
         return res.json(spot);

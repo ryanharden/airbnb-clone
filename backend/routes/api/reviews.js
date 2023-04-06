@@ -44,7 +44,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res) => {
         }
     });
 
-    console.log(reviewImageCount)
+    // console.log(reviewImageCount)
     if (reviewImageCount > 9) {
         res.status(403);
         return res.json({
@@ -87,7 +87,7 @@ router.get("/current", requireAuth, async (req, res) => {
             }
         ]
     });
-    console.log(reviews);
+    // console.log(reviews);
 
     let reviewList = [];
 
