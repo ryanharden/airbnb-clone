@@ -7,6 +7,7 @@ import CreateReview from '../CreateReviewFormModal/CreateReviewForm';
 import star from "../../assets/star.png";
 import "./SpotReviews.css";
 import OpenModalButton from '../OpenModalButton';
+import LoginFormModal from '../LoginFormModal';
 
 const SpotReviews = () => {
     const dispatch = useDispatch();
@@ -20,6 +21,8 @@ const SpotReviews = () => {
 
     const spotReviewsArr = Object.values(spotReviews);
     // console.log(spotReviewsArr)
+
+    const user = useSelector(state => state.session.user);
 
     useEffect(() => {
         dispatch(getSpotReviewsThunk(spotId))
@@ -42,6 +45,9 @@ const SpotReviews = () => {
         avgSpotRating = avgSpotRating / spotReviewsArr.length
     }
 
+    // console.log("user.id: ", user.id);
+    // console.log("spot.ownerId: ", spot.ownerId)
+
     return (
         <>
             {spotReviewsArr.length ? (
@@ -51,16 +57,17 @@ const SpotReviews = () => {
                             <div className='avgStarRating-numReviews'>
                                 <div id="avgStarRating"><img id="review-star" src={star} alt="" />{avgSpotRating.toFixed(2)}</div>
                                 <div id='review-period'>•</div>
-                                <div id="numReviews">{spotReviewsArr.length} review(s)</div>
+                                <div id="numReviewsBig">{spotReviewsArr.length} review(s)</div>
                             </div>
-                            <div className='create-review-modal-button'>
+                            {user?.id !== spot?.ownerId && <div className='create-review-modal-button'>
                                 <img className='review-icon' src="https://cdn-icons-png.flaticon.com/512/2983/2983706.png" alt="review-icon" />
                                 <OpenModalButton
                                     className="create-review-modal"
-                                    modalComponent={<CreateReview />}
+                                    modalComponent={user ? <CreateReview /> : <LoginFormModal />}
                                     buttonText="Create a review"
                                 />
                             </div>
+                            }
                         </div>
                         <div className='spot-reviews-item-container'>
                             <ul className='reviews-wrapper'>
@@ -96,14 +103,15 @@ const SpotReviews = () => {
                     <div className='no-reviews-container'>
                         <div className='no-reviews-header'>
                             <h2 className="no-reviews">There are no reviews yet!</h2>
-                            <div className='no-create-review-modal-button'>
+                            {user?.id !== spot?.ownerId && <div className='no-create-review-modal-button'>
                                 <img className='review-icon' src="https://cdn-icons-png.flaticon.com/512/2983/2983706.png" alt="review-icon" />
                                 <OpenModalButton
                                     className="create-review-modal"
-                                    modalComponent={<CreateReview />}
+                                    modalComponent={user ? <CreateReview /> : <LoginFormModal />}
                                     buttonText="Create a review"
                                 />
                             </div>
+                            }
                         </div>
                     </div>
                 </>

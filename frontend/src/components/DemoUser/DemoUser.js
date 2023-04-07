@@ -7,7 +7,7 @@ import "./DemoUser.css";
 function DemoUser() {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
-    const [credential] = useState("Demo");
+    const [credential] = useState("DemoUser");
     const [password] = useState("password");
 
     const handleSubmit = (e) => {

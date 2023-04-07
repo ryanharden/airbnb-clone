@@ -12,8 +12,9 @@ import calendar from "../../assets/icons8-calendar-64.png";
 import star from "../../assets/star.png";
 import comingSoon from "../../assets/image_coming_soon.jpeg";
 import SpotAmenities from '../SpotAmenities/SpotAmenities';
+import profPic from "../../assets/prof-pic.jpeg";
 import "./SpotShow.css";
-import { restoreUser } from '../../store/session';
+
 
 const SpotShow = () => {
     const { spotId } = useParams();
@@ -21,7 +22,9 @@ const SpotShow = () => {
     const dispatch = useDispatch();
     // const [avgRating, setAvgRating] = useState(0);
     // const history = useHistory();
+    // const goToReviews = () => {
 
+    // }
     // console.log(spot);
     const user = useSelector(state => state.session.user);
     // console.log("user: ", user);
@@ -69,7 +72,7 @@ const SpotShow = () => {
                                 <OpenModalButton
                                     className="edit-spot-modal-button"
                                     modalComponent={<EditSpotForm />}
-                                    buttonText="Edit Spot"
+                                    buttonText="Edit Nest"
                                 />
                             </div>
                             <div className='delete-spot-button'>
@@ -77,7 +80,7 @@ const SpotShow = () => {
                                 <OpenModalButton
                                     className="delete-spot-modal-button"
                                     modalComponent={<DeleteSpotForm />}
-                                    buttonText="Delete Spot"
+                                    buttonText="Delete Nest"
                                 />
                             </div>
                         </div>
@@ -99,17 +102,22 @@ const SpotShow = () => {
             </div>
             <div className='single-spot-bottom-left'>
                 <div className='single-spot-header'>
-                    {spot.Owner && (
-                        <div className='hosted-by'>Entire home hosted by {spot.Owner.firstName}</div>
-                    )}
-                    <div className='guest-room-details'>
-                        <div className="room-det">{spot.guests} {spot.guests > 1 ? " guests" : " guest"}</div>
-                        <div className='bed-dot'>·</div>
-                        <div className="room-det">{spot.bedrooms} {spot.bedrooms > 1 ? ' bedrooms' : ' bedroom'}</div>
-                        <div className='bed-dot'>·</div>
-                        <div className="room-det">{spot.beds} {spot.beds > 1 ? 'beds' : 'bed'}</div>
-                        <div className='bed-dot'>·</div>
-                        <div className="room-det">{spot.bathrooms} {spot.bathrooms > 1 ? 'baths' : 'bath'}</div>
+                    <div className='spot-header-left'>
+                        {spot.Owner && (
+                            <div className='hosted-by'>Entire home hosted by {spot.Owner.firstName}</div>
+                        )}
+                        <div className='guest-room-details'>
+                            <div className="room-det">{spot.guests} {spot.guests > 1 ? " guests" : " guest"}</div>
+                            <div className='bed-dot'>·</div>
+                            <div className="room-det">{spot.bedrooms} {spot.bedrooms > 1 ? ' bedrooms' : ' bedroom'}</div>
+                            <div className='bed-dot'>·</div>
+                            <div className="room-det">{spot.beds} {spot.beds > 1 ? 'beds' : 'bed'}</div>
+                            <div className='bed-dot'>·</div>
+                            <div className="room-det">{spot.bathrooms} {spot.bathrooms > 1 ? 'baths' : 'bath'}</div>
+                        </div>
+                    </div>
+                    <div className='spot-header-right'>
+                        <img className="prof-pic-hosted" src={profPic} alt="" />
                     </div>
                 </div>
                 <div className='left-spot-description'>
@@ -162,9 +170,9 @@ const SpotShow = () => {
                         <h4 className='aircover-description'>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</h4>
                     </div>
                 </div>
-                <div className='spot-reviews'>
-                    <SpotReviews />
-                </div>
+            </div>
+            <div className='spot-reviews'>
+                <SpotReviews />
             </div>
         </div>
     )

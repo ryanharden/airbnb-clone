@@ -71,8 +71,8 @@ const CreateSpot = () => {
             errors.push("Please select a category");
         }
         if (!form.price) errors.push("Please enter a price.");
-        if (form.price === "" || parseFloat(form.price) === 0 || parseFloat(form.price) > 99999.99) {
-            errors.push("Price must be a number greater than 0 and less than 99999.99");
+        if (form.price === "" || parseFloat(form.price) === 0 || parseFloat(form.price) > 5000) {
+            errors.push("Price must be a number greater than 0 and less than 5000");
         } else if (isNaN(form.price)) {
             errors.push("Price must be a number")
         }
@@ -316,7 +316,7 @@ const CreateSpot = () => {
                             placeholder="Price per night"
                             required
                             min="1"
-                            max="2000"
+                            max="5000"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                         />
@@ -416,7 +416,7 @@ const CreateSpot = () => {
                             {previewImages}
                         </div>
                     </div>
-                    <button onClick={() => setLoading(true)} className='spot-form-button' type="submit">Create New Spot</button>
+                    <button onClick={() => setLoading(true)} className='spot-form-button' type="submit">Create New Nest</button>
                     {loading && (<div className="loading-spinner"><img src={spinner} className="spinner" /><div className="loading">Loading...</div></div>)}
                 </form>
             </div>

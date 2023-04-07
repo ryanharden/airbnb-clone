@@ -9,10 +9,21 @@ const CreateReview = () => {
     const dispatch = useDispatch();
     // const history = useHistory();
     // const { spotId } = useParams();
-
+    const star = <i className="fa-sharp fa-solid fa-star"></i>
+    const emptyStar = <i className="fa-sharp fa-light fa-star"></i>
     const [review, setReview] = useState('');
     const [stars, setStars] = useState(0);
     const [errors, setErrors] = useState([]);
+
+
+
+    const [cleanliness, setCleanliness] = useState(0);
+    const [communication, setCommunication] = useState(0);
+    const [checkin, setCheckin] = useState(0);
+    const [accuracy, setAccuracy] = useState(0);
+    const [location, setLocation] = useState(0);
+    const [value, setValue] = useState(0);
+
     const { closeModal } = useModal();
     const currentUser = useSelector(state => state.session.user);
     const spot = useSelector(state => state.Spots.singleSpot);
@@ -39,7 +50,7 @@ const CreateReview = () => {
 
         const reviewDetails = {
             User: currentUser,
-            ReviewImages: []
+            // ReviewImages: []
         };
 
         dispatch(createReviewThunk(spotId, newReviewData, reviewDetails))
@@ -53,39 +64,57 @@ const CreateReview = () => {
 
     return (
         <>
-            {currentUser ?
-                currentUser.id === spot.ownerId ? <div className='not-owner'>You can not create a review for your own spot.</div>
-                :
-                <>
-                    <div className='review-form-header'>
-                        <h1>Create a review</h1>
+            <div className='spot-form-header-container'>
+                <div className='spot-form-header'>
+                    <h1>Create a review</h1>
+                </div>
+                <div onClick={(e) => closeModal()} className='close-modal-x'>
+                    <i className="fa-solid fa-xmark fa-lg"></i>
+                </div>
+            </div>
+            <div className='review-form-container'>
+                <form className='review-form' onSubmit={handleSubmit}>
+                    <ul className='errors-review'>
+                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>
+                    <div className="review-form-input">
+                        <label className="review-form-label" htmlFor="cleanliness">Cleanliness</label>
+                        <div className="review-form-stars-container">
+                            <i onClick={() => {
+                                setCleanliness(1);
+                            }} alt="select to rate item one star" src={cleanliness >= 1 ? star : emptyStar} />
+                            <img onClick={() => {
+                                setCleanliness(2);
+                            }} alt="select to rate item two star" src={cleanliness >= 2 ? star : emptyStar} />
+                            <img onClick={() => {
+                                setCleanliness(3);
+                            }} alt="select to rate item three star" src={cleanliness >= 3 ? star : emptyStar} />
+                            <img onClick={() => {
+                                setCleanliness(4);
+                            }} alt="select to rate item four star" src={cleanliness >= 4 ? star : emptyStar} />
+                            <img onClick={() => {
+                                setCleanliness(5);
+                            }} alt="select to rate item five star" src={cleanliness >= 5 ? star : emptyStar} />
+                        </div>
                     </div>
-                    <div className='review-form-container'>
-                        <form className='review-form' onSubmit={handleSubmit}>
-                            <ul className='errors-review'>
-                                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                            </ul>
-                            <textarea className='review-form-textarea'
-                                type="text"
-                                placeholder="Leave a review here"
-                                required
-                                value={review}
-                                onChange={(e) => setReview(e.target.value)}
-                            />
-                            <select className='review-form-stars' value={stars} onChange={(e) => setStars(parseInt(e.target.value))}>
-                                <option value=''>Stars</option>
-                                <option value={1}>1</option>
-                                <option value={2}>2</option>
-                                <option value={3}>3</option>
-                                <option value={4}>4</option>
-                                <option value={5}>5</option>
-                            </select>
-                            <button className='review-form-button' type="submit">Create New Review</button>
-                        </form>
-                    </div>
-                </>
-                : <div className='not-logged-in'>You must be logged in to create a review</div>
-            }
+                    <textarea className='review-form-textarea'
+                        type="text"
+                        placeholder="Leave a review here"
+                        required
+                        value={review}
+                        onChange={(e) => setReview(e.target.value)}
+                    />
+                    {/* <select className='review-form-stars' value={stars} onChange={(e) => setStars(parseInt(e.target.value))}>
+                        <option value=''>Stars</option>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        <option value={3}>3</option>
+                        <option value={4}>4</option>
+                        <option value={5}>5</option>
+                    </select> */}
+                    <button className='review-form-button' type="submit">Create New Review</button>
+                </form>
+            </div>
         </>
     )
 }
