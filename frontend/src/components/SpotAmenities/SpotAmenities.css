@@ -4,6 +4,12 @@
     line-height: 24px;
 }
 
-/* .spot-amenities-container {
+.amenity {
+    margin-bottom: 15px;
+}
 
-} */
+.amenity-pets span {
+    margin-left: 16px;
+    vertical-align: top;
+    line-height: 24px;
+}
