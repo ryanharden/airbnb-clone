@@ -58,6 +58,7 @@ router.get("/current", requireAuth, async (req, res) => {
 
 });
 
+
 // Edit a Booking
 
 router.put("/:bookingId", requireAuth, async (req, res) => {

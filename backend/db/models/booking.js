@@ -31,6 +31,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       references: { model: "Users" }
     },
+    guests: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    total: {
+      type: DataTypes.DECIMAL,
+      allowNull: false
+    },
     startDate: {
       type: DataTypes.DATEONLY,
       allowNull: false
