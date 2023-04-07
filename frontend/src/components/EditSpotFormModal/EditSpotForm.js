@@ -14,8 +14,7 @@ const EditSpotForm = () => {
     const { closeModal } = useModal();
     const spot = useSelector(state => state.Spots.singleSpot);
     // console.log(spot);
-    const sessionUser = useSelector((state) => state.session.user);
-    // console.log(sessionUser);
+    // const sessionUser = useSelector((state) => state.session.user);
 
     const [name, setName] = useState(spot.name);
     const [address, setAddress] = useState(spot.address);
@@ -45,17 +44,13 @@ const EditSpotForm = () => {
     const [dryer, setDryer] = useState(spot.dryer);
     const [loading, setLoading] = useState(false);
 
+    console.log("wifi: ", wifi);
+
     const categories = ["Beach", "Cabin", "Camping", "Countryside", "Desert", "Lake", "National Parks", "Tropical", "Vineyard"]
     const guestNums = Array.from({ length: 16 }, (_, i) => i + 0);
     const bedroomNums = Array.from({ length: 11 }, (_, i) => i + 0);
     const bedNums = Array.from({ length: 11 }, (_, i) => i + 0);
     const bathNums = Array.from({ length: 6 }, (_, i) => i + 0);
-
-    useEffect(() => {
-        if (spot) {
-            setCategory(spot?.category); // Update category state when spot is loaded
-        }
-    }, [spot]);
 
     const validateForm = (form) => {
         const errors = [];
@@ -131,19 +126,18 @@ const EditSpotForm = () => {
             return;
         }
 
-        dispatch(updateSpotThunk(editedSpot, spotDetails))
-            .then(() => {
-                setLoading(true);
-                dispatch(getSpotThunk(id));
-            })
-            .then(() => {
-                navigate(`/spots/${id}`);
-                closeModal();
-            })
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) setErrors(data.errors);
-            });
+        console.log("editedSpot: ", editedSpot);
+
+        try {
+            await dispatch(updateSpotThunk(editedSpot, spotDetails));
+            setLoading(true);
+            navigate(`/spots/${id}`);
+            closeModal();
+        } catch (err) {
+            const data = await err.response.json();
+            if (data && data.errors) setErrors(data.errors);
+        }
+
     };
 
     const handleImages = async (e) => {
@@ -418,42 +412,54 @@ const EditSpotForm = () => {
                             <input
                                 id='wifi-checkbox'
                                 type="checkbox"
-                                onChange={() => setWifi(!wifi)} />
+                                onChange={() => setWifi(!wifi)}
+                                checked={wifi ? true : false}
+                            />
                         </div>
                         <div className='parking-checkbox'>
                             <label htmlFor="parking-checkbox">Parking</label>
                             <input
                                 id='parking-checkbox'
                                 type="checkbox"
-                                onChange={() => setParking(!parking)} />
+                                onChange={() => setParking(!parking)}
+                                checked={parking ? true : false}
+                            />
                         </div>
                         <div className='kitchen-checkbox'>
                             <label htmlFor="kitchen-checkbox">Kitchen</label>
                             <input
                                 id='kitchen-checkbox'
                                 type="checkbox"
-                                onChange={() => setKitchen(!kitchen)} />
+                                onChange={() => setKitchen(!kitchen)}
+                                checked={kitchen ? true : false}
+                            />
                         </div>
                         <div className='pets-checkbox'>
                             <label htmlFor="pets-checkbox">Pets allowed</label>
                             <input
                                 id='pets-checkbox'
                                 type="checkbox"
-                                onChange={() => setPets(!pets)} />
+                                onChange={() => setPets(!pets)}
+                                checked={pets ? true : false}
+                            />
                         </div>
                         <div className='washer-checkbox'>
                             <label htmlFor="washer-checkbox">Washer</label>
                             <input
                                 id='washer-checkbox'
                                 type="checkbox"
-                                onChange={() => setWasher(!washer)} />
+                                onChange={() => setWasher(!washer)}
+                                checked={washer ? true : false}
+                            />
                         </div>
                         <div className='dryer-checkbox'>
                             <label htmlFor="dryer-checkbox">Dryer</label>
                             <input
                                 id='dryer-checkbox'
                                 type="checkbox"
-                                onChange={() => setDryer(!dryer)} />
+                                onChange={() => setDryer(!dryer)}
+                                checked={dryer ? true : false}
+                            />
                         </div>
                     </div>
 

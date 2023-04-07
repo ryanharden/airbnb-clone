@@ -506,12 +506,36 @@ router.put("/:spotId", validateSpot,requireAuth, async (req, res) => {
         if (bedrooms) spot.bedrooms = bedrooms;
         if (beds) spot.beds = beds;
         if (bathrooms) spot.bathrooms = bathrooms;
-        if (wifi) spot.wifi = wifi;
-        if (parking) spot.parking = parking;
-        if (kitchen) spot.kitchen = kitchen;
-        if (pets) spot.pets = pets;
-        if (washer) spot.washer = washer;
-        if (dryer) spot.dryer = dryer;
+        if (wifi) {
+            spot.wifi = wifi;
+        } else {
+            spot.wifi = false
+        }
+        if (parking) {
+            spot.parking = parking;
+        } else {
+            spot.parking = false
+        }
+        if (kitchen) {
+            spot.kitchen = kitchen;
+        } else {
+            spot.kitchen = false;
+        }
+        if (pets) {
+            spot.pets = pets;
+        } else {
+            spot.pets = false;
+        }
+        if (washer) {
+            spot.washer = washer;
+        } else {
+            spot.washer = false;
+        }
+        if (dryer) {
+            spot.dryer = dryer;
+        } else {
+            spot.dryer = false;
+        }
 
         await spot.save();
         return res.json(spot);

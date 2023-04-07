@@ -6,60 +6,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 /** @type {import('sequelize-cli').Migration} */
-// module.exports = {
-//   async up (queryInterface, Sequelize) {
-//     await queryInterface.addColumns('Spot', {
-//       category: {
-//         type: Sequelize.STRING,
-//         allowNull: false,
-//       },
-//       guests: {
-//         type: Sequelize.INTEGER,
-//         allowNull: false,
-//       },
-//       bedrooms: {
-//         type: Sequelize.INTEGER,
-//         allowNull: false,
-//       },
-//       beds: {
-//         type: Sequelize.INTEGER,
-//         allowNull: false,
-//       },
-//       bathrooms: {
-//         type: Sequelize.INTEGER,
-//         allowNull: false,
-//       },
-//       wifi: {
-//         type: Sequelize.BOOLEAN,
-//         allowNull: false,
-//       },
-//       parking: {
-//         type: Sequelize.BOOLEAN,
-//         allowNull: false,
-//       },
-//       kitchen: {
-//         type: Sequelize.BOOLEAN,
-//         allowNull: false,
-//       },
-//       pets: {
-//         type: Sequelize.BOOLEAN,
-//         allowNull: false,
-//       },
-//       washer: {
-//         type: Sequelize.BOOLEAN,
-//         allowNull: false,
-//       },
-//       dryer: {
-//         type: Sequelize.BOOLEAN,
-//         allowNull: false,
-//       },
-//     }, options);
-//   },
-
-//   async down (queryInterface, Sequelize) {
-//     await queryInterface.bulkDelete('Spot', ['category', 'guests', 'bedrooms', 'beds', 'bathrooms', 'wifi', 'parking', 'kitchen', 'pets', 'washer', 'dryer']);
-//   }
-// };
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction();
@@ -92,33 +38,21 @@ module.exports = {
         }, { transaction }),
         queryInterface.addColumn('Spots', 'wifi', {
           type: Sequelize.BOOLEAN,
-          allowNull: false,
-          defaultValue: false,
         }, { transaction }),
         queryInterface.addColumn('Spots', 'parking', {
           type: Sequelize.BOOLEAN,
-          allowNull: false,
-          defaultValue: false,
         }, { transaction }),
         queryInterface.addColumn('Spots', 'kitchen', {
           type: Sequelize.BOOLEAN,
-          allowNull: false,
-          defaultValue: false,
         }, { transaction }),
         queryInterface.addColumn('Spots', 'pets', {
           type: Sequelize.BOOLEAN,
-          allowNull: false,
-          defaultValue: false,
         }, { transaction }),
         queryInterface.addColumn('Spots', 'washer', {
           type: Sequelize.BOOLEAN,
-          allowNull: false,
-          defaultValue: false,
         }, { transaction }),
         queryInterface.addColumn('Spots', 'dryer', {
           type: Sequelize.BOOLEAN,
-          allowNull: false,
-          defaultValue: false,
         }, { transaction })
       ]);
       await transaction.commit();

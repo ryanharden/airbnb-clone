@@ -329,7 +329,7 @@ textarea {
     cursor: pointer;
 }
 
-.preview-image-btn {
+/* .preview-image-btn { */
     /* background-image: url("https://d1irxr40exwge2.cloudfront.net/x-icon.png"); */
     /* opacity: .64; */
     /* width: 10px;
@@ -338,7 +338,7 @@ textarea {
     align-self: center;
     vertical-align: baseline;
     z-index: 4; */
-}
+/* } */
 
 .checkboxes {
     display: flex;

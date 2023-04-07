@@ -30,14 +30,14 @@ const loadSpot = (spot) => {
     }
 }
 
-const createSpot = (spot, spotImage) => {
+const createSpot = (spot, spotImages) => {
     return {
         type: CREATE_SPOT,
         spot
     }
 }
 
-const updateSpot = (spot) => {
+const updateSpot = (spot, spotImages) => {
     return {
         type: UPDATE_SPOT,
         spot
@@ -82,15 +82,11 @@ export const getSpotThunk = (spotId) => async (dispatch) => {
 
 // Create Spot
 export const createSpotThunk = (newSpotData, images) => async (dispatch) => {
-    // const {name, address, city, state, country, lat = 32.7157, lng = 117.1611, description, price, url } = spot
-    // console.log("store-images: ", images);
     const res = await csrfFetch("/api/spots", {
         method: "POST",
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify(newSpotData)
     });
-    // console.log("newSpotData :", newSpotData)
-
     if (res.ok) {
         const newSpot = await res.json();
         // console.log("newSpot :", newSpot)
@@ -114,38 +110,6 @@ export const createSpotThunk = (newSpotData, images) => async (dispatch) => {
     };
 };
 
-// export const createSpotThunk = (newSpotData, previewImage) => async (dispatch) => {
-//     // const {name, address, city, state, country, lat = 32.7157, lng = 117.1611, description, price, url } = spot
-//     const res = await csrfFetch("/api/spots", {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json"},
-//         body: JSON.stringify(newSpotData)
-//     });
-//     // console.log("newSpotData :", newSpotData)
-
-//     if (res.ok) {
-//         const newSpot = await res.json();
-//         // console.log("newSpot :", newSpot)
-
-//         const res2 = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
-//             method: "POST",
-//             headers: { "Content-Type": "application/json" },
-//             body: JSON.stringify({ url: previewImage , preview: true})
-//         });
-
-//         if (res2.ok) {
-//             // console.log("newSpotImage :", newSpotImage)
-//             const newSpotImage = await res2.json();
-//             // console.log("newSpotImage :", newSpotImage)
-//             newSpot.previewImage = newSpotImage.url
-//             // newSpot.SpotImages = [newSpotImage]
-//             // console.log("newSpot :", newSpot)
-//             dispatch(createSpot(newSpot));
-//             return newSpot;
-//         }
-//     };
-// };
-
 // Edit Spot
 export const updateSpotThunk = (editedSpot, spotDetails) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotDetails.id}`, {
@@ -153,10 +117,11 @@ export const updateSpotThunk = (editedSpot, spotDetails) => async (dispatch) => 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editedSpot)
     });
+    console.log("editedSpotStore: ", editedSpot);
 
     if (res.ok) {
         const updatedSpot = await res.json();
-
+        console.log("updatedSpotStore: ", updateSpot);
         const formData = new FormData();
         for (let image of spotDetails.SpotImages) {
             formData.append("images", image);
@@ -170,8 +135,9 @@ export const updateSpotThunk = (editedSpot, spotDetails) => async (dispatch) => 
 
         if (addImages.ok) {
             const images = await addImages.json();
-            const actualSpot = {...updatedSpot, ...spotDetails}
-            dispatch(createSpot(actualSpot, images));
+            const actualSpot = {...updatedSpot, ...editedSpot, ...spotDetails}
+            console.log("actualSpot: ", actualSpot);
+            dispatch(updateSpot(actualSpot, images));
             return actualSpot;
         }
     };
@@ -195,7 +161,6 @@ export const deleteImageThunk = (imageId) => async (dispatch) => {
     const res = await csrfFetch(`/api/images/${imageId}`, {
         method: "DELETE"
     });
-    // console.log("storeRes: ", res)
 
     if (res.ok) {
         dispatch(deleteImage(imageId));
@@ -208,14 +173,12 @@ export const deleteImageThunk = (imageId) => async (dispatch) => {
 }
 
 // Initial State
-
 const initialState = {
     allSpots: {},
     singleSpot: {}
 };
 
 // Reducer
-
 export default function spotReducer(state = initialState, action) {
     let newState = {...state}
     switch(action.type) {

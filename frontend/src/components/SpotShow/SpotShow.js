@@ -11,7 +11,9 @@ import pin from "../../assets/icons8-location-pin-64.png";
 import calendar from "../../assets/icons8-calendar-64.png";
 import star from "../../assets/star.png";
 import comingSoon from "../../assets/image_coming_soon.jpeg";
+import SpotAmenities from '../SpotAmenities/SpotAmenities';
 import "./SpotShow.css";
+import { restoreUser } from '../../store/session';
 
 const SpotShow = () => {
     const { spotId } = useParams();
@@ -22,7 +24,7 @@ const SpotShow = () => {
 
     // console.log(spot);
     const user = useSelector(state => state.session.user);
-
+    // console.log("user: ", user);
     const spotReviews = useSelector(state => state.Reviews.spot);
     // console.log(spotReviews);
 
@@ -51,16 +53,16 @@ const SpotShow = () => {
     return (
         <div className='spot-show-page'>
             <div className='spot-header'>
-                <h1 className='spot-name'>{spot.name}</h1>
+                <h1 className='spot-name'>{spot?.name}</h1>
                 <div className='details-edit-spot'>
                     <div className="avgStarRating-numReviews-location">
                         <div id="avgStarRating"><img id="star" src={star} alt="" />{avgSpotRating.toFixed(2)}</div>
                         <div id='period'>•</div>
                         <div id="numReviews">{spotReviewsArr.length} review(s)</div>
                         <div id='period'>•</div>
-                        <div id="city-state-country">{spot.city}, {spot.state}, {spot.country}</div>
+                        <div id="city-state-country">{spot?.city}, {spot?.state}, {spot?.country}</div>
                     </div>
-                    {user?.id == spot.ownerId &&
+                    {user?.id == spot?.ownerId &&
                         <div className='edit-delete-actions'>
                             <div className='edit-spot-button'>
                                 <i className="fa-regular fa-pen-to-square"></i>
@@ -153,9 +155,7 @@ const SpotShow = () => {
                         <div className='place-offers-header'>
                             What this place offers
                         </div>
-                        <div className='place-offers-content'>
-
-                        </div>
+                        <SpotAmenities spot={spot} />
                     </div>
                     <div className='aircover'>
                         <img className='aircover-image' src="https://a0.muscache.com/im/pictures/54e427bb-9cb7-4a81-94cf-78f19156faad.jpg" alt='aircover' />
