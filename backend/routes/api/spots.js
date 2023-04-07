@@ -641,7 +641,7 @@ router.get("/:spotId/reviews", async (req, res) => {
 
 router.post("/:spotId/bookings", requireAuth, async (req, res) => {
 
-    const { startDate, endDate } = req.body;
+    const { startDate, endDate, total, guests } = req.body;
     const spotId = +req.params.spotId;
     const userId = req.user.id;
 
@@ -710,7 +710,9 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
         spotId,
         userId,
         startDate,
-        endDate
+        endDate,
+        total,
+        guests
     });
     return res.json(newBooking)
 });

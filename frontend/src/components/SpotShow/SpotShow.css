@@ -21,8 +21,17 @@
     padding: 0 40px;
 }
 
+.single-spot-bottom {
+    display: flex;
+    justify-content: space-between;
+}
+
 .single-spot-bottom-left {
-    width: 60%;
+    width: 58.5%;
+}
+
+.single-spot-bottom-right {
+    width: 33.3%;
 }
 
 .spot-name {
@@ -400,7 +409,13 @@ h4 {
 }
 
 .prof-pic-hosted {
+    margin-bottom: -10px;
     margin-right: -10px;
     height: 73px;
     width: 73px;
+}
+
+.show-reviews-link {
+    color: black;
+    
 }

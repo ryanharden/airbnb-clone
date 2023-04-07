@@ -83,7 +83,7 @@ const SpotReviews = () => {
                                     <path d="M15.094 1.579l-4.124 8.885-9.86 1.27a1 1 0 0 0-.542 1.736l7.293 6.565-1.965 9.852a1 1 0 0 0 1.483 1.061L16 25.951l8.625 4.997a1 1 0 0 0 1.482-1.06l-1.965-9.853 7.293-6.565a1 1 0 0 0-.541-1.735l-9.86-1.271-4.127-8.885a1 1 0 0 0-1.814 0z" fillRule="evenodd"></path>
                                 </svg>{avgSpotRating.toFixed(2)}</div>
                                 <div id='review-period'>•</div>
-                                <div id="numReviewsBig">{spotReviewsArr.length} review(s)</div>
+                                <div id="numReviewsBig">{spotReviewsArr.length} {spotReviewsArr.length === 1 ? 'review' : 'reviews'}</div>
                             </div>
                             {user?.id !== spot?.ownerId && <div className='create-review-modal-button'>
                                 <img className='review-icon' src="https://cdn-icons-png.flaticon.com/512/2983/2983706.png" alt="review-icon" />
