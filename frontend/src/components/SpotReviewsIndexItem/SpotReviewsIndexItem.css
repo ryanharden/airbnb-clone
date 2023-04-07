@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    grid-column-gap: 100px;
+    /* grid-column-gap: 100px; */
     grid-row-gap: 30px;
     max-height: 550px;
     margin-bottom: 25px
@@ -12,7 +12,9 @@
 .spot-review-item-container {
     display: flex;
     flex-direction: column;
-    padding: 15px 0px;;
+    padding: 15px 0px;
+    margin-right: 94px;
+    width: 80%;
 }
 
 /* .spot-review-item-container:hover {
@@ -78,7 +80,7 @@
 
 .delete-review-container {
     margin-top: -15px;
-    margin-right: 10px;
+    /* margin-right: 10px; */
     display: flex;
     cursor: pointer;
     /* justify-content: flex-end; */
@@ -96,5 +98,3 @@
     cursor: pointer;
     box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
 }
-
-

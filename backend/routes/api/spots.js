@@ -17,9 +17,9 @@ const validateReview = [
     check("review")
         .notEmpty()
         .withMessage("Review text is required"),
-    check("stars")
-        .isInt({ min: 1, max: 5 })
-        .withMessage("Stars must be an integer from 1 and 5"),
+    // check("stars")
+    //     .isInt({ min: 1, max: 5 })
+    //     .withMessage("Stars must be an integer from 1 and 5"),
     handleValidationErrors
 ];
 
@@ -200,20 +200,34 @@ router.get("/", async (req, res) => {
             where: {
                 spotId: spot.id
             },
-            attributes: ["stars"]
+            attributes: ["cleanliness", "communication", "checkin", "accuracy", "location", "value"]
         });
 
-        let stars = 0;
-        reviews.forEach(review => {
-            stars += review.stars
-        });
+        let sumOfReviewAverages = 0;
+        if (reviews.length > 0) {
+            reviews.forEach((review) => {
+                let reviewAverage = (
+                    review.cleanliness +
+                    review.accuracy +
+                    review.communication +
+                    review.location +
+                    review.checkin +
+                    review.value
+                ) / 6;
 
-        const avgStars = stars/reviews.length;
+                sumOfReviewAverages += reviewAverage;
+            });
+        }
 
-        if (!avgStars) {
+        let avgSpotRating = 0;
+        if (reviews.length > 0) {
+            avgSpotRating = sumOfReviewAverages / reviews.length;
+        }
+
+        if (!avgSpotRating) {
             spot.avgRating = "This is a new spot, no reviews yet!"
         } else {
-            spot.avgRating = avgStars;
+            spot.avgRating = avgSpotRating;
         };
 
         allSpots.push(spot);
@@ -391,25 +405,25 @@ router.get("/:spotId", async (req, res) => {
             where: { spotId: spot.id}
         })
 
-        const reviews = await Review.findAll({
-            where: {
-                spotId: spot.id
-            },
-            attributes: ["stars"]
-        });
+        // const reviews = await Review.findAll({
+        //     where: {
+        //         spotId: spot.id
+        //     },
+        //     attributes: ["stars"]
+        // });
 
-        let stars = 0;
-        reviews.forEach(review => {
-            stars += review.stars
-        });
+        // let stars = 0;
+        // reviews.forEach(review => {
+        //     stars += review.stars
+        // });
 
-        const avgStars = stars/reviews.length;
+        // const avgStars = stars/reviews.length;
 
-        if (!avgStars) {
-            spot.avgRating = "This is a new spot, no reviews yet!"
-        } else {
-            spot.avgRating = avgStars;
-        };
+        // if (!avgStars) {
+        //     spot.avgRating = "This is a new spot, no reviews yet!"
+        // } else {
+        //     spot.avgRating = avgStars;
+        // };
 
         return res.json({
             id: spot.id,
@@ -426,7 +440,7 @@ router.get("/:spotId", async (req, res) => {
             createdAt: spot.createdAt,
             updatedAt: spot.updatedAt,
             numReviews: numReviews,
-            avgStarRating: avgStars,
+            // avgStarRating: avgStars,
             SpotImages: spot.SpotImages,
             Owner: spot.Owner,
             category: spot.category,
@@ -552,7 +566,7 @@ router.put("/:spotId", validateSpot,requireAuth, async (req, res) => {
 
 router.post("/:spotId/reviews", validateReview, requireAuth, async (req, res) => {
     const spotId  = +req.params.spotId;
-    const { review, stars } = req.body;
+    const { review, cleanliness, communication, checkin, accuracy, location, value } = req.body;
     const spot = await Spot.findByPk(spotId);
 
     if (!spot) {
@@ -582,7 +596,12 @@ router.post("/:spotId/reviews", validateReview, requireAuth, async (req, res) =>
         userId,
         spotId,
         review,
-        stars
+        cleanliness,
+        communication,
+        checkin,
+        accuracy,
+        location,
+        value
     });
     return res.json(newReview)
 });

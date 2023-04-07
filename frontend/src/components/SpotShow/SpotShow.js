@@ -13,6 +13,7 @@ import star from "../../assets/star.png";
 import comingSoon from "../../assets/image_coming_soon.jpeg";
 import SpotAmenities from '../SpotAmenities/SpotAmenities';
 import profPic from "../../assets/prof-pic.jpeg";
+import RatingBars from '../RatingBars/RatingBars';
 import "./SpotShow.css";
 
 
@@ -44,13 +45,25 @@ const SpotShow = () => {
 
     if (!Object.values(spot).length) return null;
 
-    let avgSpotRating = 0;
-
+    let sumOfReviewAverages = 0;
     if (spotReviewsArr.length > 0) {
-        spotReviewsArr.forEach(review => {
-            avgSpotRating += review.stars;
-        })
-        avgSpotRating = avgSpotRating / spotReviewsArr.length
+        spotReviewsArr.forEach((review) => {
+            let reviewAverage = (
+                review.cleanliness +
+                review.accuracy +
+                review.communication +
+                review.location +
+                review.checkin +
+                review.value
+            ) / 6;
+
+            sumOfReviewAverages += reviewAverage;
+        });
+    }
+
+    let avgSpotRating = 0;
+    if (spotReviewsArr.length > 0) {
+        avgSpotRating = sumOfReviewAverages / spotReviewsArr.length;
     }
 
     return (
@@ -59,7 +72,9 @@ const SpotShow = () => {
                 <h1 className='spot-name'>{spot?.name}</h1>
                 <div className='details-edit-spot'>
                     <div className="avgStarRating-numReviews-location">
-                        <div id="avgStarRating"><img id="star" src={star} alt="" />{avgSpotRating.toFixed(2)}</div>
+                        <div id="avgStarRating"><svg className={"main-star"} viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" height={"14px"} width={"14px"} fill="#222222" display={"inline-block"}>
+                            <path d="M15.094 1.579l-4.124 8.885-9.86 1.27a1 1 0 0 0-.542 1.736l7.293 6.565-1.965 9.852a1 1 0 0 0 1.483 1.061L16 25.951l8.625 4.997a1 1 0 0 0 1.482-1.06l-1.965-9.853 7.293-6.565a1 1 0 0 0-.541-1.735l-9.86-1.271-4.127-8.885a1 1 0 0 0-1.814 0z" fillRule="evenodd"></path>
+                        </svg>{avgSpotRating.toFixed(2)}</div>
                         <div id='period'>•</div>
                         <div id="numReviews">{spotReviewsArr.length} review(s)</div>
                         <div id='period'>•</div>

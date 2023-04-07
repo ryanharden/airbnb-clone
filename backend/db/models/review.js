@@ -36,9 +36,43 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    stars: {
+    cleanliness: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      validate: {
+        min: 0,
+        max: 5
+      }
+    },
+    communication: {
+      type: DataTypes.INTEGER,
+      validate: {
+        min: 0,
+        max: 5
+      }
+    },
+    checkin: {
+      type: DataTypes.INTEGER,
+      validate: {
+        min: 0,
+        max: 5
+      }
+    },
+    accuracy: {
+      type: DataTypes.INTEGER,
+      validate: {
+        min: 0,
+        max: 5
+      }
+    },
+    location: {
+      type: DataTypes.INTEGER,
+      validate: {
+        min: 0,
+        max: 5
+      }
+    },
+    value: {
+      type: DataTypes.INTEGER,
       validate: {
         min: 0,
         max: 5

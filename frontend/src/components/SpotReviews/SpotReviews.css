@@ -1,6 +1,7 @@
 .spot-reviews-container {
     display: flex;
     flex-direction: column;
+    border-top: solid 1px rgba(0,0,0,0.15);
 }
 
 .spot-reviews-header {
@@ -9,7 +10,7 @@
     padding-bottom: 15px;
     align-items: flex-end;
     justify-content: space-between;
-    border-top: solid 1px rgba(0,0,0,0.15);
+    width: 90%;
 }
 
 .avgStarRating-numReviews {
@@ -24,9 +25,12 @@
     padding-right: 5px;
 }
 
-#review-star {
+/* #review-star {
     margin-left: -4px;
     padding-right: 3px;
+} */
+.main-star-reviews {
+    margin-right: 8px;
 }
 
 #review-period {
@@ -39,6 +43,7 @@
     padding-top: 38px;
     padding-bottom: 0px;
     display: flex;
+    /* margin-right: 112px; */
 }
 
 .OpenModalButton.create-review-modal {

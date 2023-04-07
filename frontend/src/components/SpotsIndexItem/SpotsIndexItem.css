@@ -61,8 +61,12 @@
     font-size: 14.5px;
 }
 
-#star {
+/* #star {
     height: 17px
+} */
+
+.main-star-spot-item {
+    margin-right: 4px;
 }
 
 #price {

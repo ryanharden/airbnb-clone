@@ -22,7 +22,7 @@
 }
 
 .single-spot-bottom-left {
-    width: 50vw;
+    width: 60%;
 }
 
 .spot-name {
@@ -137,10 +137,13 @@
     text-decoration: underline;
 }
 
-#star {
+/* #star {
     margin-left: -4px;
     height: 20px;
     margin-top: -0.5px;
+} */
+.main-star {
+    margin-right: 4px;
 }
 
 #period {
