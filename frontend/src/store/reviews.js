@@ -1,3 +1,4 @@
+import EditReview from "../components/EditReviewForm/EditReview";
 import { csrfFetch } from "./csrf";
 
 // Constant Action Variables
@@ -7,6 +8,8 @@ const LOAD_SPOT_REVIEWS = "/reviews/loadSpotReviews";
 const LOAD_USER_REVIEWS = "/reviews/loadUserReviews";
 
 const CREATE_REVIEW = "/reviews/createReview";
+
+const EDIT_REVIEW = "REVIEWS/EDIT_REVIEW";
 
 const DELETE_REVIEW = "/reviews/deleteReview";
 
@@ -32,6 +35,11 @@ const createReview = (review) => {
         review
     }
 };
+
+const editReview = (review) => ({
+    type: EDIT_REVIEW,
+    review
+});
 
 const deleteReview = (reviewId) => {
     return {
@@ -80,6 +88,25 @@ export const createReviewThunk = (spotId, newReview, reviewDetails) => async (di
         return review
     }
 };
+
+// Edit Review
+export const editReviewThunk = (newReviewData, reviewDetails) => async (dispatch) => {
+    // console.log("newReviewData: ", newReviewData);
+    // console.log("reviewDetails: ", reviewDetails);
+    const res = await csrfFetch(`/api/reviews/${reviewDetails.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newReviewData)
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        const review = {...data, ...reviewDetails}
+        // console.log("reviewStore: ", review);
+        dispatch(editReview(review));
+        return review
+    }
+}
 
 export const deleteReviewThunk = (reviewId) => async (dispatch) => {
     const res = await csrfFetch(`/api/reviews/${reviewId}`, {
@@ -133,6 +160,11 @@ export default function reviewReducer(state = initialState, action) {
             //         [action.review.id]: action.review
             //     }
             // };
+
+        // Edit review
+        case EDIT_REVIEW:
+            newState.spot = { ...state.spot, [action.review.id]: action.review}
+            return newState
 
         // Delete Review
         case DELETE_REVIEW:

@@ -11,9 +11,9 @@ const validateReview = [
     check("review")
     .notEmpty()
     .withMessage("Review text is required"),
-    check("stars")
-    .isInt({ min: 1, max: 5 })
-    .withMessage("Stars must be an integer from 1 and 5"),
+    // check("stars")
+    // .isInt({ min: 1, max: 5 })
+    // .withMessage("Stars must be an integer from 1 and 5"),
     handleValidationErrors
 ];
 
@@ -116,7 +116,7 @@ router.get("/current", requireAuth, async (req, res) => {
 
 router.put("/:reviewId", validateReview, requireAuth, async (req, res) => {
     const reviewId = +req.params.reviewId;
-    const { review, stars } = req.body;
+    const { review, cleanliness, communication, checkin, accuracy, location, value } = req.body;
     const oldReview = await Review.findByPk(reviewId);
 
     if (!oldReview) {
@@ -128,7 +128,12 @@ router.put("/:reviewId", validateReview, requireAuth, async (req, res) => {
     } else if (oldReview.userId === +req.user.id) {
         await oldReview.update({
             review,
-            stars
+            cleanliness,
+            communication,
+            checkin,
+            accuracy,
+            location,
+            value
         });
         return res.json(oldReview);
     } else {

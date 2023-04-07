@@ -1,29 +1,25 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from "../../context/Modal";
-import { createReviewThunk } from '../../store/reviews';
+import { editReviewThunk } from '../../store/reviews';
 import star from "../../assets/star.256x244.png";
 import emptyStar from "../../assets/star-outline.256x244.png";
 // import { useParams } from 'react-router-dom';
-import './CreateReviewForm.css';
+import './EditReview.css';
 
-const CreateReview = () => {
+const EditReview = ({review}) => {
     const dispatch = useDispatch();
-    // const history = useHistory();
-    // const { spotId } = useParams();
-    // const star =
-    // const emptyStar = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 5.173l2.335 4.817 5.305.732-3.861 3.71.942 5.27-4.721-2.524-4.721 2.525.942-5.27-3.861-3.71 5.305-.733 2.335-4.817zm0-4.586l-3.668 7.568-8.332 1.151 6.064 5.828-1.48 8.279 7.416-3.967 7.416 3.966-1.48-8.279 6.064-5.827-8.332-1.15-3.668-7.569z"/></svg>
-    const [review, setReview] = useState('');
-    // const [stars, setStars] = useState(0);
+
+    const [reviewBody, setReviewBody] = useState(review.review);
     const [errors, setErrors] = useState([]);
 
 
-    const [cleanliness, setCleanliness] = useState(0);
-    const [communication, setCommunication] = useState(0);
-    const [checkin, setCheckin] = useState(0);
-    const [accuracy, setAccuracy] = useState(0);
-    const [location, setLocation] = useState(0);
-    const [value, setValue] = useState(0);
+    const [cleanliness, setCleanliness] = useState(review.cleanliness);
+    const [communication, setCommunication] = useState(review.communication);
+    const [checkin, setCheckin] = useState(review.checkin);
+    const [accuracy, setAccuracy] = useState(review.accuracy);
+    const [location, setLocation] = useState(review.location);
+    const [value, setValue] = useState(review.value);
 
     const { closeModal } = useModal();
     const currentUser = useSelector(state => state.session.user);
@@ -45,7 +41,7 @@ const CreateReview = () => {
         }
 
         const newReviewData = {
-            review,
+            review: reviewBody,
             cleanliness,
             communication,
             checkin,
@@ -54,12 +50,17 @@ const CreateReview = () => {
             value
         };
 
+        const { id } = review;
+
         const reviewDetails = {
+            id,
             User: currentUser,
-            // ReviewImages: []
+            userId: currentUser.id,
+            spotId: spot.id,
         };
 
-        dispatch(createReviewThunk(spotId, newReviewData, reviewDetails))
+
+        dispatch(editReviewThunk(newReviewData, reviewDetails))
             // .then(() => history.push(`/spot/${spotId}`))
             .then(closeModal())
             .catch(async (res) => {
@@ -72,7 +73,7 @@ const CreateReview = () => {
         <>
             <div className='spot-form-header-container'>
                 <div className='spot-form-header'>
-                    <h1>Create a review</h1>
+                    <h1>Edit a review</h1>
                 </div>
                 <div onClick={(e) => closeModal()} className='close-modal-x'>
                     <i className="fa-solid fa-xmark fa-lg"></i>
@@ -207,22 +208,14 @@ const CreateReview = () => {
                         type="text"
                         placeholder="Tell us about your stay"
                         required
-                        value={review}
-                        onChange={(e) => setReview(e.target.value)}
+                        value={reviewBody}
+                        onChange={(e) => setReviewBody(e.target.value)}
                     />
-                    {/* <select className='review-form-stars' value={stars} onChange={(e) => setStars(parseInt(e.target.value))}>
-                        <option value=''>Stars</option>
-                        <option value={1}>1</option>
-                        <option value={2}>2</option>
-                        <option value={3}>3</option>
-                        <option value={4}>4</option>
-                        <option value={5}>5</option>
-                    </select> */}
-                    <button className='review-form-button' type="submit">Create New Review</button>
+                    <button className='review-form-button' type="submit">Save</button>
                 </form>
             </div>
         </>
     )
 }
 
-export default CreateReview;
+export default EditReview;

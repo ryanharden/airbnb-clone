@@ -3,6 +3,8 @@ import profPic from "../../assets/prof-pic.jpeg";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteReviewThunk } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
+import OpenModalButton from "../OpenModalButton";
+import EditReview from "../EditReviewForm/EditReview";
 
 const SpotReviewsIndexItem = ({ review, spot }) => {
     const { closeModal } = useModal();
@@ -30,8 +32,12 @@ const SpotReviewsIndexItem = ({ review, spot }) => {
                     </div>
                     {currentUser && currentUser.id === review.userId && (
                         <div className="edit-delete-review-container">
-                            <div className="edit-review-container">
-                                <i className="fa-solid fa-file-pen"></i>
+                             <div className="edit-review-container">
+                                <OpenModalButton
+                                    className="edit-review-button"
+                                    modalComponent={<EditReview review={review} />}
+                                    buttonText={<i className="fa-solid fa-file-pen fa-lg"></i>}
+                                />
                             </div>
                             <div onClick={() => dispatch(deleteReviewThunk(review.id))} className="delete-review-container">
                                 <i className="fa-solid fa-trash-can"></i>

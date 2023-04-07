@@ -1,7 +1,7 @@
 import "./SpotAmenities.css";
 
 const SpotAmenities = ({spot}) => {
-    console.log("spotA: ", spot);
+    // console.log("spotA: ", spot);
 
     const { wifi, parking, kitchen, pets, washer, dryer } = spot;
 
