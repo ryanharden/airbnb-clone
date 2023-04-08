@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import './TripsPage.css'
 import { useNavigate } from 'react-router-dom';
 import { deleteBookingThunk, getUserBookingsThunk } from '../../store/bookings';
+import { getSpotsThunk } from '../../store/spots';
+import SpotIndexItem from '../SpotsIndexItem/SpotIndexItem';
 
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -17,12 +19,18 @@ const TripsPage = () => {
     // let photo = null;
 
     const bookings = useSelector(state => state.Bookings.allBookings);
-    // const spots = useSelector(state => state.Spots.allSpots);
+    const allSpots = useSelector((state) => state.Spots.allSpots);
+    const allSpotsArr = Object.values(allSpots);
     const bookingsArr = Object.values(bookings);
 
+    const first6Spots = allSpotsArr.slice(0, 6);
+
+    const spotRecs = first6Spots.map((spot) => {
+        return <SpotIndexItem key={spot.id} spot={spot} />
+    });
 
     useEffect(() => {
-        // dispatch(getSpotsThunk())
+        dispatch(getSpotsThunk())
         dispatch(getUserBookingsThunk());
     }, [dispatch])
 
@@ -84,6 +92,22 @@ const TripsPage = () => {
         return <BookingItem key={booking.id} booking={booking} spot={booking.Spot} />
     })
 
+    if (!bookingsArr.length)
+        return (
+            <div className='trips-page-container'>
+                <div className='trips-page-header'>
+                    No trips are booked yet!
+                </div>
+                <div className='no-bookings-header'>
+                    Recommended spots for you
+                </div>
+                <div className='spot-recs-container'>
+                    <ul className="spots-wrapper">
+                        {spotRecs}
+                    </ul>
+                </div>
+            </div>
+        )
     return (
         <div className='trips-page-container'>
             <div className='trips-page-header'>

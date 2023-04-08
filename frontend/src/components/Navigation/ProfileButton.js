@@ -66,7 +66,7 @@ function ProfileButton({ user }) {
                                 <li className="username"><span className="item-def">Username: </span>{user?.username}</li>
                                 <li><span className="item-def">Name: </span>{user?.firstName} {user.lastName}</li>
                                 <li><span className="item-def">Email: </span>{user?.email}</li>
-                                <li><Link to={"/bookings/current"} className="trips-link">My Trips</Link></li>
+                                <li><Link onClick={closeMenu} to={"/bookings/current"} className="trips-link">My Trips</Link></li>
                                 <li><OpenModalButton className="add-spot-li-button"
                                     modalComponent={<CreateSpot />}
                                     onItemClick={closeMenu}

@@ -105,7 +105,7 @@ export default function bookingReducer(state = initialState, action) {
     let newState = { ...state };
     switch (action.type) {
         case LOAD_BOOKINGS:
-            newState = { allBookings: {} };
+            newState.allBookings = {};
             action.bookings.Bookings.forEach((booking) => {
                 newState.allBookings[booking.id] = booking;
             });
