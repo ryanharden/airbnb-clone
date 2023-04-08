@@ -43,7 +43,7 @@ export const getUserBookingsThunk = () => async (dispatch) => {
 
 // Get All Bookings for a Spot
 export const getBookingsForSpotThunk = (spotId) => async (dispatch) => {
-    const res = await csrfFetch(`/api/bookings/${spotId}/bookings`);
+    const res = await csrfFetch(`/api/spots/${spotId}/bookings`);
     if (res.ok) {
         const bookings = await res.json();
         dispatch(loadBookingsForSpot(spotId, bookings));

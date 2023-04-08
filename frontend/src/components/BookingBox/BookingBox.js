@@ -28,7 +28,6 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
         setTotal(spot.price * numDays + parseInt(spot.price * numDays * 0.12) + parseInt(spot.price * numDays * 0.08));
     }, [numDays])
 
-
     const handleStartChange = (e) => {
         const startValue = e.target.value;
         const startYear = parseInt(startValue.split('-')[0])
@@ -54,16 +53,16 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
             }, 300);
             return
         } else {
-            // for (let i = 0; i < reservedDates.length; i++) {
-            //     let resDay = new Date(reservedDates[i]).getTime();
-            //     if (resDay > startDate.getTime() - 8640000 && resDay < endDate.getTime()) {
-            //         setShake(!shake);
-            //         setTimeout(() => {
-            //             setShake(false)
-            //         },300);
-            //         return
-            //     }
-            // }
+            for (let i = 0; i < reservedDates.length; i++) {
+                let resDay = new Date(reservedDates[i]).getTime();
+                if (resDay > startDate.getTime() - 8640000 && resDay < endDate.getTime()) {
+                    setShake(!shake);
+                    setTimeout(() => {
+                        setShake(false)
+                    }, 300);
+                    return
+                }
+            }
             let timeout1;
             let timeout2;
             let timeout3;

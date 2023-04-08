@@ -14,6 +14,7 @@ import comingSoon from "../../assets/image_coming_soon.jpeg";
 import SpotAmenities from '../SpotAmenities/SpotAmenities';
 import profPic from "../../assets/prof-pic.jpeg";
 import BookingBox from '../BookingBox/BookingBox';
+import { getBookingsForSpotThunk } from '../../store/bookings';
 import "./SpotShow.css";
 
 
@@ -43,11 +44,7 @@ const SpotShow = () => {
     const { spotId } = useParams();
     const spot = useSelector(state => state.Spots.singleSpot);
     const dispatch = useDispatch();
-    // const [avgRating, setAvgRating] = useState(0);
-    // const history = useHistory();
-    // const goToReviews = () => {
 
-    // }
     // console.log(spot);
     const user = useSelector(state => state.session.user);
     // console.log("user: ", user);
@@ -56,10 +53,10 @@ const SpotShow = () => {
 
     const spotReviewsArr = Object.values(spotReviews);
     const spotBookings = useSelector(state => state.Bookings.bookingsBySpot);
-    // const spotBookingsArr = Object.values(spotBookings);
-    // console.log(spotReviewsArr)
+    const spotBookingsArr = Object.values(spotBookings);
+    console.log("spotBookingsArr: ", spotBookingsArr)
+    console.log("spotBookings: ", spotBookings);
 
-    // console.log(spot);
     const [shake, setShake] = useState(false);
     const [resSuccess1, setResSuccess1] = useState(false);
     const [resSuccess2, setResSuccess2] = useState(false);
@@ -75,11 +72,29 @@ const SpotShow = () => {
 
     const [endDate, setEndDate] = useState(new Date(startDate.getFullYear(), endMonth, endDay));
     const [value, onChange] = useState([startDate, endDate]);
+    // const flattenedSpotBookingsArr = [].concat(...spotBookingsArr);
 
+    // const reservedDates = flattenedSpotBookingsArr.map(booking => {
+    //     if (booking.startDate && booking.endDate) {
+    //         return {
+    //             startDate: new Date(new Date(booking.startDate).toISOString().substring(0, 10)),
+    //             endDate: new Date(new Date(booking.endDate).toISOString().substring(0, 10))
+    //         };
+    //     } else {
+    //         return null;
+    //     }
+    // }).filter(dateRange => dateRange !== null);
+
+
+    // console.log("reservedDates: ", reservedDates);
     useEffect(() => {
         dispatch(getSpotThunk(spotId))
         // .catch(() => history.push("/"))
     }, [dispatch, spotId])
+
+    useEffect(() => {
+        dispatch(getBookingsForSpotThunk(spotId));
+    }, [dispatch, spotId]);
 
     useEffect(() => {
         if (dayOverage < startDate.getDate()) {
