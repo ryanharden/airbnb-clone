@@ -5,13 +5,14 @@ import { createBookingThunk } from '../../store/bookings';
 import { useNavigate } from 'react-router-dom';
 import { Modal } from '../../context/Modal';
 
-const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDays, setNumDays, spotBookings, avgSpotRating, reviews, reservedDates, resSuccess1, setResSuccess1, resSuccess2, setResSuccess2, resSuccess3, setResSuccess3 }) => {
+const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDays, setNumDays, padNumber, avgSpotRating, reviews, reservedDates, resSuccess1, setResSuccess1, resSuccess2, setResSuccess2, resSuccess3, setResSuccess3 }) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector(state => state.session.user);
 
     const [guests, setGuests] = useState(1);
+    const [datesReserved, setDatesReserved] = useState(false);
 
     const [shake, setShake] = useState(false);
     const [total, setTotal] = useState(spot.price * numDays + parseInt(spot.price * numDays * 0.12) + parseInt(spot.price * numDays * 0.08));
@@ -28,6 +29,23 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
         setTotal(spot.price * numDays + parseInt(spot.price * numDays * 0.12) + parseInt(spot.price * numDays * 0.08));
     }, [numDays])
 
+    useEffect(() => {
+        let tempDate = new Date(startDate);
+        setDatesReserved(false);
+        while (tempDate <= endDate) {
+            if (isDateReserved(tempDate)) {
+                setDatesReserved(true);
+                break;
+            }
+            tempDate.setDate(tempDate.getDate() + 1);
+        }
+    }, [startDate, endDate, reservedDates]);
+
+    const isDateReserved = (date) => {
+        const formattedDate = `${date.getFullYear()}-${padNumber(date.getMonth() + 1)}-${padNumber(date.getDate())}`;
+        return reservedDates.includes(formattedDate);
+    };
+    
     const handleStartChange = (e) => {
         const startValue = e.target.value;
         const startYear = parseInt(startValue.split('-')[0])
@@ -211,12 +229,13 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
                                 value="16">16 guests</option>
                         </select>
                         {user.id == spot.ownerId ?
-                            <button disabled className='floating-box-button'>Cant Reserve Own Spot</button> :
+                            <button id={shake ? "shake" : ""} disabled className='floating-box-button'>Cant Reserve Own Spot</button> :
                             <button type='submit'
                                 className='floating-box-button'
                                 id={shake ? 'shake' : ''}
+                                disabled={datesReserved}
                             >
-                                Reserve
+                                {datesReserved ? "Days already booked" : "Reserve"}
                             </button>
                         }
                     </form>

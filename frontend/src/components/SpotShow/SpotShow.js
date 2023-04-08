@@ -72,24 +72,36 @@ const SpotShow = () => {
 
     const [endDate, setEndDate] = useState(new Date(startDate.getFullYear(), endMonth, endDay));
     const [value, onChange] = useState([startDate, endDate]);
-    // const flattenedSpotBookingsArr = [].concat(...spotBookingsArr);
-
-    // const reservedDates = flattenedSpotBookingsArr.map(booking => {
-    //     if (booking.startDate && booking.endDate) {
-    //         return {
-    //             startDate: new Date(new Date(booking.startDate).toISOString().substring(0, 10)),
-    //             endDate: new Date(new Date(booking.endDate).toISOString().substring(0, 10))
-    //         };
-    //     } else {
-    //         return null;
-    //     }
-    // }).filter(dateRange => dateRange !== null);
 
 
-    // console.log("reservedDates: ", reservedDates);
+    function parseDate(dateString) {
+        const [year, month, day] = dateString.split('-').map(Number);
+        return new Date(year, month - 1, day);
+    }
+
+    function padNumber(number) {
+        return number.toString().padStart(2, '0');
+    }
+
+    const reservedDates = [];
+
+    if (spotBookingsArr.length) {
+        spotBookingsArr.forEach((bookingObj) => {
+            Object.values(bookingObj).forEach((booking) => {
+                let start = parseDate(booking.startDate);
+                let end = parseDate(booking.endDate);
+                while (start <= end) {
+                    reservedDates.push(`${start.getFullYear()}-${padNumber(start.getMonth() + 1)}-${padNumber(start.getDate())}`);
+                    start.setDate(start.getDate() + 1);
+                }
+            });
+        });
+    }
+    console.log("reservedDates: ", reservedDates);
+
+
     useEffect(() => {
         dispatch(getSpotThunk(spotId))
-        // .catch(() => history.push("/"))
     }, [dispatch, spotId])
 
     useEffect(() => {
@@ -260,6 +272,7 @@ const SpotShow = () => {
                 </div>
                 <div className='single-spot-bottom-right'>
                     <BookingBox spot={spot}
+                        padNumber={padNumber}
                         startDate={startDate}
                         setStartDate={setStartDate}
                         endDate={endDate}
@@ -269,7 +282,7 @@ const SpotShow = () => {
                         reviews={spotReviewsArr}
                         spotBookings={spotBookings}
                         avgSpotRating={avgSpotRating}
-                        // reservedDates={reservedDates}
+                        reservedDates={reservedDates}
                         resSuccess1={resSuccess1}
                         setResSuccess1={setResSuccess1}
                         resSuccess2={resSuccess2}

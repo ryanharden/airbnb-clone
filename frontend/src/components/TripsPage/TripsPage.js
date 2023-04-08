@@ -111,7 +111,7 @@ const TripsPage = () => {
     return (
         <div className='trips-page-container'>
             <div className='trips-page-header'>
-                Trips
+                Where you've been
             </div>
             {bookingItems}
         </div>
