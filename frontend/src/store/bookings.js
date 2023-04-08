@@ -44,6 +44,7 @@ export const getUserBookingsThunk = () => async (dispatch) => {
 // Get All Bookings for a Spot
 export const getBookingsForSpotThunk = (spotId) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}/bookings`);
+    // console.log("spotId: ", spotId);
     if (res.ok) {
         const bookings = await res.json();
         dispatch(loadBookingsForSpot(spotId, bookings));
@@ -112,9 +113,11 @@ export default function bookingReducer(state = initialState, action) {
             return newState;
         case LOAD_BOOKINGS_FOR_SPOT:
             newState.bookingsBySpot[action.spotId] = {};
-            action.bookings.Bookings.forEach((booking) => {
-                newState.bookingsBySpot[action.spotId][booking.id] = booking;
-            });
+            if (action.bookings.Bookings.length > 0) {
+                action.bookings.Bookings.forEach((booking) => {
+                    newState.bookingsBySpot[action.spotId][booking.id] = booking;
+                });
+            }
             return newState;
         case CREATE_BOOKING:
             newState.allBookings = {

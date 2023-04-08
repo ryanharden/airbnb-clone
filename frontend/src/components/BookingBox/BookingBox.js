@@ -45,7 +45,7 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
         const formattedDate = `${date.getFullYear()}-${padNumber(date.getMonth() + 1)}-${padNumber(date.getDate())}`;
         return reservedDates.includes(formattedDate);
     };
-    
+
     const handleStartChange = (e) => {
         const startValue = e.target.value;
         const startYear = parseInt(startValue.split('-')[0])
@@ -64,8 +64,8 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (numDays === 0) {
-            setShake(!shake);
+        if (numDays === 0 || datesReserved || user.id == spot.ownerId) {
+            setShake(true);
             setTimeout(() => {
                 setShake(false)
             }, 300);
@@ -157,83 +157,21 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
                             </div>
                         </div>
                         <span className='floatbox-guests-span'>GUESTS</span>
-                        <select
-                            value={guests}
-                            onChange={(e) => (setGuests(e.target.value))}
-                            className='floating-box-guests'
-                        >
-                            <option
-                                disabled={spot.guests < 1 ? 'disabled' : ''}
-                                hidden={spot.guests < 1 ? 'hidden' : ''}
-                                value="1">1 guest</option>
-                            <option
-                                disabled={spot.guests < 2 ? 'disabled' : ''}
-                                hidden={spot.guests < 2 ? 'hidden' : ''}
-
-                                value="2">2 guests</option>
-                            <option
-                                disabled={spot.guests < 3 ? 'disabled' : ''}
-                                hidden={spot.guests < 3 ? 'hidden' : ''}
-                                value="3">3 guests</option>
-                            <option
-                                disabled={spot.guests < 4 ? 'disabled' : ''}
-                                hidden={spot.guests < 4 ? 'hidden' : ''}
-                                value="4">4 guests</option>
-                            <option
-                                disabled={spot.guests < 5 ? 'disabled' : ''}
-                                hidden={spot.guests < 5 ? 'hidden' : ''}
-                                value="5">5 guests</option>
-                            <option
-                                disabled={spot.guests < 6 ? 'disabled' : ''}
-                                hidden={spot.guests < 6 ? 'hidden' : ''}
-                                value="6">6 guests</option>
-                            <option
-                                disabled={spot.guests < 7 ? 'disabled' : ''}
-                                hidden={spot.guests < 7 ? 'hidden' : ''}
-                                value="7">7 guests</option>
-                            <option
-                                disabled={spot.guests < 8 ? 'disabled' : ''}
-                                hidden={spot.guests < 8 ? 'hidden' : ''}
-                                value="8">8 guests</option>
-                            <option
-                                disabled={spot.guests < 9 ? 'disabled' : ''}
-                                hidden={spot.guests < 9 ? 'hidden' : ''}
-                                value="9">9 guests</option>
-                            <option
-                                disabled={spot.guests < 10 ? 'disabled' : ''}
-                                hidden={spot.guests < 10 ? 'hidden' : ''}
-                                value="10">10 guests</option>
-                            <option
-                                disabled={spot.guests < 11 ? 'disabled' : ''}
-                                hidden={spot.guests < 11 ? 'hidden' : ''}
-                                value="11">11 guests</option>
-                            <option
-                                disabled={spot.guests < 12 ? 'disabled' : ''}
-                                hidden={spot.guests < 12 ? 'hidden' : ''}
-                                value="12">12 guests</option>
-                            <option
-                                disabled={spot.guests < 13 ? 'disabled' : ''}
-                                hidden={spot.guests < 13 ? 'hidden' : ''}
-                                value="13">13 guests</option>
-                            <option
-                                disabled={spot.guests < 14 ? 'disabled' : ''}
-                                hidden={spot.guests < 14 ? 'hidden' : ''}
-                                value="14">14 guests</option>
-                            <option
-                                disabled={spot.guests < 15 ? 'disabled' : ''}
-                                hidden={spot.guests < 15 ? 'hidden' : ''}
-                                value="15">15 guests</option>
-                            <option
-                                disabled={spot.guests < 16 ? 'disabled' : ''}
-                                hidden={spot.guests < 16 ? 'hidden' : ''}
-                                value="16">16 guests</option>
+                        <select value={guests} onChange={(e) => (setGuests(e.target.value))} className='floating-box-guests' >
+                            {[...Array(spot.guests).keys()].map((_, index) => {
+                                const numGuests = index + 1;
+                                return (
+                                    <option key={numGuests} value={numGuests}>
+                                        {numGuests} guest{numGuests > 1 ? 's' : ''}
+                                    </option>
+                                );
+                            })}
                         </select>
                         {user.id == spot.ownerId ?
-                            <button id={shake ? "shake" : ""} disabled className='floating-box-button'>Cant Reserve Own Spot</button> :
+                            <button id={shake ? "shake" : ""} className='floating-box-button'>Cant Reserve Own Spot</button> :
                             <button type='submit'
                                 className='floating-box-button'
                                 id={shake ? 'shake' : ''}
-                                disabled={datesReserved}
                             >
                                 {datesReserved ? "Days already booked" : "Reserve"}
                             </button>

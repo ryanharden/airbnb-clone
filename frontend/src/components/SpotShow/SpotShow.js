@@ -52,10 +52,13 @@ const SpotShow = () => {
     // console.log(spotReviews);
 
     const spotReviewsArr = Object.values(spotReviews);
-    const spotBookings = useSelector(state => state.Bookings.bookingsBySpot);
+
+    const allBookings = useSelector(state => state.Bookings.bookingsBySpot);
+    const spotBookings = allBookings[spotId] || {};
     const spotBookingsArr = Object.values(spotBookings);
-    console.log("spotBookingsArr: ", spotBookingsArr)
-    console.log("spotBookings: ", spotBookings);
+
+    // console.log("spotBookingsArr: ", spotBookingsArr)
+    // console.log("spotBookings: ", spotBookings);
 
     const [shake, setShake] = useState(false);
     const [resSuccess1, setResSuccess1] = useState(false);
@@ -86,18 +89,17 @@ const SpotShow = () => {
     const reservedDates = [];
 
     if (spotBookingsArr.length) {
-        spotBookingsArr.forEach((bookingObj) => {
-            Object.values(bookingObj).forEach((booking) => {
-                let start = parseDate(booking.startDate);
-                let end = parseDate(booking.endDate);
-                while (start <= end) {
-                    reservedDates.push(`${start.getFullYear()}-${padNumber(start.getMonth() + 1)}-${padNumber(start.getDate())}`);
-                    start.setDate(start.getDate() + 1);
-                }
-            });
+        spotBookingsArr.forEach((booking) => {
+            // console.log("booking: ", booking);
+            let start = parseDate(booking.startDate);
+            let end = parseDate(booking.endDate);
+            while (start <= end) {
+                reservedDates.push(`${start.getFullYear()}-${padNumber(start.getMonth() + 1)}-${padNumber(start.getDate())}`);
+                start.setDate(start.getDate() + 1);
+            }
         });
     }
-    console.log("reservedDates: ", reservedDates);
+    // console.log("reservedDates: ", reservedDates);
 
 
     useEffect(() => {
