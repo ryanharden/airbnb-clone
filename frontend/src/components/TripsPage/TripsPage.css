@@ -41,9 +41,13 @@
     display: none;
 }
 
-.fa-solid.fa-trash-can.fa-2x {
-    margin-bottom: 15px;
+.fa-solid.fa-trash-can.fa-lg {
+    /* margin-bottom: 15px; */
     cursor: pointer;
+}
+
+#booking-trash {
+    margin-top: 15px;
 }
 
 

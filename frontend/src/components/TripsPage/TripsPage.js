@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './TripsPage.css'
 import { useNavigate } from 'react-router-dom';
 import { deleteBookingThunk, getUserBookingsThunk } from '../../store/bookings';
-import { getUserReviewsThunk } from '../../store/reviews';
-import { getSpotsThunk } from '../../store/spots';
+
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -51,17 +50,17 @@ const TripsPage = () => {
         const handleDelete = (e) => {
             e.preventDefault();
             dispatch(deleteBookingThunk(booking.id))
+            navigate("/bookings/current");
         }
 
         return (
             <div
-                onClick={() => navigate(`/spots/${spot.id}`)}
                 className='booking-item'>
-                {spot && (<img className='booking-image' src={spot?.previewImage} alt="loading" />
+                {spot && (<img onClick={() => navigate(`/spots/${spot.id}`)} className='booking-image' src={spot?.previewImage} alt="loading" />
                 )}
                 <div className='booking-info'>
                     <div className='booking-info-top'>
-                        <div className='booking-name'>{spot?.name}</div>
+                        <div onClick={() => navigate(`/spots/${spot.id}`)} className='booking-name'>{spot?.name}</div>
                         <div className='booking-dates'>
                             <h3>{`${monthNames[formatStartDate.getMonth()]} ${formatStartDate.getDate()}, ${formatStartDate.getFullYear()} - ${monthNames[formatEndDate.getMonth()]} ${formatEndDate.getDate()}, ${formatEndDate.getFullYear()}`}</h3>
                             <div className='booking-period'>•</div>
@@ -73,11 +72,11 @@ const TripsPage = () => {
                         {countDown}
                     </div>
                 </div>
-                <div
-                    onClick={handleDelete}
-                    className='delete-booking'>
-                    <i className="fa-solid fa-trash-can fa-2x"></i>
-                </div>
+                {countDown.startsWith('Trip is coming up') && (
+                    <div onClick={handleDelete} className='delete-booking'>
+                        <i id="booking-trash" className="fa-solid fa-trash-can fa-lg"></i>
+                    </div>
+                )}
             </div>
         )
     }
