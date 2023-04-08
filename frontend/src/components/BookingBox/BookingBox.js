@@ -90,7 +90,7 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
                     total: (spot.price * numDays + parseInt(spot.price * numDays * 0.12) + parseInt(spot.price * numDays * 0.08)),
                     days: numDays
                 }))
-                    .then(navigate("/"));
+                    .then(navigate("/bookings/current"));
             }, 3965);
         }
     }
@@ -211,12 +211,15 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
                                 hidden={spot.guests < 16 ? 'hidden' : ''}
                                 value="16">16 guests</option>
                         </select>
-                        <button type='submit'
-                            className='floating-box-button'
-                            id={shake ? 'shake' : ''}
-                        >
-                            Reserve
-                        </button>
+                        {user.id == spot.ownerId ?
+                            <button disabled className='floating-box-button'>Cant Reserve Own Spot</button> :
+                            <button type='submit'
+                                className='floating-box-button'
+                                id={shake ? 'shake' : ''}
+                            >
+                                Reserve
+                            </button>
+                        }
                     </form>
                 </div>
                 <span className='floating-box-charge'>You won't be charged yet</span>

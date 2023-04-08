@@ -230,8 +230,8 @@ i.fa-sharp.fa-solid.fa-bars {
 
 .if-logged-in>li {
     margin: 0px;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     padding-left: 15px;
     padding-right: 15px;
     width: 100%;
@@ -372,6 +372,10 @@ i.fa-sharp.fa-solid.fa-bars {
     letter-spacing: 0.3px;
     font-family: 'Circular', -apple-system, 'BlinkMacSystemFont', 'Roboto', 'Helvetica Neue', sans-serif;
     font-size: 13px;
+}
+
+.trips-link {
+    color: black;
 }
 
 /* .host-experience:hover {

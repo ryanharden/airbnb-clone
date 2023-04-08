@@ -8,6 +8,7 @@ import SignupFormModal from '../SignupFormModal';
 import OpenModalButton from "../OpenModalButton";
 import CreateSpot from "../CreateSpot/CreateSpot";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
@@ -62,9 +63,10 @@ function ProfileButton({ user }) {
                     <>
                         <div className="dropdown-container-in">
                             <div className="if-logged-in">
-                                <li className="username"><span className="item-def">Username: </span>{user.username}</li>
-                                <li><span className="item-def">Name: </span>{user.firstName} {user.lastName}</li>
-                                <li><span className="item-def">Email: </span>{user.email}</li>
+                                <li className="username"><span className="item-def">Username: </span>{user?.username}</li>
+                                <li><span className="item-def">Name: </span>{user?.firstName} {user.lastName}</li>
+                                <li><span className="item-def">Email: </span>{user?.email}</li>
+                                <li><Link to={"/bookings/current"} className="trips-link">My Trips</Link></li>
                                 <li><OpenModalButton className="add-spot-li-button"
                                     modalComponent={<CreateSpot />}
                                     onItemClick={closeMenu}

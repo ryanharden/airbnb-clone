@@ -5,6 +5,7 @@ import Navigation from "./components/Navigation";
 import * as sessionActions from "./store/session";
 import AllSpots from "./components/AllSpots/allSpots";
 import SpotShow from "./components/SpotShow/SpotShow";
+import TripsPage from "./components/TripsPage/TripsPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,8 @@ function App() {
           <Route path="/" element={<AllSpots />} />
 
           <Route path="/spots/:spotId" element={<SpotShow />} />
+
+          <Route path="/bookings/current" element={<TripsPage />} />
         </Routes>
       )}
     </>

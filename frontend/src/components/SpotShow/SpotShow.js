@@ -56,7 +56,7 @@ const SpotShow = () => {
 
     const spotReviewsArr = Object.values(spotReviews);
     const spotBookings = useSelector(state => state.Bookings.bookingsBySpot);
-    const spotBookingsArr = Object.values(spotBookings);
+    // const spotBookingsArr = Object.values(spotBookings);
     // console.log(spotReviewsArr)
 
     // console.log(spot);
@@ -261,6 +261,7 @@ const SpotShow = () => {
                         setResSuccess2={setResSuccess2}
                         resSuccess3={resSuccess3}
                         setResSuccess3={setResSuccess3}
+                        user={user}
                     />
                 </div>
             </div>

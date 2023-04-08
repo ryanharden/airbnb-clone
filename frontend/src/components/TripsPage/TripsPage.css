@@ -1,0 +1,154 @@
+@media (min-width: 1127px) {
+    .trips-page-container {
+        padding-left: 80px ;
+        padding-right: 80px;
+    }
+}
+
+.trips-page-container {
+    margin: 25px 0;
+    /* padding: 0 40px; */
+    width: 86.32vw;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    max-width: 1120px;
+    justify-self: center;
+    padding: 0 40px;
+}
+
+.trips-page-header {
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.booking-item {
+    height: 200px;
+    margin-bottom: 50px;
+    display: flex;
+    position: relative;
+    z-index: 9;
+}
+
+.delete-booking{
+    display: flex;
+    align-items: center;
+    width: 20%;
+    height: 100%;
+    right: 0;
+    top: 0;
+    display: none;
+}
+
+.fa-solid.fa-trash-can.fa-2x {
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+
+.booking-item:hover .delete-booking {
+    position: absolute;
+    background: linear-gradient(to right, transparent 0%, rgba(135, 135, 135, .3) 100%);
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 11;
+}
+
+.update-listing {
+    width: 20%;
+    height: 100%;
+    right: 0;
+    top: 0;
+    display: none;
+}
+
+.profile-listing-info:hover .update-listing {
+    position: absolute;
+    background: linear-gradient(to right, transparent 0%, rgba(135, 135, 135, .3) 100%);
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 11;
+}
+
+.booking-image {
+    object-fit: cover;
+    height: 100%;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.booking-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    line-height: 24px;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.booking-name {
+    font-weight: 500;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.booking-name:hover {
+    text-decoration: underline;
+}
+
+.booking-details {
+    color: #717171;
+
+}
+
+.booking-dates {
+    display: flex;
+    align-items: center;
+    color: #717171;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.booking-dates h3{
+    margin-right: 10px;
+    font-size: 17px;
+}
+
+.booking-dates h3:first-child{
+    font-size: 17px;
+    /* color: #717171; */
+}
+
+.no-trips-yet {
+    margin-bottom: 36px;
+}
+
+.booking-trip {
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.booking-info-top {
+    margin-bottom: 35px;
+}
+
+.booking-period {
+    margin-top: 15px;
+    margin-right: 10px;
+}
