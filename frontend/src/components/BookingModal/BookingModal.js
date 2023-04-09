@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useModal } from "../../context/Modal";
 import "./BookingModal.css";
 import logo from "../../assets/NomadNest-logo.png";
-import checkmark from "../../assets/check.gif";
+import checkmark from "../../assets/red-check.mp4";
 
 const BookingModal = ({ onSuccess }) => {
     const { closeModal } = useModal();
@@ -12,16 +12,16 @@ const BookingModal = ({ onSuccess }) => {
         if (currentStep === 0) {
             setTimeout(() => {
                 setCurrentStep(1);
-            }, 2000);
+            }, 1500);
         } else if (currentStep === 1) {
             setTimeout(() => {
                 setCurrentStep(2);
-            }, 2000);
+            }, 1500);
         } else if (currentStep === 2) {
             setTimeout(() => {
                 closeModal();
                 onSuccess();
-            }, 3000);
+            }, 4500);
         }
     }, [currentStep]);
 
@@ -40,7 +40,7 @@ const BookingModal = ({ onSuccess }) => {
             )}
             {currentStep === 2 && (
                 <div className='res-success-modal3'>
-                    <div><img className='red-check' src={checkmark} /></div>
+                    <div><video className='red-check' autoPlay loop muted><source src={checkmark} type="video/mp4" /></video></div>
                 </div>
             )}
         </>

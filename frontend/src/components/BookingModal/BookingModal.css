@@ -37,4 +37,6 @@
 .red-check {
     object-fit: scale-down;
     border-radius: 12px;
+    width: 568px;
+    height: 200px;
 }
