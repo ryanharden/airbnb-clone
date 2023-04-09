@@ -88,7 +88,7 @@ router.get("/current", requireAuth, async (req, res) => {
 // Edit a Booking
 
 router.put("/:bookingId", requireAuth, async (req, res) => {
-    const { startDate, endDate } = req.body;
+    const { startDate, endDate, guests } = req.body;
     const bookingId = +req.params.bookingId;
     const currentUserId = req.user.id;
     const startDateInt = new Date(startDate).getTime();
@@ -146,7 +146,8 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
 
     await oldBooking.update({
         startDate,
-        endDate
+        endDate,
+        guests
     });
     return res.json(oldBooking)
 });

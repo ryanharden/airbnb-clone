@@ -1,0 +1,16 @@
+.edit-booking-floating-panel {
+    width: 100%;
+    border: 1px solid rgb(221, 221, 221);
+    background-color: white;
+    position: sticky;
+    /* top: 128px; */
+    display: inline-block;
+    /* margin-top: 9px;
+    margin-bottom: 48px;
+    border-radius: 12px; */
+    box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+    /* min-height: 494px;
+    height: 494px; */
+    color: #222222;
+    /* z-index: 1 */
+}

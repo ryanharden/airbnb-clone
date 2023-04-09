@@ -70,11 +70,11 @@ export const createBookingThunk = (bookingData) => async (dispatch) => {
 
 // Edit a booking
 export const updateBookingThunk = (bookingId, bookingData) => async (dispatch) => {
-    const { startDate, endDate } = bookingData;
+    const { startDate, endDate, guests } = bookingData;
     const res = await csrfFetch(`/api/bookings/${bookingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ startDate, endDate }),
+        body: JSON.stringify({ startDate, endDate, guests }),
     });
 
     if (res.ok) {

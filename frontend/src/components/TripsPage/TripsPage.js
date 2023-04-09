@@ -1,11 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './TripsPage.css'
 import { useNavigate } from 'react-router-dom';
 import { deleteBookingThunk, getUserBookingsThunk } from '../../store/bookings';
 import { getSpotsThunk } from '../../store/spots';
 import SpotIndexItem from '../SpotsIndexItem/SpotIndexItem';
-
+import OpenModalButton from '../OpenModalButton';
+import EditBookingBox from '../EditBookingBox/EditBookingBox';
+import calendar from "../../assets/calendar-edit.png";
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -17,7 +19,7 @@ const TripsPage = () => {
     const navigate = useNavigate();
     const today = new Date();
     // let photo = null;
-
+    const [updated, setUpdated] = useState(false);
     const bookings = useSelector(state => state.Bookings.allBookings);
     const allSpots = useSelector((state) => state.Spots.allSpots);
     const allSpotsArr = Object.values(allSpots);
@@ -32,7 +34,7 @@ const TripsPage = () => {
     useEffect(() => {
         dispatch(getSpotsThunk())
         dispatch(getUserBookingsThunk());
-    }, [dispatch])
+    }, [dispatch, updated])
 
 
     const BookingItem = ({ booking, spot }) => {
@@ -64,10 +66,10 @@ const TripsPage = () => {
         return (
             <div
                 className='booking-item'>
-                <img onClick={() => navigate(`/spots/${spot?.id}`)} className='booking-image' src={spot?.previewImage} alt="loading" />
+                <img onClick={() => navigate(`/spots/${spot?.id}`)} className='booking-image' src={booking?.Spot?.previewImage} alt="loading" />
                 <div className='booking-info'>
                     <div className='booking-info-top'>
-                        <div onClick={() => navigate(`/spots/${spot?.id}`)} className='booking-name'>{spot?.name}</div>
+                        <div onClick={() => navigate(`/spots/${spot?.id}`)} className='booking-name'>{booking?.Spot?.name}</div>
                         <div className='booking-dates'>
                             <h3>{`${monthNames[formatStartDate.getMonth()]} ${formatStartDate.getDate()}, ${formatStartDate.getFullYear()} - ${monthNames[formatEndDate.getMonth()]} ${formatEndDate.getDate()}, ${formatEndDate.getFullYear()}`}</h3>
                             <div className='booking-period'>•</div>
@@ -80,14 +82,24 @@ const TripsPage = () => {
                     </div>
                 </div>
                 {countDown.startsWith('Trip is coming up') && (
-                    <div className='delete-booking'>
-                        <i onClick={handleDelete} id="booking-trash" className="fa-solid fa-trash-can fa-lg"></i>
+                    <div className='edit-delete-booking'>
+                        <div className='edit-booking'>
+                            <OpenModalButton
+                                className="edit-booking-button"
+                                modalComponent={<EditBookingBox key={booking.id} spot={spot} booking={booking} setUpdated={setUpdated} />}
+                                buttonText={<img src={calendar} className="calendar-edit" />}
+                            />
+                        </div>
+                        <div className='delete-booking'>
+                            <i onClick={handleDelete} id="booking-trash" className="fa-solid fa-trash-can fa-lg"></i>
+                        </div>
                     </div>
                 )}
             </div>
         )
     }
     const bookingItems = bookingsArr.map((booking) => {
+        console.log("booking: ", booking);
         return <BookingItem key={booking.id} booking={booking} spot={booking.Spot} />
     })
 
