@@ -81,7 +81,6 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
                     days: numDays,
                 })
             );
-
             if (booking) {
                 setModalContent(<BookingModal onSuccess={() => navigate("/bookings/current")} />);
             }
@@ -177,28 +176,6 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
                     <div>$ {spot.price * numDays + parseInt(spot.price * numDays * 0.12) + parseInt(spot.price * numDays * 0.08)}</div>
                 </div>
             </div>
-            {/* {resStep === 1 && (
-                <Modal>
-                    <div className='res-success-modal1'>
-                        <img className='res-success-logo' src={logo} />
-                        <div> Just a moment, we're getting <br /> your trip ready </div>
-                    </div>
-                </Modal>
-            )}
-            {resStep === 2 && (
-                <Modal>
-                    <div className='res-success-modal1'>
-                        <div> Reviewing payment details </div>
-                    </div>
-                </Modal>
-            )}
-            {resStep === 3 && (
-                <Modal>
-                    <div className='res-success-modal1'>
-                        <div> <img src={checkmark} /></div>
-                    </div>
-                </Modal>
-            )} */}
         </div>
     );
 }

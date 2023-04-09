@@ -80,8 +80,8 @@ const TripsPage = () => {
                     </div>
                 </div>
                 {countDown.startsWith('Trip is coming up') && (
-                    <div onClick={handleDelete} className='delete-booking'>
-                        <i id="booking-trash" className="fa-solid fa-trash-can fa-lg"></i>
+                    <div className='delete-booking'>
+                        <i onClick={handleDelete} id="booking-trash" className="fa-solid fa-trash-can fa-lg"></i>
                     </div>
                 )}
             </div>
