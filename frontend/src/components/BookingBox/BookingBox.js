@@ -2,23 +2,23 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './BookingBox.css';
 import { createBookingThunk } from '../../store/bookings';
+import OpenModalButton from '../OpenModalButton';
 import { useNavigate } from 'react-router-dom';
-import { Modal } from '../../context/Modal';
+import { useModal } from '../../context/Modal';
+import BookingModal from '../BookingModal/BookingModal';
 
-const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDays, setNumDays, padNumber, avgSpotRating, reviews, reservedDates, resSuccess1, setResSuccess1, resSuccess2, setResSuccess2, resSuccess3, setResSuccess3 }) => {
+const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDays, setNumDays, padNumber, avgSpotRating, reviews, reservedDates }) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector(state => state.session.user);
-
     const [guests, setGuests] = useState(1);
     const [datesReserved, setDatesReserved] = useState(false);
-
     const [shake, setShake] = useState(false);
     const [total, setTotal] = useState(spot.price * numDays + parseInt(spot.price * numDays * 0.12) + parseInt(spot.price * numDays * 0.08));
     const temp = new Date();
     const today = new Date(temp.setHours(0, 0, 0, 0));
-
+    const { setModalContent, closeModal } = useModal();
     const spotId = spot.id;
 
     useEffect(() => {
@@ -62,55 +62,31 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
         setEndDate(new Date(`${endYear}, ${endMonth}, ${endDay}`))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (numDays === 0 || datesReserved || user.id == spot.ownerId) {
             setShake(true);
             setTimeout(() => {
-                setShake(false)
+                setShake(false);
             }, 300);
-            return
+            return;
         } else {
-            for (let i = 0; i < reservedDates.length; i++) {
-                let resDay = new Date(reservedDates[i]).getTime();
-                if (resDay > startDate.getTime() - 8640000 && resDay < endDate.getTime()) {
-                    setShake(!shake);
-                    setTimeout(() => {
-                        setShake(false)
-                    }, 300);
-                    return
-                }
-            }
-            let timeout1;
-            let timeout2;
-            let timeout3;
-            if (numDays > 0 && user)
-                setResSuccess1(true);
-            timeout1 = setTimeout(() => {
-                setResSuccess1(false);
-                setResSuccess2(true);
-                clearTimeout(timeout1);
-            }, 1200);
-            timeout2 = setTimeout(() => {
-                setResSuccess2(false);
-                setResSuccess3(true);
-                clearTimeout(timeout2);
-            }, 2400);
-            timeout3 = setTimeout(() => {
-                setResSuccess2(false);
-                clearTimeout(timeout3);
-                dispatch(createBookingThunk({
+            const booking = await dispatch(
+                createBookingThunk({
                     startDate,
                     endDate,
                     spotId,
                     guests,
-                    total: (spot.price * numDays + parseInt(spot.price * numDays * 0.12) + parseInt(spot.price * numDays * 0.08)),
-                    days: numDays
-                }))
-                    .then(navigate("/bookings/current"));
-            }, 3965);
+                    total: spot.price * numDays + parseInt(spot.price * numDays * 0.12) + parseInt(spot.price * numDays * 0.08),
+                    days: numDays,
+                })
+            );
+
+            if (booking) {
+                setModalContent(<BookingModal onSuccess={() => navigate("/bookings/current")} />);
+            }
         }
-    }
+    };
 
     return (
         <div className='spot-floating-panel'>
@@ -169,12 +145,14 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
                         </select>
                         {user.id == spot.ownerId ?
                             <button id={shake ? "shake" : ""} className='floating-box-button'>Cant Reserve Own Spot</button> :
-                            <button type='submit'
+                            <OpenModalButton
+                                onButtonClick={handleSubmit}
                                 className='floating-box-button'
                                 id={shake ? 'shake' : ''}
-                            >
-                                {datesReserved ? "Days already booked" : "Reserve"}
-                            </button>
+                                modalComponent={<BookingModal />}
+                                buttonText={datesReserved ? "Dates Already Booked" : "Reserve"}
+                            />
+                            // <button id={shake ? "shake" : ""} className='floating-box-button' type="submit">{datesReserved ? "Dates Already Booked" : "Reserve"}</button>
                         }
                     </form>
                 </div>
@@ -199,34 +177,28 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
                     <div>$ {spot.price * numDays + parseInt(spot.price * numDays * 0.12) + parseInt(spot.price * numDays * 0.08)}</div>
                 </div>
             </div>
-            {resSuccess1 && (
+            {/* {resStep === 1 && (
                 <Modal>
                     <div className='res-success-modal1'>
-                        <img className='res-success-logo' src="/static/media/cozybnb_logo.ffe4f29d6fd26f4b6844.png" />
-                        <div>
-                            Just a moment, we're getting <br /> your trip ready
-                        </div>
+                        <img className='res-success-logo' src={logo} />
+                        <div> Just a moment, we're getting <br /> your trip ready </div>
                     </div>
                 </Modal>
             )}
-            {resSuccess2 && (
+            {resStep === 2 && (
                 <Modal>
                     <div className='res-success-modal1'>
-                        <div>
-                            Reviewing payment details
-                        </div>
+                        <div> Reviewing payment details </div>
                     </div>
                 </Modal>
             )}
-            {resSuccess3 && (
+            {resStep === 3 && (
                 <Modal>
                     <div className='res-success-modal1'>
-                        <div>
-                            {/* <img className='check-gif' src={check} alt="" /> */}
-                        </div>
+                        <div> <img src={checkmark} /></div>
                     </div>
                 </Modal>
-            )}
+            )} */}
         </div>
     );
 }

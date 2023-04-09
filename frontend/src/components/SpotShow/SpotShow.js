@@ -60,12 +60,12 @@ const SpotShow = () => {
     // console.log("spotBookingsArr: ", spotBookingsArr)
     // console.log("spotBookings: ", spotBookings);
 
-    const [shake, setShake] = useState(false);
+    // const [shake, setShake] = useState(false);
     const [resSuccess1, setResSuccess1] = useState(false);
     const [resSuccess2, setResSuccess2] = useState(false);
     const [resSuccess3, setResSuccess3] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
-    const [reviewModal, setReviewModal] = useState(false);
+    // const [reviewModal, setReviewModal] = useState(false);
     const [numDays, setNumDays] = useState(3);
     const [endMonth, setEndMonth] = useState(startDate.getMonth());
     const [endDay, setEndDay] = useState(startDate.getDate() + numDays);
@@ -74,7 +74,7 @@ const SpotShow = () => {
     const dayOverage = (startingDay + numDays) % maxMonthDays[startDate.getMonth()];
 
     const [endDate, setEndDate] = useState(new Date(startDate.getFullYear(), endMonth, endDay));
-    const [value, onChange] = useState([startDate, endDate]);
+    // const [value, onChange] = useState([startDate, endDate]);
 
 
     function parseDate(dateString) {

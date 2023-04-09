@@ -1,0 +1,40 @@
+.res-success-modal1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 22px;
+    margin-top: 35px;
+}
+
+.res-success-modal2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 90px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 22px;
+}
+
+.res-success-modal3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.res-success-logo {
+    width: 75px;
+    height: 50px;
+    margin-bottom: 16px;
+}
+
+.red-check {
+    object-fit: scale-down;
+    border-radius: 12px;
+}

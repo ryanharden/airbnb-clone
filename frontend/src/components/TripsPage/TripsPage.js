@@ -64,11 +64,10 @@ const TripsPage = () => {
         return (
             <div
                 className='booking-item'>
-                {spot && (<img onClick={() => navigate(`/spots/${spot.id}`)} className='booking-image' src={spot?.previewImage} alt="loading" />
-                )}
+                <img onClick={() => navigate(`/spots/${spot?.id}`)} className='booking-image' src={spot?.previewImage} alt="loading" />
                 <div className='booking-info'>
                     <div className='booking-info-top'>
-                        <div onClick={() => navigate(`/spots/${spot.id}`)} className='booking-name'>{spot?.name}</div>
+                        <div onClick={() => navigate(`/spots/${spot?.id}`)} className='booking-name'>{spot?.name}</div>
                         <div className='booking-dates'>
                             <h3>{`${monthNames[formatStartDate.getMonth()]} ${formatStartDate.getDate()}, ${formatStartDate.getFullYear()} - ${monthNames[formatEndDate.getMonth()]} ${formatEndDate.getDate()}, ${formatEndDate.getFullYear()}`}</h3>
                             <div className='booking-period'>•</div>
@@ -111,7 +110,7 @@ const TripsPage = () => {
     return (
         <div className='trips-page-container'>
             <div className='trips-page-header'>
-                Where you've been
+                Trips
             </div>
             {bookingItems}
         </div>

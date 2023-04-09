@@ -48,4 +48,5 @@
     animation-delay: 0s;
     z-index: 9999;
     animation-fill-mode: forwards;
+    min-height: 200px
   }
