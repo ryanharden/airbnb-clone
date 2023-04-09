@@ -108,7 +108,7 @@ const EditBookingBox = ({ spot, booking, setUpdated }) => {
             setTimeout(() => {
                 setShake(false);
             }, 300);
-            return;
+            return true;
         } else {
             const updatedBooking = await dispatch(
                 updateBookingThunk(booking.id, { // changed from createBookingThunk
@@ -124,6 +124,7 @@ const EditBookingBox = ({ spot, booking, setUpdated }) => {
                 setModalContent(<BookingModal onSuccess={() => navigate("/bookings/current")} />);
                 setUpdated(true)
             }
+            return false;
         }
     };
 
@@ -211,11 +212,11 @@ const EditBookingBox = ({ spot, booking, setUpdated }) => {
                             <OpenModalButton
                                 onButtonClick={handleSubmit}
                                 className='floating-box-button'
-                                id={shake ? 'shake' : ''}
+                                shake={shake}
                                 modalComponent={<BookingModal />}
                                 buttonText={datesReserved ? "Dates Already Booked" : "Edit"}
+                                // disabled={datesReserved || numDays === 0}
                             />
-                            // <button id={shake ? "shake" : ""} className='floating-box-button' type="submit">{datesReserved ? "Dates Already Booked" : "Reserve"}</button>
                         }
                     </form>
                 </div>

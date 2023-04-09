@@ -56,6 +56,7 @@
     font-family: 'Circular', -apple-system, 'BlinkMacSystemFont', 'Roboto', 'Helvetica Neue', sans-serif;
     font-weight: 300;
 }
+
 .floating-end-date {
     width: 50%;
     border: 1px solid rgb(176, 176, 176);
@@ -69,11 +70,13 @@
     font-family: 'Circular', -apple-system, 'BlinkMacSystemFont', 'Roboto', 'Helvetica Neue', sans-serif;
     font-weight: 300;
 }
+
 .floating-start-date:focus {
     outline: none;
     border: 2px solid black;
     border-radius: 8px 0 0 0;
 }
+
 .floating-end-date:focus {
     outline: none;
     border: 2px solid black;
@@ -163,6 +166,7 @@
     justify-content: space-between;
     margin-top: 24px;
 }
+
 .floating-box-nights div:first-child {
     text-decoration: underline;
     font-size: 16.5px;
@@ -174,6 +178,7 @@
     justify-content: space-between;
     margin-top: 16px;
 }
+
 .floating-box-cleaning>div:first-child {
     text-decoration: underline;
     font-size: 16.5px;
@@ -185,6 +190,7 @@
     margin-top: 16px;
     margin-bottom: 4px;
 }
+
 .floating-box-service>div:first-child {
     text-decoration: underline;
     font-size: 16.5px;
@@ -218,6 +224,7 @@ input.floating-start-date[type="date"]::-webkit-calendar-picker-indicator {
     background: transparent;
     cursor: pointer;
 }
+
 input.floating-end-date[type="date"]::-webkit-calendar-picker-indicator {
     position: absolute;
     top: 0;
@@ -234,16 +241,35 @@ input.floating-end-date[type="date"]::-webkit-calendar-picker-indicator {
     animation: shake 0.5s linear;
 }
 
+.OpenModalButton.shake {
+    animation: shake 0.5s linear;
+}
+
 @keyframes shake {
-    8%,41% {transform: translateX(-6px);}
-    25%,58% {transform: translateX(6px);}
-    75% {transform: translateX(-4px);}
-    92% {transform: translateX(4px);}
+
+    8%,
+    41% {
+        transform: translateX(-6px);
+    }
+
+    25%,
+    58% {
+        transform: translateX(6px);
+    }
+
+    75% {
+        transform: translateX(-4px);
+    }
+
+    92% {
+        transform: translateX(4px);
+    }
 }
 
 .check-gif {
     height: 100px;
 }
+
 .listing-show-main {
     display: none;
 }
@@ -309,30 +335,38 @@ input.floating-end-date[type="date"]::-webkit-calendar-picker-indicator {
     .listing-details-right {
         display: none;
     }
+
     .listing-details-left {
         width: 90vw;
     }
+
     .show-datepicker {
         display: flex;
         justify-content: center;
     }
+
     .calendar-container {
         width: 100% !important;
         height: auto !important;
         max-width: 530px;
     }
+
     .react-calendar {
         width: 100%;
     }
-    .react-calendar__navigation{
+
+    .react-calendar__navigation {
         width: 100%;
     }
-    .react-calendar__viewContainer{
+
+    .react-calendar__viewContainer {
         width: 100%;
     }
+
     .listing-show-visuals {
         display: none;
     }
+
     .listing-show-main {
         display: flex;
         width: 100vw;
@@ -341,29 +375,37 @@ input.floating-end-date[type="date"]::-webkit-calendar-picker-indicator {
         aspect-ratio: 1.5;
         cursor: pointer;
     }
+
     .listing-show-header {
         margin-top: 66.67vw;
     }
+
     .show-map {
         height: auto;
         aspect-ratio: 2.4;
     }
+
     .review-bars {
         flex-wrap: wrap;
     }
+
     .nav-bar-wrapper {
         height: 64px;
     }
+
     .nav-bar {
         height: 64px;
     }
+
     .contact-bar {
         margin-bottom: 80px;
     }
+
     .mobile-res-footer {
         display: flex;
         z-index: 69;
     }
+
     .res-success-modal1 {
         width: 100vw;
         height: 80vw;

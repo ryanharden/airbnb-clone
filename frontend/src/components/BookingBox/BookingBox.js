@@ -69,7 +69,7 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
             setTimeout(() => {
                 setShake(false);
             }, 300);
-            return;
+            return true;
         } else {
             const booking = await dispatch(
                 createBookingThunk({
@@ -84,6 +84,7 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
             if (booking) {
                 setModalContent(<BookingModal onSuccess={() => navigate("/bookings/current")} />);
             }
+            return false; 
         }
     };
 
@@ -143,15 +144,15 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
                             })}
                         </select>
                         {user.id == spot.ownerId ?
-                            <button id={shake ? "shake" : ""} className='floating-box-button'>Cant Reserve Own Spot</button> :
+                            <button disabled id={shake ? "shake" : ""} className='floating-box-button'>Cant Reserve Own Spot</button> :
                             <OpenModalButton
                                 onButtonClick={handleSubmit}
                                 className='floating-box-button'
-                                id={shake ? 'shake' : ''}
+                                shake={shake}
                                 modalComponent={<BookingModal />}
                                 buttonText={datesReserved ? "Dates Already Booked" : "Reserve"}
+                                // disabled={datesReserved || numDays === 0}
                             />
-                            // <button id={shake ? "shake" : ""} className='floating-box-button' type="submit">{datesReserved ? "Dates Already Booked" : "Reserve"}</button>
                         }
                     </form>
                 </div>

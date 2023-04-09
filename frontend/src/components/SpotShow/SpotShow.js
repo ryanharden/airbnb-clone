@@ -285,12 +285,6 @@ const SpotShow = () => {
                         spotBookings={spotBookings}
                         avgSpotRating={avgSpotRating}
                         reservedDates={reservedDates}
-                        resSuccess1={resSuccess1}
-                        setResSuccess1={setResSuccess1}
-                        resSuccess2={resSuccess2}
-                        setResSuccess2={setResSuccess2}
-                        resSuccess3={resSuccess3}
-                        setResSuccess3={setResSuccess3}
                         user={user}
                     />
                 </div>
