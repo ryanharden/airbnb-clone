@@ -6,6 +6,7 @@ import * as sessionActions from "./store/session";
 import AllSpots from "./components/AllSpots/allSpots";
 import SpotShow from "./components/SpotShow/SpotShow";
 import TripsPage from "./components/TripsPage/TripsPage";
+import CategorySpots from "./components/CategorySpots/CategorySpots";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,9 +29,13 @@ function App() {
         <Routes>
           <Route path="/" element={<AllSpots />} />
 
+          <Route path="/:category" element={<CategorySpots />} />
+
           <Route path="/spots/:spotId" element={<SpotShow />} />
 
           <Route path="/bookings/current" element={<TripsPage />} />
+
+
         </Routes>
       )}
     </>

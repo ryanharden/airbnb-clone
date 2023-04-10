@@ -1,0 +1,137 @@
+/* .home-header {
+    height: 40px;
+    background-color:white;
+    z-index: 4;
+    width: 100%;
+    align-items: center;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    border: 1px solid yellow;
+} */
+
+.links-bar-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 90%;
+    /* border: 1px solid transparent;
+    box-sizing: border-box; */
+}
+
+.link-bar-link-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    align-items: center;
+}
+
+.link-bar-link-container-cabin {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+}
+
+.link-bar-link-container-countryside {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+}
+
+.link-bar-link-container-parks {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+}
+
+.link-bar-link-container-camping {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+}
+
+@media screen and (max-width: 975px) {
+    .link-bar-link-container-parks {
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: 835px) {
+    .link-bar-link-container-countryside {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .link-bar-link-container-camping {
+        display: none;
+    }
+}
+
+@media (max-width: 1439px) {
+    .links-bar-wrapper {
+        margin: 0 40px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .links-bar-wrapper {
+        margin: 0 80px;
+    }
+}
+
+.links-bar-link {
+    /* color: #717171; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+    font-size: 12px;
+    line-height: 12px;
+    /* margin-top: 10px; */
+    padding-bottom: 11px;
+    box-sizing: border-box;
+    border-bottom: 2px solid transparent;
+}
+
+.links-bar-link:focus {
+    border-bottom: 2px solid black;
+}
+
+
+.my-links:hover {
+    /* border: 1px solid white;
+    border-radius: 2px; */
+    margin: 0px;
+    text-decoration: none;
+}
+
+.links-bar-link:hover {
+    margin: 0px;
+    border-bottom: 2px solid black;
+}
+
+.f-bar-img {
+    /* color: #717171; */
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+    margin-bottom: 10px;
+}

@@ -8,6 +8,7 @@ import SpotIndexItem from '../SpotsIndexItem/SpotIndexItem';
 import OpenModalButton from '../OpenModalButton';
 import EditBookingBox from '../EditBookingBox/EditBookingBox';
 import calendar from "../../assets/calendar-edit.png";
+import FilterBar from '../FilterBar/FilterBar';
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -110,7 +111,7 @@ const TripsPage = () => {
                     No trips are booked yet!
                 </div>
                 <div className='no-bookings-header'>
-                    Recommended spots for you
+                    Recommended nests for you
                 </div>
                 <div className='spot-recs-container'>
                     <ul className="spots-wrapper">

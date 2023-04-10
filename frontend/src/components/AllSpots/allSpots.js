@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSpotsThunk } from "../../store/spots";
 import "./allSpots.css";
 import SpotIndexItem from "../SpotsIndexItem/SpotIndexItem";
-
+import FilterBar from "../FilterBar/FilterBar";
 
 const AllSpots = () => {
     const dispatch = useDispatch();
@@ -23,6 +23,7 @@ const AllSpots = () => {
 
     return (
         <div className="spots-container">
+            <FilterBar />
             <ul className="spots-wrapper">
                 {spotItems}
             </ul>
