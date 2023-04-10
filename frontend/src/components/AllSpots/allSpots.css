@@ -12,6 +12,8 @@
     padding-top: 0px;
     margin-top: 20px;
     align-items: center;
+    /* height: 100%;
+    width: 100%; */
     /* justify-content: center; */
 }
 
@@ -27,4 +29,50 @@
     margin-left: 15px;
     margin-right: 15px;
     box-sizing: border-box;
+}
+
+.switch-button-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.switch-button-container {
+    z-index: 3;
+    position: fixed;
+    text-align: center;
+    transform: translateY(calc(100vh - 310px));
+    align-items: center;
+}
+
+.switch-button-container button {
+    background-color: #222222;
+    padding: 1px 15px;
+    border-radius: 30px;
+    width: 132px;
+    border: none;
+    cursor: pointer;
+}
+
+.switch-button-container :hover {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.switch-button-container p {
+    color: white;
+    font-size: 14px;
+}
+
+.fa-show {
+    color: white;
+    padding-left: 7px;
+}
+
+/* .map-wrapper {
+    height: 100%;
+    width: 100%;
+} */
+
+.spots-map-container {
+    height: calc(100vh - 165px);
+    width: 100%;
 }

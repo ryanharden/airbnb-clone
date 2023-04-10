@@ -3,8 +3,8 @@ import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { useNavigate } from 'react-router-dom';
 
 const containerStyle = {
-    width: '600px',
-    height: '600px',
+    width: '100%',
+    height: '100%',
 };
 
 const getCustomMarkerIcon = (price) => {

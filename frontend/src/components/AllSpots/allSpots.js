@@ -19,7 +19,7 @@ const AllSpots = () => {
     const dispatch = useDispatch();
     const allSpots = useSelector((state) => state.Spots.allSpots);
     const allSpotsArr = Object.values(allSpots);
-
+    const [showMap, setShowMap] = useState(false)
     const key = useSelector((state) => state.Maps.key);
 
     useEffect(() => {
@@ -37,7 +37,13 @@ const AllSpots = () => {
         return null;
     }
 
-
+    const switchView = () => {
+        if (showMap === true) {
+            setShowMap(false)
+        } else {
+            setShowMap(true)
+        }
+    }
     // const mapEventHandlers = useMemo(() => ({
     //     idle: map => setBounds(map.getBounds().toUrlValue())
     // }), [navigate])
@@ -51,10 +57,21 @@ const AllSpots = () => {
     return (
         <div className="spots-container">
             <FilterBar />
-            <ul className="spots-wrapper">
-                {spotItems}
-            </ul>
-            <Maps apiKey={key} spots={allSpotsArr}/>
+            <div className="switch-button-wrapper">
+                <div className="switch-button-container">
+                    <button onClick={switchView}>{showMap ? <p>Show menu<i className="fa-solid fa-list-ul fa-show"></i></p> : <p>Show map<i className="fa-solid fa-map fa-show"></i></p>}</button>
+                </div>
+            </div>
+            {showMap ? (
+                <div className="spots-map-container">
+                    <Maps apiKey={key} spots={allSpotsArr} />
+                </div>) : (
+                <ul className="spots-wrapper">
+                    {spotItems}
+                </ul>
+            )
+            }
+
             {/* <SearchViewMapWrapper spots={allSpotsArr} markerEventHandlers={{
                 click: (spot) => navigate(`/spots/${spot.id}`),
             }}
