@@ -239,6 +239,27 @@ router.get("/", async (req, res) => {
     });
 });
 
+// Get Search Spots
+router.get(
+    "/", async (req, res) => {
+      const { bounds } = req.query;
+      const [south, west, north, east] = bounds.split(",").map(Number);
+
+      const spots = await Spot.findAll({
+        where: {
+          lat: {
+            [Op.between]: [south, north],
+          },
+          lng: {
+            [Op.between]: [west, east],
+          },
+        },
+      });
+
+      res.json({ Spots: spots });
+    }
+  );
+
 // Create a spot
 router.post("/", validateSpot, requireAuth, async (req, res) => {
     const ownerId = req.user.id;
@@ -247,36 +268,6 @@ router.post("/", validateSpot, requireAuth, async (req, res) => {
 
    return res.json(newSpot)
 });
-
-// Add an image to a Spot based on the Spot's id
-
-// router.post("/:spotId/images", requireAuth, async (req, res) => {
-//     const { url, preview } = req.body;
-
-//     const spot = await Spot.findByPk(req.params.spotId);
-
-//     if (!spot) {
-//         res.status(404);
-//         return res.json({
-//             "message": "Spot couldn't be found",
-//             "statusCode": 404
-//         })
-//     }
-
-//     const spotId = +req.params.spotId;
-
-//     const newImage = await SpotImage.create({
-//         spotId,
-//         url,
-//         preview
-//     });
-
-//     const newSpotImage = await SpotImage.findByPk(newImage.id, {
-//         attributes: ["id", "url", "preview"]
-//     });
-
-//     return res.json(newSpotImage);
-// });
 
 // Add an image to a Spot with aws
 
@@ -354,27 +345,6 @@ router.get("/current", requireAuth, async (req, res) => {
             });
         }
     });
-
-    //     where: {ownerId},
-    //     attributes: {
-    //         include: [
-    //             [sequelize.col("SpotImages.url"), "previewImage"],
-    //             [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"]
-    //         ]
-    //     },
-    //     include: [
-    //         {
-    //             model: Review,
-    //             attributes: []
-    //         },
-    //         {
-    //             model: SpotImage,
-    //             attributes: []
-    //         }
-    //     ],
-    //     group: ["Spot.id"]
-    // })
-    // res.json(spots)
 });
 
 // Get details for a Spot by id
@@ -404,26 +374,6 @@ router.get("/:spotId", async (req, res) => {
         const numReviews = await Review.count({
             where: { spotId: spot.id}
         })
-
-        // const reviews = await Review.findAll({
-        //     where: {
-        //         spotId: spot.id
-        //     },
-        //     attributes: ["stars"]
-        // });
-
-        // let stars = 0;
-        // reviews.forEach(review => {
-        //     stars += review.stars
-        // });
-
-        // const avgStars = stars/reviews.length;
-
-        // if (!avgStars) {
-        //     spot.avgRating = "This is a new spot, no reviews yet!"
-        // } else {
-        //     spot.avgRating = avgStars;
-        // };
 
         return res.json({
             id: spot.id,
@@ -456,40 +406,6 @@ router.get("/:spotId", async (req, res) => {
             dryer: spot.dryer
         })
     }
-
-    //     attributes: {
-    //         include: [
-    //             [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"],
-    //             [sequelize.fn("COUNT", sequelize.col("Reviews.id")), "numReviews"]
-    //         ]
-    //     },
-    //     include: [
-    //         {
-    //             model: Review,
-    //             attributes: []
-    //         },
-    //         {
-    //             model: SpotImage,
-    //             attributes: ["id", "url", "preview"]
-    //         },
-    //         {
-    //             model: User,
-    //             as: "Owner",
-    //             attributes: ["id", "firstName", "lastName"]
-    //         }
-    //     ],
-    //     group: ["Spot.id"]
-    // });
-
-    // if (!spot) {
-    //     res.status(404);
-    //     res.json({
-    //         "message": "Spot couldn't be found",
-    //         "statusCode": 404
-    //     })
-    // }
-
-    // res.json(spot)
 });
 
 // Edit a spot

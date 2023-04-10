@@ -16,7 +16,7 @@
     height: 100%;
     overflow: hidden;
     box-sizing: border-box;
-    width: 90%;
+    width: 100%;
     /* border: 1px solid transparent;
     box-sizing: border-box; */
 }
@@ -85,15 +85,22 @@
     }
 }
 
+@media (max-width: 1050px) {
+    .links-bar-wrapper {
+        width: 87%;
+    }
+}
 @media (max-width: 1439px) {
     .links-bar-wrapper {
         margin: 0 40px;
+        width: 92%;
     }
 }
 
 @media (min-width: 1440px) {
     .links-bar-wrapper {
         margin: 0 80px;
+        width: 99%;
     }
 }
 

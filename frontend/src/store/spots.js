@@ -5,6 +5,8 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_SPOTS = "/spots/loadSpots";
 
+const LOAD_SEARCH_SPOTS = "/spots/loadSearchSpots";
+
 const LOAD_SPOT = "/spots/loadSpot";
 
 const CREATE_SPOT = "/spots/addSpot";
@@ -22,6 +24,12 @@ const loadSpots = (spots) => {
         spots
     }
 };
+
+const loadSearchSpots = (spots) => ({
+    type: LOAD_SEARCH_SPOTS,
+    spots
+})
+
 
 const loadSpot = (spot) => {
     return {
@@ -69,6 +77,18 @@ export const getSpotsThunk = () => async (dispatch) => {
     }
 };
 
+// Get Spots Filter
+export const getSpotsFilterThunk = (keywords) => async (dispatch) => {
+    const res = await fetch(`/api/spots?${keywords}`);
+    if (res.ok) {
+        const spots = await res.json();
+        dispatch(loadSearchSpots(spots));
+        return spots
+    } else {
+        return res;
+    }
+}
+
 // Get Spot
 export const getSpotThunk = (spotId) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}`)
@@ -84,7 +104,7 @@ export const getSpotThunk = (spotId) => async (dispatch) => {
 export const createSpotThunk = (newSpotData, images) => async (dispatch) => {
     const res = await csrfFetch("/api/spots", {
         method: "POST",
-        headers: { "Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newSpotData)
     });
     if (res.ok) {
@@ -98,7 +118,7 @@ export const createSpotThunk = (newSpotData, images) => async (dispatch) => {
 
         const addImages = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
             method: "POST",
-            headers: {"Content-Type": "multipart/form-data"},
+            headers: { "Content-Type": "multipart/form-data" },
             body: formData
         });
 
@@ -129,13 +149,13 @@ export const updateSpotThunk = (editedSpot, spotDetails) => async (dispatch) => 
 
         const addImages = await csrfFetch(`/api/spots/${spotDetails.id}/images`, {
             method: "POST",
-            headers: {"Content-Type": "multipart/form-data"},
+            headers: { "Content-Type": "multipart/form-data" },
             body: formData
         });
 
         if (addImages.ok) {
             const images = await addImages.json();
-            const actualSpot = {...updatedSpot, ...editedSpot, ...spotDetails}
+            const actualSpot = { ...updatedSpot, ...editedSpot, ...spotDetails }
             console.log("actualSpot: ", actualSpot);
             dispatch(updateSpot(actualSpot, images));
             return actualSpot;
@@ -175,13 +195,14 @@ export const deleteImageThunk = (imageId) => async (dispatch) => {
 // Initial State
 const initialState = {
     allSpots: {},
-    singleSpot: {}
+    singleSpot: {},
+    searchSpots: {},
 };
 
 // Reducer
 export default function spotReducer(state = initialState, action) {
-    let newState = {...state}
-    switch(action.type) {
+    let newState = { ...state }
+    switch (action.type) {
 
         // Get All Spots
         case LOAD_SPOTS:
@@ -191,21 +212,26 @@ export default function spotReducer(state = initialState, action) {
             });
             return newState;
 
+        // Get Search Products
+        case LOAD_SEARCH_SPOTS:
+            newState.searchSpots = { ...action.spots }
+            return newState;
+
         // Get details of Spot by Id
         case LOAD_SPOT:
-        return { ...state, singleSpot: action.spot }
+            return { ...state, singleSpot: action.spot }
 
         // Create Spot
         case CREATE_SPOT:
-            newState.allSpots = {...state.allSpots, [action.spot.id]: action.spot}
+            newState.allSpots = { ...state.allSpots, [action.spot.id]: action.spot }
             return newState;
 
         // Edit Spot
         case UPDATE_SPOT:
-            return {...state, singleSpot: action.spot}
+            return { ...state, singleSpot: action.spot }
 
         case DELETE_SPOT:
-            newState.allSpots = {...state.allSpots}
+            newState.allSpots = { ...state.allSpots }
             delete newState.allSpots[action.spotId];
             return newState
 
