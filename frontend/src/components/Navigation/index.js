@@ -9,7 +9,7 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
   const location = useLocation();
-  const navClassName = location.pathname === "/" ? "allSpotNav" : "showNav";
+  const navClassName = location.pathname.startsWith("/spots") ? "showNav" : "allSpotNav";
 
   // console.log(navClassName);
   return (
