@@ -440,3 +440,22 @@ h4 {
 .where-stay-container {
     padding-bottom: 100px;
 }
+
+.spot-calendar-container {
+    border-bottom: solid 1px rgba(0,0,0,0.15);
+    padding-bottom: 48px;
+}
+.calendar-header {
+    margin: 48px 0;
+    /* width: 300px; */
+}
+
+.calendar-header h2{
+    font-size: 22.5px;
+    font-weight: 500;
+}
+
+.calendar-header h3{
+    font-size: 14.49px;
+    color: #717171;
+}

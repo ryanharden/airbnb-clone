@@ -16,6 +16,7 @@ import profPic from "../../assets/prof-pic.jpeg";
 import BookingBox from '../BookingBox/BookingBox';
 import { getBookingsForSpotThunk } from '../../store/bookings';
 import Maps from '../Maps/Maps';
+import SpotCalendar from '../SpotCalendar/SpotCalendar';
 import "./SpotShow.css";
 
 
@@ -76,7 +77,7 @@ const SpotShow = () => {
     const dayOverage = (startingDay + numDays) % maxMonthDays[startDate.getMonth()];
 
     const [endDate, setEndDate] = useState(new Date(startDate.getFullYear(), endMonth, endDay));
-    // const [value, onChange] = useState([startDate, endDate]);
+    const [value, onChange] = useState([startDate, endDate]);
 
     const center = {
         lat: spot.lat,
@@ -131,6 +132,12 @@ const SpotShow = () => {
             setStartDate(new Date(`${startDate.getFullYear()}/${startDate.getMonth() + 1}/${startDate.getDate()}`));
         }
     }, [])
+
+    useEffect(() => {
+        if (startDate !== value[0] || endDate !== value[1]) (
+            onChange([startDate, endDate])
+        )
+    }, [startDate, endDate])
 
     if (!Object.values(spot).length) return null;
 
@@ -272,6 +279,27 @@ const SpotShow = () => {
                             </div>
                             <SpotAmenities spot={spot} />
                         </div>
+                        <div className='spot-calendar-container'>
+                            <div className='calendar-header'>
+                                <h2>{`${numDays} nights in ${spot?.city}`}</h2>
+                                <h3>{`${monthNames[startDate.getMonth()]} ${startDate.getDate()}, ${startDate.getFullYear()} - ${monthNames[endDate.getMonth()]} ${endDate.getDate()}, ${endDate.getFullYear()}`}</h3>
+                            </div>
+                            <SpotCalendar
+                                padNumber={padNumber}
+                                startDate={startDate}
+                                setStartDate={setStartDate}
+                                endDate={endDate}
+                                setEndDate={setEndDate}
+                                numDays={numDays}
+                                setNumDays={setNumDays}
+                                spotBookings={spotBookings}
+                                reservedDates={reservedDates}
+                                user={user}
+                                spotId={spotId}
+                                value={value}
+                                onChange={onChange}
+                            />
+                        </div>
                         <div className='aircover'>
                             <img className='aircover-image' src="https://a0.muscache.com/im/pictures/54e427bb-9cb7-4a81-94cf-78f19156faad.jpg" alt='aircover' />
                             <h4 className='aircover-description'>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</h4>
@@ -306,7 +334,7 @@ const SpotShow = () => {
                     {spot?.city}, {spot?.state}, {spot.country}
                 </div>
                 <div className='where-stay-map'>
-                    <Maps center={center} zoom={15} spot={spot}/>
+                    <Maps center={center} zoom={15} spot={spot} />
                 </div>
             </div>
         </div>
