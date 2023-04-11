@@ -7,6 +7,7 @@ import AllSpots from "./components/AllSpots/allSpots";
 import SpotShow from "./components/SpotShow/SpotShow";
 import TripsPage from "./components/TripsPage/TripsPage";
 import CategorySpots from "./components/CategorySpots/CategorySpots";
+import SearchSpots from "./components/SearchSpots/SearchSpots";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ function App() {
 
           <Route path="/bookings/current" element={<TripsPage />} />
 
-
+          <Route path="/search" element={<SearchSpots />} />
         </Routes>
       )}
     </>

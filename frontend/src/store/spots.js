@@ -78,14 +78,17 @@ export const getSpotsThunk = () => async (dispatch) => {
 };
 
 // Get Spots Filter
-export const getSpotsFilterThunk = (keywords) => async (dispatch) => {
-    const res = await fetch(`/api/spots?${keywords}`);
+export const getSpotsFilterThunk = (locationData = {}) => async (dispatch) => {
+
+    const { city, state, country } = locationData;
+    const query = new URLSearchParams({ city, state, country });
+    const res = await fetch(`/api/spots/search?${query.toString()}`);
     if (res.ok) {
-        const spots = await res.json();
-        dispatch(loadSearchSpots(spots));
-        return spots
+      const spots = await res.json();
+      dispatch(loadSearchSpots(spots));
+      return spots;
     } else {
-        return res;
+      return res;
     }
 }
 

@@ -242,17 +242,100 @@ router.get("/", async (req, res) => {
 // Get Search Spots
 router.get("/search", async (req, res) => {
     const { city, state, country } = req.query;
-
-    const spots = await Spot.findAll({
+    let spots = await Spot.findAll({
         where: {
             city: city,
-            state: state,
             country: country,
         },
     });
+    // if (spots.length === 0) {
+    //     spots = await Spot.findAll({
+    //         where: {
+    //             state: state,
+    //             country: country,
+    //         },
+    //     });
+    // }
 
-    res.json({ spots });
+    if (spots.length === 0) {
+        return res.json({ allSpots: [] });
+    }
+
+
+    let spotList = [];
+    spots.forEach(spot => {
+        spotList.push(spot.toJSON())
+    });
+
+
+    let allSpots = [];
+    spotList.forEach(async (spot) => {
+        const reviews = await Review.findAll({
+            where: {
+                spotId: spot.id
+            },
+            attributes: ["cleanliness", "communication", "checkin", "accuracy", "location", "value"]
+        });
+        let sumOfReviewAverages = 0;
+        if (reviews.length > 0) {
+            reviews.forEach((review) => {
+                let reviewAverage = (
+                    review.cleanliness + review.accuracy + review.communication + review.location + review.checkin + review.value
+                ) / 6;
+                sumOfReviewAverages += reviewAverage;
+            });
+        }
+        let avgSpotRating = 0;
+        if (reviews.length > 0) {
+            avgSpotRating = sumOfReviewAverages / reviews.length;
+        }
+        if (!avgSpotRating) {
+            spot.avgRating = "This is a new spot, no reviews yet!";
+        } else {
+            spot.avgRating = avgSpotRating;
+        };
+
+        const image = await SpotImage.findOne({
+            where: {
+                spotId: spot.id
+            },
+            attributes: ['url']
+        });
+        if (image) {
+            spot.previewImage = image.url;
+        } else {
+            spot.previewImage = null;
+        }
+
+        allSpots.push(spot);
+        if (allSpots.length === spotList.length) {
+            return res.json({ allSpots });
+        }
+    });
 });
+
+// // Get Search Spots
+// router.get("/search", async (req, res) => {
+//     const { city, state, country } = req.query;
+
+//     let spots = await Spot.findAll({
+//         where: {
+//             city: city,
+//             country: country,
+//         },
+//     });
+
+//     if (spots.length === 0) {
+//         spots = await Spot.findAll({
+//             where: {
+//                 state: state,
+//                 country: country,
+//             },
+//         });
+//     }
+
+//     res.json({ spots });
+// });
 
 // Create a spot
 router.post("/", validateSpot, requireAuth, async (req, res) => {
