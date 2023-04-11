@@ -4,11 +4,12 @@ import { getSpotsFilterThunk, getSpotsThunk } from '../../store/spots';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import SpotIndexItem from '../SpotsIndexItem/SpotIndexItem';
 import FilterBar from '../FilterBar/FilterBar';
+import Maps from '../Maps/Maps';
 import "./SearchSpots.css";
 
 const SearchSpots = () => {
     const dispatch = useDispatch();
-
+    const location = useLocation();
     const searchSpots = useSelector(state => state.Spots.searchSpots?.allSpots);
     console.log("searchSpots: ", searchSpots);
     // const searchSpotsArr = Object.values(searchSpots);
@@ -23,11 +24,29 @@ const SearchSpots = () => {
         return <SpotIndexItem key={spot.id} spot={spot} />
     });
 
+    const latLng = location.state?.latLng;
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const queryParams = new URLSearchParams(location.search);
+    //         const city = queryParams.get('city');
+    //         const state = queryParams.get('state');
+    //         const country = queryParams.get('country');
+
+    //         if (city) {
+    //             await dispatch(getSpotsFilterThunk({ city, state, country }));
+    //         } else if (state) {
+    //             await dispatch(getSpotsFilterThunk({ state, country }));
+    //         }
+    //     };
+
+    //     fetchData();
+    // }, [dispatch, location]);
 
     // useEffect(() => {
     //     const fetchData = async () => {
     //         setLoading(true);
-    //         await dispatch(getSpotsThunk());
+    //         await dispatch(getSpotsFilterThunk());
     //         setLoading(false);
     //     };
     //     fetchData();
@@ -61,11 +80,19 @@ const SearchSpots = () => {
         )
 
     return (
-        <div className='spots-container'>
-            <FilterBar />
-            <ul className="spots-wrapper">
-                {allSpotItems}
-            </ul>
+        <div className='search-spots-container'>
+            {/* <FilterBar /> */}
+            <div className='left-search-spots'>
+                <div className='search-spots-header'>
+                    Displaying {allSpotItems.length} {allSpotItems.length === 1 ? "nest" : "nests"} in this location
+                </div>
+                <ul className="spots-wrapper">
+                    {allSpotItems}
+                </ul>
+            </div>
+            <div className='search-spots-map-container'>
+                <Maps spots={searchSpots}  center={latLng} />
+            </div>
         </div>
     )
 }

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSpotsFilterThunk } from "../../store/spots";
 import { useJsApiLoader } from '@react-google-maps/api';
 import { useNavigate } from "react-router-dom";
-import { getKey } from '../../store/maps';
 import { Wrapper } from "@googlemaps/react-wrapper";
 
 import PlacesAutocomplete, {
@@ -19,7 +18,6 @@ const SearchBar = () => {
     const [isInputFocused, setIsInputFocused] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const key = useSelector((state) => state.Maps.key);
 
     const handleChange = (value) => {
         setAddress(value);
@@ -28,8 +26,8 @@ const SearchBar = () => {
     const handleSelect = async (value) => {
         const results = await geocodeByAddress(value);
         const latLng = await getLatLng(results[0]);
-        console.log("results: ", results);
-
+        // console.log("results: ", results);
+        // console.log("address: ", address);
         const { city, state, country } = results[0].address_components.reduce(
             (acc, component) => {
                 const type = component.types[0];
@@ -44,23 +42,30 @@ const SearchBar = () => {
             },
             {}
         );
-        console.log("city: ", city);
-        console.log("state: ", state);
-        console.log("country: ", country);
+        // console.log("city: ", city);
+        // console.log("state: ", state);
+        // console.log("country: ", country);
         setAddress(value);
         if (city) {
             await dispatch(getSpotsFilterThunk({ city, state, country }));
-            navigate("/search");
+            navigate("/search", { state: { latLng } });
         } else if (state) {
             await dispatch(getSpotsFilterThunk({ state, country }));
-            navigate("/search");
+            navigate("/search", { state: { latLng } });
         }
+        // if (city) {
+        //     await dispatch(getSpotsFilterThunk({ city, state, country }));
+        //     navigate(`/search?city=${city}&state=${state}&country=${country}`);
+        // } else if (state) {
+        //     await dispatch(getSpotsFilterThunk({ state, country }));
+        //     navigate(`/search?state=${state}&country=${country}`);
+        // }
     };
 
     return (
         <Wrapper apiKey={process.env.REACT_APP_MAPS_API_KEY} libraries={["places"]}>
             <PlacesAutocomplete
-                value={isInputFocused ? address : ""}
+                value={isInputFocused && address ? address : ""}
                 onChange={handleChange}
                 onSelect={handleSelect}
             >

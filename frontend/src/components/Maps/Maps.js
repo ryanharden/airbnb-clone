@@ -28,7 +28,7 @@ const center = {
 
 // const GOOGLE_MAPS_LIBRARIES = ["places"];
 
-const Maps = ({ apiKey, isLoaded, spots }) => {
+const Maps = ({ apiKey, isLoaded, spots, center }) => {
     const navigate = useNavigate();
 
     const handleMarkerClick = (spotId) => {
@@ -56,7 +56,7 @@ const Maps = ({ apiKey, isLoaded, spots }) => {
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={center}
-                    zoom={6}
+                    zoom={7}
                 >
                     {markers}
                 </GoogleMap>

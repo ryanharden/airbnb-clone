@@ -58,7 +58,7 @@ const AllSpots = () => {
             <FilterBar />
             <div className="switch-button-wrapper">
                 <div className="switch-button-container">
-                    <button onClick={switchView}>{showMap ? <p>Show menu<i className="fa-solid fa-list-ul fa-show"></i></p> : <p>Show map<i className="fa-solid fa-map fa-show"></i></p>}</button>
+                    <button onClick={switchView}>{showMap ? <p>Show list<i className="fa-solid fa-list-ul fa-show"></i></p> : <p>Show map<i className="fa-solid fa-map fa-show"></i></p>}</button>
                 </div>
             </div>
             {showMap ? (

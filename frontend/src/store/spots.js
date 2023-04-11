@@ -230,6 +230,7 @@ export const getSpotsFilterThunk = (locationData = {}) => async (dispatch) => {
             case LOAD_SEARCH_SPOTS:
                 newState.searchSpots = { ...action.spots }
                 return newState;
+                // return { ...state, searchSpots: action.spots}
 
             // Get details of Spot by Id
             case LOAD_SPOT:
