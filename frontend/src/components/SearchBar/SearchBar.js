@@ -20,7 +20,7 @@ const SearchBar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const key = useSelector((state) => state.Maps.key);
-    
+
     const handleChange = (value) => {
         setAddress(value);
     };
@@ -28,6 +28,8 @@ const SearchBar = () => {
     const handleSelect = async (value) => {
         const results = await geocodeByAddress(value);
         const latLng = await getLatLng(results[0]);
+        console.log("results: ", results);
+
         const { city, state, country } = results[0].address_components.reduce(
             (acc, component) => {
                 const type = component.types[0];
@@ -42,10 +44,17 @@ const SearchBar = () => {
             },
             {}
         );
-
+        console.log("city: ", city);
+        console.log("state: ", state);
+        console.log("country: ", country);
         setAddress(value);
-        await dispatch(getSpotsFilterThunk({ city, state, country }));
-        navigate("/search");
+        if (city) {
+            await dispatch(getSpotsFilterThunk({ city, state, country }));
+            navigate("/search");
+        } else if (state) {
+            await dispatch(getSpotsFilterThunk({ state, country }));
+            navigate("/search");
+        }
     };
 
     return (

@@ -36,7 +36,7 @@ const CategorySpots = () => {
 
     if (!categorySpots.length)
         return (
-            <div className='category-container'>
+            <div className='spots-container'>
                 <FilterBar />
                 <div className='category-header'>
                     No nests in this category yet!

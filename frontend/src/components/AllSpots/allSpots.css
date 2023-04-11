@@ -1,6 +1,6 @@
 /* All Spots */
 @media (min-width: 1440px) {
-    .spots-container {
+    .spots-wrapper {
         padding-left: 80px;
         padding-right: 80px;
     }
@@ -8,12 +8,13 @@
 
 .spots-container {
     display: flex;
+    justify-content: center;
     flex-direction: column;
     padding-top: 0px;
     margin-top: 20px;
     align-items: center;
-    /* height: 100%;
-    width: 100%; */
+    height: 100%;
+    /* width: 100%; */
     /* justify-content: center; */
 }
 
@@ -74,5 +75,5 @@
 
 .spots-map-container {
     height: calc(100vh - 155px);
-    width: 100%;
+    width: 100vw;
 }

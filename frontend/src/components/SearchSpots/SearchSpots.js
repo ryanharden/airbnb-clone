@@ -44,7 +44,7 @@ const SearchSpots = () => {
 
     if (!searchSpots?.length)
         return (
-            <div className='category-container'>
+            <div className='spots-container'>
                 <FilterBar />
                 <div className='category-header'>
                     No nests located here yet!

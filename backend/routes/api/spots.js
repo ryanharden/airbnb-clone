@@ -242,25 +242,22 @@ router.get("/", async (req, res) => {
 // Get Search Spots
 router.get("/search", async (req, res) => {
     const { city, state, country } = req.query;
-    let spots = await Spot.findAll({
-        where: {
-            city: city,
-            country: country,
-        },
-    });
-    // if (spots.length === 0) {
-    //     spots = await Spot.findAll({
-    //         where: {
-    //             state: state,
-    //             country: country,
-    //         },
-    //     });
-    // }
+
+    let spots;
+
+    if (city && state) {
+        spots = await Spot.findAll({ where: { city, state, country } });
+    } else if (city) {
+        spots = await Spot.findAll({ where: { city, country } });
+    } else if (state) {
+        spots = await Spot.findAll({ where: { state, country } });
+    } else {
+        return res.json({ allSpots: [] });
+    }
 
     if (spots.length === 0) {
         return res.json({ allSpots: [] });
     }
-
 
     let spotList = [];
     spots.forEach(spot => {
