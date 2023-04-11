@@ -84,7 +84,7 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
             if (booking) {
                 setModalContent(<BookingModal onSuccess={() => navigate("/bookings/current")} />);
             }
-            return false; 
+            return false;
         }
     };
 
@@ -144,7 +144,7 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
                             })}
                         </select>
                         {user.id == spot.ownerId ?
-                            <button disabled id={shake ? "shake" : ""} className='floating-box-button'>Cant Reserve Own Spot</button> :
+                            <button onClick={handleSubmit} id={shake ? "shake" : ""} className='floating-box-button'>Cant Reserve Own Spot</button> :
                             <OpenModalButton
                                 onButtonClick={handleSubmit}
                                 className='floating-box-button'
