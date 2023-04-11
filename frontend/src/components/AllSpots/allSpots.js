@@ -9,7 +9,7 @@ import FilterBar from "../FilterBar/FilterBar";
 import Maps from "../Maps/Maps";
 import { getKey } from '../../store/maps';
 
-import { SearchViewMapWrapper } from "../HomeMap/HomeMap";
+// import MapContainer from "../Maps";
 
 const AllSpots = () => {
     // const { about } = useParams();
@@ -27,15 +27,15 @@ const AllSpots = () => {
 
     }, [dispatch]);
 
-    useEffect(() => {
-        if (!key) {
-            dispatch(getKey());
-        }
-    }, [dispatch, key]);
+    // useEffect(() => {
+    //     if (!key) {
+    //         dispatch(getKey());
+    //     }
+    // }, [dispatch, key]);
 
-    if (!key) {
-        return null;
-    }
+    // if (!key) {
+    //     return null;
+    // }
 
     const switchView = () => {
         if (showMap === true) {
@@ -44,9 +44,8 @@ const AllSpots = () => {
             setShowMap(true)
         }
     }
-    // const mapEventHandlers = useMemo(() => ({
-    //     idle: map => setBounds(map.getBounds().toUrlValue())
-    // }), [navigate])
+
+    // console.log("pr: ", process.env.REACT_APP_MAPS_API_KEY);
 
     if (!allSpots) return null;
 
@@ -64,7 +63,8 @@ const AllSpots = () => {
             </div>
             {showMap ? (
                 <div className="spots-map-container">
-                    <Maps apiKey={key} spots={allSpotsArr} />
+                    <Maps spots={allSpotsArr}/>
+                    {/* <Maps apiKey={key} spots={allSpotsArr} /> */}
                 </div>) : (
                 <ul className="spots-wrapper">
                     {spotItems}

@@ -73,6 +73,6 @@
 } */
 
 .spots-map-container {
-    height: calc(100vh - 165px);
+    height: calc(100vh - 155px);
     width: 100%;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { useNavigate } from 'react-router-dom';
+import { Wrapper } from "@googlemaps/react-wrapper";
 
 const containerStyle = {
     width: '100%',
@@ -25,26 +26,20 @@ const center = {
     lng: -123.0481,
 };
 
-const Maps = ({ apiKey, spots }) => {
+// const GOOGLE_MAPS_LIBRARIES = ["places"];
+
+const Maps = ({ apiKey, isLoaded, spots }) => {
     const navigate = useNavigate();
 
     const handleMarkerClick = (spotId) => {
         navigate(`/spots/${spotId}`);
     };
 
-    const { isLoaded } = useJsApiLoader({
-        id: 'google-map-script',
-        googleMapsApiKey: apiKey,
-    });
-
-    // const markers = spots.map((spot) => (
-    //     <Marker
-    //         key={spot.id}
-    //         position={{ lat: parseFloat(spot.lat), lng: parseFloat(spot.lng) }}
-    //         label={`$${spot.price}`}
-    //         onClick={() => handleMarkerClick(spot.id)}
-    //     />
-    // ));
+    // const { isLoaded } = useJsApiLoader({
+    //     id: 'google-map-script',
+    //     googleMapsApiKey: apiKey,
+    //     libraries: GOOGLE_MAPS_LIBRARIES,
+    // });
 
     const markers = spots.map((spot) => (
         <Marker
@@ -56,7 +51,8 @@ const Maps = ({ apiKey, spots }) => {
     ));
     return (
         <>
-            {isLoaded && (
+            {/* {isLoaded && ( */}
+            <Wrapper apiKey={process.env.REACT_APP_MAPS_API_KEY} libraries={["places"]}>
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={center}
@@ -64,7 +60,8 @@ const Maps = ({ apiKey, spots }) => {
                 >
                     {markers}
                 </GoogleMap>
-            )}
+                {/* )} */}
+            </Wrapper>
         </>
     );
 };

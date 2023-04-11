@@ -22,9 +22,7 @@ function Navigation({ isLoaded }) {
             <div className='nomad-nest'>Nomad Nest</div>
           </div>
         </NavLink>
-        {/* <div className='search-bar-wrapper'>
-          <SearchBar />
-        </div> */}
+        <SearchBar />
         {isLoaded && (
           <div>
             <ProfileButton user={sessionUser} />

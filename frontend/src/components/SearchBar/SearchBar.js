@@ -1,40 +1,97 @@
 import './SearchBar.css';
-import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getSpotsFilterThunk } from "../../store/spots";
+import { useJsApiLoader } from '@react-google-maps/api';
+import { useNavigate } from "react-router-dom";
+import { getKey } from '../../store/maps';
+import { Wrapper } from "@googlemaps/react-wrapper";
 
-const SearchBar = ({setLatitude, setLongitude}) => {
-    const [value, setValue] = useState(null);
+import PlacesAutocomplete, {
+    geocodeByAddress,
+    getLatLng,
+} from "react-places-autocomplete";
 
-    if (value) {
-        geocodeByAddress(value.label)
-       .then(results => getLatLng(results[0]))
-       .then(({ lat, lng }) => {
-            setLatitude(lat);
-            setLongitude(lng);
-        });
-    }
+const GOOGLE_MAPS_LIBRARIES = ["places"];
+
+const SearchBar = () => {
+    const [address, setAddress] = useState("");
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const key = useSelector((state) => state.Maps.key);
+
+    const handleChange = (value) => {
+        setAddress(value);
+    };
+
+    const handleSelect = async (value) => {
+        const results = await geocodeByAddress(value);
+        const latLng = await getLatLng(results[0]);
+        const { city, state, country } = results[0].address_components.reduce(
+            (acc, component) => {
+                const type = component.types[0];
+                if (type === "locality") {
+                    acc.city = component.long_name;
+                } else if (type === "administrative_area_level_1") {
+                    acc.state = component.long_name;
+                } else if (type === "country") {
+                    acc.country = component.long_name;
+                }
+                return acc;
+            },
+            {}
+        );
+
+        setAddress(value);
+        dispatch(getSpotsFilterThunk({ city, state, country }));
+        navigate("/search");
+    };
+
+
+    // useEffect(() => {
+    //     if (!key) {
+    //         dispatch(getKey());
+    //     }
+    // }, [dispatch, key]);
+
+    // const { isLoaded } = useJsApiLoader({
+    //     id: "google-map-script",
+    //     googleMapsApiKey: key,
+    //     libraries: GOOGLE_MAPS_LIBRARIES,
+    // });
+
+    // if (!key || !isLoaded) {
+    //     return null;
+    // }
 
     return (
-        <div className='search-bar'
-        >
-            <GooglePlacesAutocomplete
-            apiKey={process.env.MAPS_API_KEY}
-            selectProps={{
-                value,
-                onChange: setValue,
-                placeholder: "Start your search...",
-                noOptionsMessage: () => "e.g. New York City",
-                openMenuOnClick: true,
-                isClearable: true,
-                escapeClearsValue: true,
-                // onFocus: () => clear();
-            }}
-            />
-            <div className='search-button'>
-                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" height="12px" width="12px" display="block" stroke="currentcolor" strokeWidth="5.33333" overflow="visible"><g fill="none"><path d="m13 24c6.0751322 0 11-4.9248678 11-11 0-6.07513225-4.9248678-11-11-11-6.07513225 0-11 4.92486775-11 11 0 6.0751322 4.92486775 11 11 11zm8-3 9 9"></path></g></svg>
-            </div>
-        </div>
+        <>
+            <Wrapper apiKey={process.env.REACT_APP_MAPS_API_KEY} libraries={["places"]}>
+                <PlacesAutocomplete
+                    value={address}
+                    onChange={handleChange}
+                    onSelect={handleSelect}
+                >
+                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                        <div>
+                            <input {...getInputProps({ placeholder: "Search City" })} />
+
+                            <div>
+                                {loading && <div>Loading...</div>}
+                                {suggestions.map((suggestion, i) => {
+                                    return (
+                                        <div key={i} {...getSuggestionItemProps(suggestion)}>
+                                            {suggestion.description}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
+                </PlacesAutocomplete>
+            </Wrapper>
+        </>
     );
-}
+};
 
 export default SearchBar;
