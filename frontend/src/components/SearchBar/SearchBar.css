@@ -1,25 +1,28 @@
-.search-bar {
-    display: none;
+.search-bar-wrapper {
+    display: flex;
     position: relative;
     width: 352px;
     height: 48px;
+    border: solid 1.3px rgba(0, 0, 0, 0.07);
+    border-radius: 25px;
+    padding: 0 10px;
 }
 
-.search-bar input {
-    padding-left: 10px !important;
-    width: 280px !important;
-}
-
-.css-2b097c-container {
-    height: 48px;
+.search-bar-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
 }
 
-.search-button {
+.search-bar-input {
+    border: 0;
+    outline: 0;
+    font-size: 15px;
+}
+
+.search-icon {
     content: '';
-    position: absolute;
-    top: 8px;
-    right: 8px;
     background-color: rgb(255, 56, 92);
     border-radius: 50%;
     width: 32px;
@@ -29,82 +32,25 @@
     justify-content: center;
     align-items: center;
     color: white;
-    /* cursor: pointer; */
+    /* margin-left: 150px; */
+    cursor: pointer;
 }
 
-.css-yk16xz-control {
-    border-radius: 24px !important;
-    height: 100% !important;
-    min-height: 46px !important;
-    width: 100% !important;
-    max-width: none !important;
-}
-
-.css-1pahdxg-control {
-    border-radius: 24px !important;
-    outline: none !important;
-    border: none !important;
-}
-
-.css-1pahdxg-control span {
-    border: none !important;
-}
-
-.css-1wy0on6 {
-    display: none !important;
-}
-
-.css-1hwfws3 {
-    height: 48px !important;
-    width: 100% !important;
-}
-
-.pac-container{
-    z-index: 500 !important;
-}
-
-.css-26l3qy-menu{
-    z-index: 500 !important;
-    position: relative !important;
-    margin-top: -40px !important;
-}
-
-.css-1wa3eu0-placeholder {
-    margin-left: 10px !important;
-    margin-top: -1px !important;
-    cursor: text;
-}
-
-.css-1uccc91-singleValue {
-    padding-left: 10px;
-    width: 300px;
-    line-height: 20px;
-}
-
-.css-1g6gooi {
-    width: 100% !important;
-    max-width: 350px !important;
-    overflow-x: hidden;
-}
-
-@media (max-width: 580px) {
-    .search-bar {
-        margin-left: -50px;
-        width: calc(100vw - 150px);
+@media (max-width: 900px) {
+    .search-bar-wrapper {
+        /* margin-left: -50px; */
+        width: 200px;
         min-width: 20px;
     }
-    .css-1hwfws3 {
-        width: calc(100vw - 152px) !important;
-        min-width: 100px !important;
+
+    .search-bar-content {
+        width: 200px;
     }
-    .search-button {
-        right: 8px;
-    }
-    .search-bar input {
-        padding-left: 14px !important;
-        width: 160px !important;
-    }
-    .logo-text {
+
+}
+
+@media (max-width: 630px) {
+    .search-bar-wrapper, .search-bar-content {
         display: none;
     }
 }
