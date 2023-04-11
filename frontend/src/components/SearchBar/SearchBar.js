@@ -20,7 +20,7 @@ const SearchBar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const key = useSelector((state) => state.Maps.key);
-
+    
     const handleChange = (value) => {
         setAddress(value);
     };
@@ -44,7 +44,7 @@ const SearchBar = () => {
         );
 
         setAddress(value);
-        dispatch(getSpotsFilterThunk({ city, state, country }));
+        await dispatch(getSpotsFilterThunk({ city, state, country }));
         navigate("/search");
     };
 

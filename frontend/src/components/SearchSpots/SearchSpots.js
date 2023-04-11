@@ -23,15 +23,15 @@ const SearchSpots = () => {
         return <SpotIndexItem key={spot.id} spot={spot} />
     });
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            await dispatch(getSpotsFilterThunk());
-            await dispatch(getSpotsThunk());
-            setLoading(false);
-        };
-        fetchData();
-    }, [dispatch]);
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         setLoading(true);
+    //         await dispatch(getSpotsThunk());
+    //         setLoading(false);
+    //     };
+    //     fetchData();
+    // }, [dispatch]);
 
     let allSpotItems;
     if (searchSpots?.length) {
