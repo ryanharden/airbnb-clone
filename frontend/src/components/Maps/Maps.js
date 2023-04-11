@@ -1,6 +1,6 @@
 import React from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
-import { useNavigate } from 'react-router-dom';
+import { parsePath, useNavigate } from 'react-router-dom';
 import { Wrapper } from "@googlemaps/react-wrapper";
 
 const containerStyle = {
@@ -28,7 +28,7 @@ const center = {
 
 // const GOOGLE_MAPS_LIBRARIES = ["places"];
 
-const Maps = ({ apiKey, isLoaded, spots, center }) => {
+const Maps = ({ apiKey, isLoaded, spots, center, zoom, spot = null }) => {
     const navigate = useNavigate();
 
     const handleMarkerClick = (spotId) => {
@@ -40,15 +40,24 @@ const Maps = ({ apiKey, isLoaded, spots, center }) => {
     //     googleMapsApiKey: apiKey,
     //     libraries: GOOGLE_MAPS_LIBRARIES,
     // });
-
-    const markers = spots.map((spot) => (
+    const createMarker = (spot) => (
         <Marker
             key={spot.id}
             position={{ lat: parseFloat(spot.lat), lng: parseFloat(spot.lng) }}
             icon={getCustomMarkerIcon(`$${spot.price}`)}
             onClick={() => handleMarkerClick(spot.id)}
         />
-    ));
+    );
+
+    // const markers = spots.map((spot) => (
+    //     <Marker
+    //         key={spot.id}
+    //         position={{ lat: parseFloat(spot.lat), lng: parseFloat(spot.lng) }}
+    //         icon={getCustomMarkerIcon(`$${spot.price}`)}
+    //         onClick={() => handleMarkerClick(spot.id)}
+    //     />
+    // ));
+    const markers = spot ? [createMarker(spot)] : spots.map(createMarker);
     return (
         <>
             {/* {isLoaded && ( */}
@@ -56,7 +65,8 @@ const Maps = ({ apiKey, isLoaded, spots, center }) => {
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={center}
-                    zoom={7}
+                    zoom={zoom}
+                // fullscreenControl={false}
                 >
                     {markers}
                 </GoogleMap>

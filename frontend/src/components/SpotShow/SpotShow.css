@@ -356,7 +356,7 @@ h4 {
     border-bottom: solid 1px rgba(0,0,0,0.15);
 }
 
-.where-sleep-header, .place-offers-header {
+.where-sleep-header, .place-offers-header, .where-stay-header {
     font-size: 22px;
     font-weight: 500;
     letter-spacing: 0.3px;
@@ -417,5 +417,26 @@ h4 {
 
 .show-reviews-link {
     color: black;
+}
 
+.where-stay-map {
+    /* width: 1120px; */
+    height: 480px;
+}
+
+.where-stay-header, .where-stay-location {
+    margin-bottom: 24px;
+}
+
+.where-stay-header {
+    margin-top: 48px;
+}
+
+.where-stay-location {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.where-stay-container {
+    padding-bottom: 100px;
 }

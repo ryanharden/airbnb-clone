@@ -23,8 +23,11 @@ const SearchSpots = () => {
     const spotRecs = first6Spots.map((spot) => {
         return <SpotIndexItem key={spot.id} spot={spot} />
     });
-
-    const latLng = location.state?.latLng;
+    const center = {
+        lat: 38.3332,
+        lng: -123.0481,
+    };
+    const latLng = location.state?.latLng || center;
 
     // useEffect(() => {
     //     const fetchData = async () => {
@@ -91,7 +94,7 @@ const SearchSpots = () => {
                 </ul>
             </div>
             <div className='search-spots-map-container'>
-                <Maps spots={searchSpots}  center={latLng} />
+                <Maps spots={searchSpots}  zoom={10} center={latLng} />
             </div>
         </div>
     )

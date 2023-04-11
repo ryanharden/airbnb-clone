@@ -15,6 +15,7 @@ import SpotAmenities from '../SpotAmenities/SpotAmenities';
 import profPic from "../../assets/prof-pic.jpeg";
 import BookingBox from '../BookingBox/BookingBox';
 import { getBookingsForSpotThunk } from '../../store/bookings';
+import Maps from '../Maps/Maps';
 import "./SpotShow.css";
 
 
@@ -45,7 +46,8 @@ const SpotShow = () => {
     const spot = useSelector(state => state.Spots.singleSpot);
     const dispatch = useDispatch();
 
-    // console.log(spot);
+    // const spotArr = Object.values(spot);
+    // console.log("spotArr: ", spotArr);
     const user = useSelector(state => state.session.user);
     // console.log("user: ", user);
     const spotReviews = useSelector(state => state.Reviews.spot);
@@ -76,6 +78,10 @@ const SpotShow = () => {
     const [endDate, setEndDate] = useState(new Date(startDate.getFullYear(), endMonth, endDay));
     // const [value, onChange] = useState([startDate, endDate]);
 
+    const center = {
+        lat: spot.lat,
+        lng: spot.lng
+    }
 
     function parseDate(dateString) {
         const [year, month, day] = dateString.split('-').map(Number);
@@ -291,6 +297,17 @@ const SpotShow = () => {
             </div>
             <div className='spot-reviews'>
                 <SpotReviews />
+            </div>
+            <div className='where-stay-container'>
+                <div className='where-stay-header'>
+                    Where you'll be
+                </div>
+                <div className='where-stay-location'>
+                    {spot?.city}, {spot?.state}, {spot.country}
+                </div>
+                <div className='where-stay-map'>
+                    <Maps center={center} zoom={15} spot={spot}/>
+                </div>
             </div>
         </div>
     )

@@ -10,6 +10,11 @@ import Maps from "../Maps/Maps";
 import { getKey } from '../../store/maps';
 
 // import MapContainer from "../Maps";
+const center = {
+    lat: 38.3332,
+    lng: -123.0481,
+};
+
 
 const AllSpots = () => {
     // const { about } = useParams();
@@ -63,7 +68,7 @@ const AllSpots = () => {
             </div>
             {showMap ? (
                 <div className="spots-map-container">
-                    <Maps spots={allSpotsArr}/>
+                    <Maps spots={allSpotsArr} zoom={7} center={center}/>
                     {/* <Maps apiKey={key} spots={allSpotsArr} /> */}
                 </div>) : (
                 <ul className="spots-wrapper">
