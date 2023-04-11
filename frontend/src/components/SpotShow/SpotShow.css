@@ -314,7 +314,7 @@ p {
 
 .aircover {
     padding: 32px 0;
-    /* border-bottom: solid 1px rgba(0,0,0,0.15); */
+    border-bottom: solid 1px rgba(0,0,0,0.15);
 }
 
 .aircover-description {
