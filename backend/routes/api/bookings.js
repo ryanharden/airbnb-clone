@@ -131,8 +131,29 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
         })
     };
 
-    if ((startDateInt >= bookingStartDate && startDateInt < bookingEndDate) ||
-        (endDateInt > bookingStartDate && endDateInt <= bookingEndDate)) {
+    // if ((startDateInt >= bookingStartDate && startDateInt < bookingEndDate) ||
+    //     (endDateInt > bookingStartDate && endDateInt <= bookingEndDate)) {
+    //     res.status(403);
+    //     return res.json({
+    //         "message": "Sorry, this spot is already booked for the specified dates",
+    //         "statusCode": 403,
+    //         "errors": {
+    //             "startDate": "Start date conflicts with an existing booking",
+    //             "endDate": "End date conflicts with an existing booking"
+    //         }
+    //     })
+    // }
+
+    const overlappingBookings = await Booking.findAll({
+        where: {
+            spotId: oldBooking.spotId,
+            id: { [Op.ne]: bookingId },
+            startDate: { [Op.lte]: endDate },
+            endDate: { [Op.gte]: startDate }
+        }
+    });
+
+    if (overlappingBookings.length) {
         res.status(403);
         return res.json({
             "message": "Sorry, this spot is already booked for the specified dates",
@@ -141,7 +162,7 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
                 "startDate": "Start date conflicts with an existing booking",
                 "endDate": "End date conflicts with an existing booking"
             }
-        })
+        });
     }
 
     await oldBooking.update({
