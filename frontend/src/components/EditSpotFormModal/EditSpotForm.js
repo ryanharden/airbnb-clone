@@ -44,7 +44,7 @@ const EditSpotForm = () => {
     const [dryer, setDryer] = useState(spot.dryer);
     const [loading, setLoading] = useState(false);
 
-    console.log("wifi: ", wifi);
+    // console.log("wifi: ", wifi);
 
     const categories = ["Beach", "Cabin", "Camping", "Countryside", "Desert", "Lake", "National Parks", "Tropical", "Vineyard"]
     const guestNums = Array.from({ length: 16 }, (_, i) => i + 0);
@@ -126,7 +126,7 @@ const EditSpotForm = () => {
             return;
         }
 
-        console.log("editedSpot: ", editedSpot);
+        // console.log("editedSpot: ", editedSpot);
 
         try {
             await dispatch(updateSpotThunk(editedSpot, spotDetails));
