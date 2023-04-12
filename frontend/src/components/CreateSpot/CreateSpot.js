@@ -40,7 +40,7 @@ const CreateSpot = () => {
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
 
-    const categories = ["Beach", "Cabin", "Camping", "Countryside", "Desert", "Lake", "National Parks", "Tropical", "Vineyard"]
+    const categories = ["Beach", "Cabin", "Camping", "Countryside", "Desert", "Iconic cities", "Lake", "National Parks", "Vineyard"]
     const guestNums = Array.from({ length: 16 }, (_, i) => i + 0);
     const bedroomNums = Array.from({ length: 11 }, (_, i) => i + 0);
     const bedNums = Array.from({ length: 11 }, (_, i) => i + 0);

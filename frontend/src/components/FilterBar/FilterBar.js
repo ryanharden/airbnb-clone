@@ -43,6 +43,12 @@ const FilterBar = () => {
                 </Link>
             </div>
             <div className='link-bar-link-container'>
+                <Link to={'/Iconiccities'} className='links-bar-link'>
+                    <img className="f-bar-img" src="https://a0.muscache.com/pictures/ed8b9e47-609b-44c2-9768-33e6a22eccb2.jpg" />
+                    <div className='f-bar-cat'>Iconic cities</div>
+                </Link>
+            </div>
+            <div className='link-bar-link-container'>
                 <Link to={'/Lake'} className='links-bar-link'>
                     <img className="f-bar-img" src="https://a0.muscache.com/pictures/a4634ca6-1407-4864-ab97-6e141967d782.jpg" />
                     <div className='f-bar-cat'>Lake</div>
@@ -52,12 +58,6 @@ const FilterBar = () => {
                 <Link to={'/NationalParks'} className='links-bar-link'>
                     <img className="f-bar-img" src="https://a0.muscache.com/pictures/c0a24c04-ce1f-490c-833f-987613930eca.jpg" />
                     <div className='f-bar-cat'>National Parks</div>
-                </Link>
-            </div>
-            <div className='link-bar-link-container'>
-                <Link to={'/Tropical'} className='links-bar-link'>
-                    <img className="f-bar-img" src=" https://a0.muscache.com/pictures/ee9e2a40-ffac-4db9-9080-b351efc3cfc4.jpg" />
-                    <div className='f-bar-cat'>Tropical</div>
                 </Link>
             </div>
             <div className='link-bar-link-container'>
