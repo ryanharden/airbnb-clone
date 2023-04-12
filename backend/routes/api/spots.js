@@ -708,8 +708,6 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
 router.get("/:spotId/bookings", async (req, res) => {
     const spotId = +req.params.spotId;
     const spot = await Spot.findByPk(spotId);
-    console.log("spot: ", spot);
-    console.log("req: ", req);
     if (!spot) {
         res.status(404);
         return res.json({

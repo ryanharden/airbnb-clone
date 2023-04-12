@@ -13,7 +13,7 @@ const SearchSpots = () => {
     const locationData = location.state?.locationData;
 
     const searchSpots = useSelector(state => state.Spots.searchSpots?.allSpots);
-    console.log("searchSpots: ", searchSpots);
+    // console.log("searchSpots: ", searchSpots);
     // const searchSpotsArr = Object.values(searchSpots);
     const [loading, setLoading] = useState(true);
     const allSpots = useSelector(state => state.Spots.allSpots);

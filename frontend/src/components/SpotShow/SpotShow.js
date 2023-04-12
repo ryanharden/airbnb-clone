@@ -75,9 +75,9 @@ const SpotShow = () => {
 
     const [endDate, setEndDate] = useState(new Date(startDate.getFullYear(), endMonth, endDay));
     const [value, onChange] = useState([startDate, endDate]);
-    console.log("spot.lat: ", spot.lat);
-    console.log("spot.lng: ", spot.lng);
-    
+    // console.log("spot.lat: ", spot.lat);
+    // console.log("spot.lng: ", spot.lng);
+
     const center = spot ? { lat: parseFloat(spot.lat), lng: parseFloat(spot.lng) } : undefined;
 
 
