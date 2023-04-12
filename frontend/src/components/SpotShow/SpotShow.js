@@ -75,11 +75,11 @@ const SpotShow = () => {
 
     const [endDate, setEndDate] = useState(new Date(startDate.getFullYear(), endMonth, endDay));
     const [value, onChange] = useState([startDate, endDate]);
+    console.log("spot.lat: ", spot.lat);
+    console.log("spot.lng: ", spot.lng);
+    
+    const center = spot ? { lat: parseFloat(spot.lat), lng: parseFloat(spot.lng) } : undefined;
 
-    const center = {
-        lat: spot.lat,
-        lng: spot.lng
-    }
 
     function parseDate(dateString) {
         const [year, month, day] = dateString.split('-').map(Number);
