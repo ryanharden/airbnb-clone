@@ -43,7 +43,7 @@ const validateSpot = [
         .isDecimal()
         .withMessage("Longitude is not valid"),
     check("name")
-        .isLength({ max: 100 })
+        .isLength({ max: 150 })
         .withMessage("Name must be less than 100 characters"),
     check("description")
         .notEmpty()
