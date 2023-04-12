@@ -71,8 +71,8 @@ const CreateSpot = () => {
             errors.push("Please select a category");
         }
         if (!form.price) errors.push("Please enter a price.");
-        if (form.price === "" || parseFloat(form.price) === 0 || parseFloat(form.price) > 5000) {
-            errors.push("Price must be a number greater than 0 and less than 5000");
+        if (form.price === "" || parseFloat(form.price) === 0 || parseFloat(form.price) > 10000) {
+            errors.push("Price must be a number greater than 0 and less than 10000");
         } else if (isNaN(form.price)) {
             errors.push("Price must be a number")
         }
@@ -316,7 +316,7 @@ const CreateSpot = () => {
                             placeholder="Price per night"
                             required
                             min="1"
-                            max="5000"
+                            max="10000"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                         />

@@ -1,6 +1,6 @@
 const express = require("express");
 const sequelize = require("sequelize");
-const { Spot, Review, User, SpotImage, ReviewImage, Booking } = require("../../db/models");
+const { Spot, Review, User, SpotImage, Booking } = require("../../db/models");
 const router = express.Router();
 const { requireAuth } = require("../../utils/auth");
 const { check } = require("express-validator");

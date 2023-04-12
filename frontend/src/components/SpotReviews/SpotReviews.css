@@ -139,9 +139,10 @@
 
 .reviewItems-header {
     display: flex;
+    justify-content: space-between;
     flex-direction: row;
     align-items: center;
-    margin-left: -10px;
+    margin-left: -5px;
     /* padding: 15px */
 }
 
