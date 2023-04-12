@@ -21,10 +21,10 @@ const getCustomMarkerIcon = (price) => {
     return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 };
 
-const center = {
-    lat: 38.3332,
-    lng: -123.0481,
-};
+// const center = {
+//     lat: 38.3332,
+//     lng: -123.0481,
+// };
 
 
 const Maps = ({ apiKey, isLoaded, spots, center, zoom, spot}) => {
@@ -54,7 +54,7 @@ const Maps = ({ apiKey, isLoaded, spots, center, zoom, spot}) => {
             <Wrapper apiKey={process.env.REACT_APP_MAPS_API_KEY} libraries={["places"]}>
                 <GoogleMap
                     mapContainerStyle={containerStyle}
-                    center={center}
+                    center={center || { lat: 38.3332, lng: -123.0481 }}
                     zoom={zoom}
                 // fullscreenControl={false}
                 >
