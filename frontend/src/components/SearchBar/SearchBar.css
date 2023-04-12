@@ -34,7 +34,7 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 55px;
+    top: 65px;
     box-sizing: border-box;
     width: 100%; /* Add this line */
     background-color: white; /* Add this line */

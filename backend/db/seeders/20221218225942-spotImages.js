@@ -722,4 +722,3 @@ module.exports = {
     return queryInterface.bulkDelete(options, null, {});
   }
 };
-

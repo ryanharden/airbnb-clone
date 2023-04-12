@@ -10,8 +10,10 @@ import "./SearchSpots.css";
 const SearchSpots = () => {
     const dispatch = useDispatch();
     const location = useLocation();
+    const locationData = location.state?.locationData;
+
     const searchSpots = useSelector(state => state.Spots.searchSpots?.allSpots);
-    // console.log("searchSpots: ", searchSpots);
+    console.log("searchSpots: ", searchSpots);
     // const searchSpotsArr = Object.values(searchSpots);
     const [loading, setLoading] = useState(true);
     const allSpots = useSelector(state => state.Spots.allSpots);
@@ -28,6 +30,21 @@ const SearchSpots = () => {
         lng: -123.0481,
     };
     const latLng = location.state?.latLng || center;
+
+    useEffect(() => {
+        if (!searchSpots) {
+            setLoading(true);
+            dispatch(getSpotsThunk()).then(() => setLoading(false));
+        } else {
+            setLoading(false);
+        }
+    }, [searchSpots, dispatch]);
+
+    useEffect(() => {
+        if (locationData) {
+            dispatch(getSpotsFilterThunk(locationData));
+        }
+    }, [dispatch, locationData]);
 
     // useEffect(() => {
     //     const fetchData = async () => {
@@ -94,7 +111,7 @@ const SearchSpots = () => {
                 </ul>
             </div>
             <div className='search-spots-map-container'>
-                <Maps spots={searchSpots}  zoom={10} center={latLng} />
+                <Maps spots={searchSpots} zoom={9} center={latLng} />
             </div>
         </div>
     )

@@ -26,7 +26,6 @@ const center = {
     lng: -123.0481,
 };
 
-// const GOOGLE_MAPS_LIBRARIES = ["places"];
 
 const Maps = ({ apiKey, isLoaded, spots, center, zoom, spot = null }) => {
     const navigate = useNavigate();
@@ -48,15 +47,6 @@ const Maps = ({ apiKey, isLoaded, spots, center, zoom, spot = null }) => {
             onClick={() => handleMarkerClick(spot.id)}
         />
     );
-
-    // const markers = spots.map((spot) => (
-    //     <Marker
-    //         key={spot.id}
-    //         position={{ lat: parseFloat(spot.lat), lng: parseFloat(spot.lng) }}
-    //         icon={getCustomMarkerIcon(`$${spot.price}`)}
-    //         onClick={() => handleMarkerClick(spot.id)}
-    //     />
-    // ));
     const markers = spot ? [createMarker(spot)] : spots.map(createMarker);
     return (
         <>

@@ -37,6 +37,7 @@
 .spot-preview-image {
     max-width: 300px;
     height: 280px;
+    /* object-fit: fill; */
     border-radius: 15px;
 }
 

@@ -1,11 +1,12 @@
 .search-spots-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     padding-top: 0px;
     align-items: flex-start;
-    height: 100%;
+    height: calc(100vh - 80px);
     margin-top: -10px;
     width: 100vw;
+    overflow-y: scroll;
     /* justify-content: center; */
 }
 /*
@@ -59,12 +60,13 @@
     width: 40vw;
     margin-top: 0px;
     padding-left: 0;
-    padding-right: 0;
+    /* padding-right: 0;
     margin-left: 15px;
-    margin-right: 15px;
-    overflow-y: scroll;
-    height: calc(100vh - 150px);
+    margin-right: 15px; */
+    margin-bottom: 30px;
+    /* height: calc(100vh - 150px); */
 }
+
 
 /* @media (max-width: 1630px) {
     .search-spots-container ul {
@@ -78,7 +80,11 @@
 .search-spots-map-container {
     height: calc(100vh - 80px);
     width: 60vw;
+    right: 0px;
+    position: absolute;
 }
+
+
 
 .left-search-spots {
     display: flex;
