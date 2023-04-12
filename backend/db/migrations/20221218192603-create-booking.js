@@ -25,7 +25,7 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: "Users", key: "id"},
+        references: { model: "Users", key: "id" },
         onDelete: "CASCADE",
         hooks: true
       },
@@ -36,6 +36,16 @@ module.exports = {
       endDate: {
         type: Sequelize.DATEONLY,
         allowNull: false
+      },
+      guests: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 1
+      },
+      total: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,

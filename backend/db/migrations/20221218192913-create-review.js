@@ -33,6 +33,24 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      cleanliness: {
+        type: Sequelize.INTEGER,
+      },
+      communication: {
+        type: Sequelize.INTEGER,
+      },
+      checkin: {
+        type: Sequelize.INTEGER,
+      },
+      accuracy: {
+        type: Sequelize.INTEGER,
+      },
+      location: {
+        type: Sequelize.INTEGER,
+      },
+      value: {
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
