@@ -46,20 +46,20 @@ const SearchBar = () => {
         // console.log("state: ", state);
         // console.log("country: ", country);
         setAddress(value);
-        if (city) {
-            await dispatch(getSpotsFilterThunk({ city, state, country }));
-            navigate("/search", { state: { latLng } });
-        } else if (state) {
-            await dispatch(getSpotsFilterThunk({ state, country }));
-            navigate("/search", { state: { latLng } });
-        }
         // if (city) {
         //     await dispatch(getSpotsFilterThunk({ city, state, country }));
-        //     navigate(`/search?city=${city}&state=${state}&country=${country}`);
+        //     navigate("/search", { state: { latLng } });
         // } else if (state) {
         //     await dispatch(getSpotsFilterThunk({ state, country }));
-        //     navigate(`/search?state=${state}&country=${country}`);
+        //     navigate("/search", { state: { latLng } });
         // }
+        if (city) {
+            await dispatch(getSpotsFilterThunk({ city, state, country }));
+            navigate("/search", { state: { latLng, locationData: { city, state, country } } });
+        } else if (state) {
+            await dispatch(getSpotsFilterThunk({ state, country }));
+            navigate("/search", { state: { latLng, locationData: { state, country } } });
+        }
     };
 
     return (
