@@ -69,7 +69,51 @@ module.exports = (sequelize, DataTypes) => {
     price: {
       type: DataTypes.DECIMAL,
       allowNull: false
-    }
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    guests: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    bedrooms: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    beds: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    bathrooms: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    wifi: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    parking: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    kitchen: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    pets: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    washer: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    dryer: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
   }, {
     sequelize,
     modelName: 'Spot',

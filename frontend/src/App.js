@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import * as sessionActions from "./store/session";
 import AllSpots from "./components/AllSpots/allSpots";
 import SpotShow from "./components/SpotShow/SpotShow";
+import TripsPage from "./components/TripsPage/TripsPage";
+import CategorySpots from "./components/CategorySpots/CategorySpots";
+import SearchSpots from "./components/SearchSpots/SearchSpots";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,14 +27,17 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
-        <Switch>
-          <Route exact path="/">
-            <AllSpots />
-          </Route>
-          <Route path="/spots/:spotId">
-            <SpotShow />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/" element={<AllSpots />} />
+
+          <Route path="/:category" element={<CategorySpots />} />
+
+          <Route path="/spots/:spotId" element={<SpotShow />} />
+
+          <Route path="/bookings/current" element={<TripsPage />} />
+
+          <Route path="/search" element={<SearchSpots />} />
+        </Routes>
       )}
     </>
   );

@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    grid-column-gap: 100px;
+    /* grid-column-gap: 100px; */
     grid-row-gap: 30px;
     max-height: 550px;
     margin-bottom: 25px
@@ -12,7 +12,9 @@
 .spot-review-item-container {
     display: flex;
     flex-direction: column;
-    padding: 15px 0px;;
+    padding: 15px 0px;
+    margin-right: 94px;
+    width: 80%;
 }
 
 /* .spot-review-item-container:hover {
@@ -24,11 +26,15 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     padding-left: 0px;
     padding-bottom: 15px;
 }
 
+.user-info-review {
+    display: flex;
+    align-items: center;
+}
 .name-date {
     display: flex;
     flex-direction: column;
@@ -58,10 +64,29 @@
     text-overflow: ellipsis;
 }
 
-.delete-review-container {
-    margin-top: 10px;
+.edit-delete-review-container {
     display: flex;
-    justify-content: flex-end;
+    gap: 7px;
+}
+
+.edit-review-container {
+    margin-top: -17.3px;
+    cursor: pointer;
+}
+
+.fa-solid.fa-file-pen:hover, .fa-solid.fa-trash-can:hover {
+    color: #FF385C;
+}
+.fa-solid.fa-file-pen {
+    cursor: pointer;
+}
+
+.delete-review-container {
+    margin-top: -15px;
+    /* margin-right: 10px; */
+    display: flex;
+    cursor: pointer;
+    /* justify-content: flex-end; */
 }
 
 .delete-review-button {
@@ -75,4 +100,10 @@
 .delete-review-button:hover {
     cursor: pointer;
     box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+}
+
+.edit-review-button {
+    border: none;
+    background-color: transparent;
+    padding: 0;
 }

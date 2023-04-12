@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
 import { deleteSpotThunk } from '../../store/spots';
 import "./DeleteSpotForm.css";
 
 const DeleteSpotForm = () => {
     const dispatch = useDispatch();
-    const history = useHistory()
+    const navigate = useNavigate()
     const { closeModal } = useModal();
 
     const spot = useSelector(state => state.Spots.singleSpot);
@@ -22,7 +22,7 @@ const DeleteSpotForm = () => {
         e.preventDefault();
 
         dispatch(deleteSpotThunk(spot.id))
-            .then(() => history.push('/'))
+            .then(() => navigate('/'))
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();

@@ -19,10 +19,16 @@
 }
 
 .review-form-textarea {
-    border-radius: 8px 8px 0px 0px;
+    border-radius: 8px;
     border: solid 1px rgba(0,0,0,0.4);
-    height: 36px;
-    padding-left: 8px
+    height: 100px;
+    padding-left: 8px;
+    box-sizing: border-box;
+}
+
+.review-form-textarea:focus {
+    outline: none;
+    border: 2px solid black;
 }
 
 .review-form-stars {
@@ -55,4 +61,22 @@
     justify-content: flex-start;
     padding-left: 0;
     margin-top: 0;
+}
+
+.review-form-stars-container {
+    display: flex;
+    gap: 7px;
+}
+
+.review-form-cleanliness-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom:20px;
+}
+
+.review-star {
+    height: 19px;
+    width: 20px;
+    cursor: pointer;
 }

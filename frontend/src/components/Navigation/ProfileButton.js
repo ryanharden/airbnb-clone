@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import "./Navigation.css";
 import OpenModalMenuItem from './OpenModalMenuItem';
@@ -7,11 +7,12 @@ import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import OpenModalButton from "../OpenModalButton";
 import CreateSpot from "../CreateSpot/CreateSpot";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
 
@@ -40,7 +41,7 @@ function ProfileButton({ user }) {
         e.preventDefault();
         dispatch(sessionActions.logout());
         closeMenu();
-        history.push("/")
+        navigate("/")
     };
 
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -49,7 +50,7 @@ function ProfileButton({ user }) {
         <>
             <div className="right-nav-bar">
                 <OpenModalButton className="add-spot-button"
-                    modalComponent={<CreateSpot />}
+                    modalComponent={user ? <CreateSpot /> : <LoginFormModal />}
                     buttonText="List your nest"
                 />
                 <button className="profile-button" onClick={openMenu}>
@@ -62,11 +63,13 @@ function ProfileButton({ user }) {
                     <>
                         <div className="dropdown-container-in">
                             <div className="if-logged-in">
-                                <li className="username"><span className="item-def">Username: </span>{user.username}</li>
-                                <li><span className="item-def">Name: </span>{user.firstName} {user.lastName}</li>
-                                <li><span className="item-def">Email: </span>{user.email}</li>
+                                <li className="username"><span className="item-def">Username: </span>{user?.username}</li>
+                                <li><span className="item-def">Name: </span>{user?.firstName} {user.lastName}</li>
+                                <li><span className="item-def">Email: </span>{user?.email}</li>
+                                <li><Link onClick={closeMenu} to={"/bookings/current"} className="trips-link">My Trips</Link></li>
                                 <li><OpenModalButton className="add-spot-li-button"
                                     modalComponent={<CreateSpot />}
+                                    onItemClick={closeMenu}
                                     buttonText="List your nest"
                                 /></li>
                             </div>

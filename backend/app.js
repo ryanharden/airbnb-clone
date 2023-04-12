@@ -5,6 +5,7 @@ const cors = require('cors');
 const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
 const routes = require('./routes');
 
@@ -17,6 +18,8 @@ const app = express();
 app.use(morgan('dev'));
 
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
+// app.use(bodyParser.json({ limit: '10mb' }));
 app.use(express.json());
 
 // Security Middleware

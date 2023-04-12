@@ -7,61 +7,88 @@ const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require("sequelize");
 
-// Get all of the Current User's Bookings
+// // Get all of the Current User's Bookings
 
+// router.get("/current", requireAuth, async (req, res) => {
+//     const currentUserId = +req.user.id;
+
+//     const bookings = await Booking.findAll({
+//         where: {
+//             userId: currentUserId
+//         },
+//         include: [
+//             {
+//                 model: Spot,
+//                 attributes: {
+//                     exclude: ["description", "createdAt", "updatedAt"]
+//                 },
+//                 include: [
+//                     { model: SpotImage }
+//                 ]
+//             }
+//         ]
+//     });
+
+//     let bookingsList = [];
+
+//     bookings.forEach(async (booking) => {
+//         bookingsList.push(booking.toJSON())
+//     });
+
+//     let allBookings = [];
+
+//     bookingsList.forEach(async (booking) => {
+//         booking.Spot.SpotImages.forEach(image => {
+//             if (image.preview === true) {
+//                 booking.Spot.previewImage = image.url
+//             }
+//         })
+//         if (!booking.Spot.previewImage) {
+//             booking.Spot.previewImage = "no preview image found"
+//         }
+//         delete booking.Spot.SpotImages;
+
+//         allBookings.push(booking);
+//         if (booking === bookingsList[bookingsList.length -1]) {
+//             return res.json({
+//                 Bookings: allBookings
+//             });
+//         }
+//     });
+
+// });
+// Get all of the Current User's Bookings
 router.get("/current", requireAuth, async (req, res) => {
     const currentUserId = +req.user.id;
-
     const bookings = await Booking.findAll({
-        where: {
-            userId: currentUserId
-        },
+        where: { userId: currentUserId },
         include: [
             {
                 model: Spot,
-                attributes: {
-                    exclude: ["description", "createdAt", "updatedAt"]
-                },
-                include: [
-                    { model: SpotImage }
-                ]
-            }
-        ]
+                attributes: { exclude: ["description", "createdAt", "updatedAt"] },
+                include: [{ model: SpotImage }],
+            },
+        ],
     });
-
-    let bookingsList = [];
-
-    bookings.forEach(async (booking) => {
-        bookingsList.push(booking.toJSON())
+    const allBookings = bookings.map((booking) => {
+        const bookingData = booking.toJSON();
+        const previewImage = bookingData.Spot.SpotImages.find(
+            (image) => image.preview === true
+        );
+        bookingData.Spot.previewImage = previewImage
+            ? previewImage.url
+            : "no preview image found";
+        delete bookingData.Spot.SpotImages;
+        return bookingData;
     });
-
-    let allBookings = [];
-
-    bookingsList.forEach(async (booking) => {
-        booking.Spot.SpotImages.forEach(image => {
-            if (image.preview === true) {
-                booking.Spot.previewImage = image.url
-            }
-        })
-        if (!booking.Spot.previewImage) {
-            booking.Spot.previewImage = "no preview image found"
-        }
-        delete booking.Spot.SpotImages;
-
-        allBookings.push(booking);
-        if (booking === bookingsList[bookingsList.length -1]) {
-            return res.json({
-                Bookings: allBookings
-            });
-        }
-    });
-
+    return res.json({ Bookings: allBookings });
 });
+
 
 // Edit a Booking
 
 router.put("/:bookingId", requireAuth, async (req, res) => {
-    const { startDate, endDate } = req.body;
+    const { startDate, endDate, guests } = req.body;
     const bookingId = +req.params.bookingId;
     const currentUserId = req.user.id;
     const startDateInt = new Date(startDate).getTime();
@@ -104,8 +131,29 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
         })
     };
 
-    if ((startDateInt >= bookingStartDate && startDateInt < bookingEndDate) ||
-        (endDateInt > bookingStartDate && endDateInt <= bookingEndDate)) {
+    // if ((startDateInt >= bookingStartDate && startDateInt < bookingEndDate) ||
+    //     (endDateInt > bookingStartDate && endDateInt <= bookingEndDate)) {
+    //     res.status(403);
+    //     return res.json({
+    //         "message": "Sorry, this spot is already booked for the specified dates",
+    //         "statusCode": 403,
+    //         "errors": {
+    //             "startDate": "Start date conflicts with an existing booking",
+    //             "endDate": "End date conflicts with an existing booking"
+    //         }
+    //     })
+    // }
+
+    const overlappingBookings = await Booking.findAll({
+        where: {
+            spotId: oldBooking.spotId,
+            id: { [Op.ne]: bookingId },
+            startDate: { [Op.lte]: endDate },
+            endDate: { [Op.gte]: startDate }
+        }
+    });
+
+    if (overlappingBookings.length) {
         res.status(403);
         return res.json({
             "message": "Sorry, this spot is already booked for the specified dates",
@@ -114,12 +162,13 @@ router.put("/:bookingId", requireAuth, async (req, res) => {
                 "startDate": "Start date conflicts with an existing booking",
                 "endDate": "End date conflicts with an existing booking"
             }
-        })
+        });
     }
 
-   await oldBooking.update({
+    await oldBooking.update({
         startDate,
-        endDate
+        endDate,
+        guests
     });
     return res.json(oldBooking)
 });

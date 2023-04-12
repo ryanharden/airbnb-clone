@@ -24,7 +24,7 @@
 
 .spot-index-item {
     width: 300px;
-    height: 280px;
+    height: 295px;
     box-sizing: border-box;
     margin-left: 10px;
     margin-right: 10px;
@@ -46,7 +46,8 @@
     align-items: center;
     justify-content: space-between;
     padding-top: 7px;
-    padding-bottom: 7px;
+    /* padding-bottom: 7px; */
+    margin-bottom: 2px;
 }
 
 #title {
@@ -61,12 +62,23 @@
     font-size: 14.5px;
 }
 
-#star {
+/* #star {
     height: 17px
+} */
+
+.main-star-spot-item {
+    margin-right: 4px;
 }
 
 #price {
     font-size: 14px;
+    margin-top: 5px;
+}
+
+#spot-item-category {
+    font-size: 14px;
+    color: #717171;
+    /* margin-bottom: 10px; */
 }
 
 .dollars {
