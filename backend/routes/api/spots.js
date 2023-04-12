@@ -708,7 +708,8 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
 router.get("/:spotId/bookings", async (req, res) => {
     const spotId = +req.params.spotId;
     const spot = await Spot.findByPk(spotId);
-
+    console.log("spot: ", spot);
+    console.log("req: ", req);
     if (!spot) {
         res.status(404);
         return res.json({
@@ -717,25 +718,22 @@ router.get("/:spotId/bookings", async (req, res) => {
         })
     };
 
-    if (spot.ownerId !== req.user.id) {
-        const Bookings = await Booking.findAll({
-            where: { spotId },
-            attributes: ["id", "spotId", "startDate", "endDate"]
-        });
-        return res.json({ Bookings })
-    }
+    const Bookings = await Booking.findAll({
+        where: { spotId },
+        attributes: ["id", "spotId", "startDate", "endDate"]
+    });
+    return res.json({ Bookings })
 
-    if (spot.ownerId === req.user.id) {
-        const Bookings = await Booking.findAll({
-            where: { spotId },
-            attributes: ["id", "spotId", "startDate", "endDate"],
-            include: {
-                model: User,
-                attributes: ["id", "firstName", "lastName"]
-            }
-        });
-        return res.json({ Bookings })
-    }
+    // if (spot.ownerId === req.user.id) {
+    //     const Bookings = await Booking.findAll({
+    //         where: { spotId },
+    //         attributes: ["id", "spotId", "startDate", "endDate"],
+    //         include: {
+    //             model: User,
+    //             attributes: ["id", "firstName", "lastName"]
+    //         }
+    //     });
+    //     return res.json({ Bookings })
 });
 
 // Delete a spot
