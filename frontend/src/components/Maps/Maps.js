@@ -27,7 +27,7 @@ const center = {
 };
 
 
-const Maps = ({ apiKey, isLoaded, spots, center, zoom, spot = null }) => {
+const Maps = ({ apiKey, isLoaded, spots, center, zoom, spot}) => {
     const navigate = useNavigate();
 
     const handleMarkerClick = (spotId) => {

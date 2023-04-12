@@ -64,9 +64,6 @@ const SpotShow = () => {
     // console.log("spotBookings: ", spotBookings);
 
     // const [shake, setShake] = useState(false);
-    const [resSuccess1, setResSuccess1] = useState(false);
-    const [resSuccess2, setResSuccess2] = useState(false);
-    const [resSuccess3, setResSuccess3] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
     // const [reviewModal, setReviewModal] = useState(false);
     const [numDays, setNumDays] = useState(3);
@@ -334,7 +331,7 @@ const SpotShow = () => {
                     {spot?.city}, {spot?.state}, {spot.country}
                 </div>
                 <div className='where-stay-map'>
-                    <Maps center={center} zoom={15} spot={spot} />
+                    {spot && <Maps center={center} zoom={15} spot={spot} />}
                 </div>
             </div>
         </div>
