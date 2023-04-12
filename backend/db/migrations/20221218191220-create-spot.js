@@ -56,6 +56,49 @@ module.exports = {
         type: Sequelize.DECIMAL,
         allowNull: false
       },
+      category: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: '',
+      },
+      guests: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 1,
+      },
+      bedrooms: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 1,
+      },
+      beds: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 1,
+      },
+      bathrooms: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 1,
+      },
+      wifi: {
+        type: Sequelize.BOOLEAN,
+      },
+      parking: {
+        type: Sequelize.BOOLEAN,
+      },
+      kitchen: {
+        type: Sequelize.BOOLEAN,
+      },
+      pets: {
+        type: Sequelize.BOOLEAN,
+      },
+      washer: {
+        type: Sequelize.BOOLEAN,
+      },
+      dryer: {
+        type: Sequelize.BOOLEAN,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
