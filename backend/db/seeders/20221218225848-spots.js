@@ -188,7 +188,7 @@ module.exports = {
         beds: 8,
         bathrooms: 3,
         wifi: true,
-        parkins28g: true,
+        parking: true,
         kitchen: true,
         pets: true,
         washer: true,
@@ -665,4 +665,3 @@ module.exports = {
     }, {});
   }
 };
-
