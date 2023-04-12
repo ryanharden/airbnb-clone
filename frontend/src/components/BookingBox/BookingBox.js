@@ -6,6 +6,7 @@ import OpenModalButton from '../OpenModalButton';
 import { useNavigate } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
 import BookingModal from '../BookingModal/BookingModal';
+import LoginFormModal from '../LoginFormModal';
 
 const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDays, setNumDays, padNumber, avgSpotRating, reviews, reservedDates }) => {
 
@@ -64,6 +65,12 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        if (!user) {
+            setModalContent(<LoginFormModal />);
+            return;
+        }
+
         if (numDays === 0 || datesReserved || user.id == spot.ownerId) {
             setShake(true);
             setTimeout(() => {
@@ -143,7 +150,7 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
                                 );
                             })}
                         </select>
-                        {user.id == spot.ownerId ?
+                        {user?.id == spot.ownerId ?
                             <button onClick={handleSubmit} id={shake ? "shake" : ""} className='floating-box-button'>Cant Reserve Own Spot</button> :
                             <OpenModalButton
                                 onButtonClick={handleSubmit}
