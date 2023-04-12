@@ -12,7 +12,7 @@ export const getKey = () => async (dispatch) => {
     method: 'POST',
   });
   const data = await res.json();
-  console.log("key: ", data)
+  // console.log("key: ", data)
   dispatch(loadApiKey(data.googleMapsAPIKey));
 };
 

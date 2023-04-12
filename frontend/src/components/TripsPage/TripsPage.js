@@ -100,7 +100,7 @@ const TripsPage = () => {
         )
     }
     const bookingItems = bookingsArr.map((booking) => {
-        console.log("booking: ", booking);
+        // console.log("booking: ", booking);
         return <BookingItem key={booking.id} booking={booking} spot={booking.Spot} />
     })
 

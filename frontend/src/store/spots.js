@@ -151,11 +151,11 @@ export const getSpotsFilterThunk = (locationData = {}) => async (dispatch) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(editedSpot)
         });
-        console.log("editedSpotStore: ", editedSpot);
+        // console.log("editedSpotStore: ", editedSpot);
 
         if (res.ok) {
             const updatedSpot = await res.json();
-            console.log("updatedSpotStore: ", updateSpot);
+            // console.log("updatedSpotStore: ", updateSpot);
             const formData = new FormData();
             for (let image of spotDetails.SpotImages) {
                 formData.append("images", image);
@@ -170,7 +170,7 @@ export const getSpotsFilterThunk = (locationData = {}) => async (dispatch) => {
             if (addImages.ok) {
                 const images = await addImages.json();
                 const actualSpot = { ...updatedSpot, ...editedSpot, ...spotDetails }
-                console.log("actualSpot: ", actualSpot);
+                // console.log("actualSpot: ", actualSpot);
                 dispatch(updateSpot(actualSpot, images));
                 return actualSpot;
             }
