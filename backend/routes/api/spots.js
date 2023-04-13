@@ -225,7 +225,7 @@ router.get("/", async (req, res) => {
         }
 
         if (!avgSpotRating) {
-            spot.avgRating = "This is a new spot, no reviews yet!"
+            spot.avgRating = 0.00
         } else {
             spot.avgRating = avgSpotRating;
         };
