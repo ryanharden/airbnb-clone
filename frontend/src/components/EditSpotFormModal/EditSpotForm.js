@@ -5,6 +5,7 @@ import { useModal } from "../../context/Modal";
 import { updateSpotThunk, deleteImageThunk, getSpotThunk } from '../../store/spots';
 import "./EditSpotForm.css";
 import spinner from "../../assets/Iphone-spinner-2.gif";
+import Maps from '../Maps/Maps';
 
 const validFileTypes = ["image/jpeg", "image/png", "image/gif", "image/jpg"];
 
@@ -24,8 +25,8 @@ const EditSpotForm = () => {
     const [description, setDescription] = useState(spot.description);
     const [price, setPrice] = useState(spot.price);
     const [errors, setErrors] = useState([]);
-    const [lng, setLng] = useState(117.1611);
-    const [lat, setLat] = useState(32.7157);
+    const [lng, setLng] = useState(spot?.lng);
+    const [lat, setLat] = useState(spot?.lat);
     const [images, setImages] = useState(spot.SpotImages);
     const [image, setImage] = useState(null);
     const [prevImages, setPrevImages] = useState([]);
@@ -235,6 +236,9 @@ const EditSpotForm = () => {
         )
     }
 
+    const center = lat && lng ? { lat: parseFloat(lat), lng: parseFloat(lng) } : undefined;
+
+
     return (
         <>
             <div className='spot-form-header-container'>
@@ -380,7 +384,7 @@ const EditSpotForm = () => {
                         <div className='input-lat'>
                             <span className='lattext'>Lat</span>
                             <input
-                                className='spot-form-input lat'
+                                className='spot-form-input-lat'
                                 min="-90"
                                 max="90"
                                 type="number"
@@ -388,13 +392,13 @@ const EditSpotForm = () => {
                                 onChange={(e) => setLat(parseFloat(e.target.value))}
                                 placeholder="Latitude"
                                 step='any'
-                                disabled
+                                // disabled
                                 required />
                         </div>
                         <div className='input-lng'>
                             <span className='lngtext'>Lng</span>
                             <input
-                                className='spot-form-input lng'
+                                className='spot-form-input-lng'
                                 min="-180"
                                 max="180"
                                 type="number"
@@ -402,9 +406,12 @@ const EditSpotForm = () => {
                                 onChange={(e) => setLng(parseFloat(e.target.value))}
                                 placeholder="Longitude"
                                 step='any'
-                                disabled
+                                // disabled
                                 required />
                         </div>
+                    </div>
+                    <div className='spot-form-map-container'>
+                        <Maps setNewListingLat={setLat} setNewListingLng={setLng} zoom={10} center={center} />
                     </div>
                     <div className='checkboxes'>
                         <div className='wifi-checkbox'>

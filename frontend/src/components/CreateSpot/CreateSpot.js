@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from "../../context/Modal";
 import { createSpotThunk } from '../../store/spots';
 import { useNavigate } from 'react-router-dom';
 import './CreateSpot.css';
 import spinner from "../../assets/Iphone-spinner-2.gif";
-
+import Maps from '../Maps/Maps';
 
 const validFileTypes = ["image/jpeg", "image/png", "image/gif", "image/jpg"];
 
@@ -21,7 +21,7 @@ const CreateSpot = () => {
     const [country, setCountry] = useState('United States');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState("");
-    const [lng, setLng] = useState(117.1611);
+    const [lng, setLng] = useState(-117.1611);
     const [lat, setLat] = useState(32.7157);
     const [images, setImages] = useState([]);
     const [category, setCategory] = useState("");
@@ -104,7 +104,8 @@ const CreateSpot = () => {
             kitchen,
             pets,
             washer,
-            dryer
+            dryer,
+            // avgRating: 0.00,
         };
 
         const validationErrors = validateForm(newSpotData);
@@ -113,16 +114,19 @@ const CreateSpot = () => {
             setLoading(false);
             return;
         }
+        setLoading(true);
 
         dispatch(createSpotThunk(newSpotData, images))
-            .then(setLoading(true))
             .then((res) => {
+                setLoading(false);
                 navigate(`/spots/${res.id}`);
                 closeModal();
             })
             .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) setErrors(data.errors)
+                setLoading(false);
+                if (res && res.errors) setErrors(res.errors);
+                // const data = await res.json();
+                // if (data && data.errors) setErrors(data.errors)
             })
     };
 
@@ -177,6 +181,8 @@ const CreateSpot = () => {
             })
         )
     }
+
+    const center = lat && lng ? { lat: parseFloat(lat), lng: parseFloat(lng) } : undefined;
 
     return (
         <>
@@ -323,7 +329,7 @@ const CreateSpot = () => {
                         <div className='input-lat'>
                             <span className='lattext'>Lat</span>
                             <input
-                                className='spot-form-input lat'
+                                className='spot-form-input-lat'
                                 min="-90"
                                 max="90"
                                 type="number"
@@ -331,13 +337,13 @@ const CreateSpot = () => {
                                 onChange={(e) => setLat(parseFloat(e.target.value))}
                                 placeholder="Latitude"
                                 step='any'
-                                disabled
+                                // disabled
                                 required />
                         </div>
                         <div className='input-lng'>
                             <span className='lngtext'>Lng</span>
                             <input
-                                className='spot-form-input lng'
+                                className='spot-form-input-lng'
                                 min="-180"
                                 max="180"
                                 type="number"
@@ -345,9 +351,12 @@ const CreateSpot = () => {
                                 onChange={(e) => setLng(parseFloat(e.target.value))}
                                 placeholder="Longitude"
                                 step='any'
-                                disabled
+                                // disabled
                                 required />
                         </div>
+                    </div>
+                    <div className='spot-form-map-container'>
+                        <Maps setNewListingLat={setLat} setNewListingLng={setLng} zoom={10} center={center} />
                     </div>
                     <div className='checkboxes'>
                         <div className='wifi-checkbox'>
@@ -416,7 +425,7 @@ const CreateSpot = () => {
                             {previewImages}
                         </div>
                     </div>
-                    <button onClick={() => setLoading(true)} className='spot-form-button' type="submit">Create New Nest</button>
+                    <button className='spot-form-button' type="submit">Create New Nest</button>
                     {loading && (<div className="loading-spinner"><img src={spinner} className="spinner" /><div className="loading">Loading...</div></div>)}
                 </form>
             </div>

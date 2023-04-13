@@ -27,7 +27,7 @@ const getCustomMarkerIcon = (price) => {
 // };
 
 
-const Maps = ({ apiKey, isLoaded, spots, center, zoom, spot}) => {
+const Maps = ({ mapRef, setNewListingLat, setNewListingLng, spots = [], center, zoom, spot = null }) => {
     const navigate = useNavigate();
 
     const handleMarkerClick = (spotId) => {
