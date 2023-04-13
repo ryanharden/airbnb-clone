@@ -25,8 +25,8 @@ const EditSpotForm = () => {
     const [description, setDescription] = useState(spot.description);
     const [price, setPrice] = useState(spot?.price);
     const [errors, setErrors] = useState([]);
-    const [lng, setLng] = useState(spot?.lng);
-    const [lat, setLat] = useState(spot?.lat);
+    const [lng, setLng] = useState(Number(spot?.lng));
+    const [lat, setLat] = useState(Number(spot?.lat));
     const [images, setImages] = useState(spot.SpotImages);
     const [image, setImage] = useState(null);
     const [prevImages, setPrevImages] = useState([]);
