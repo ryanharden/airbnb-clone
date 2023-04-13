@@ -157,6 +157,7 @@ const SpotShow = () => {
     let avgSpotRating = 0;
     if (spotReviewsArr.length > 0) {
         avgSpotRating = sumOfReviewAverages / spotReviewsArr.length;
+        avgSpotRating = Number(avgSpotRating.toFixed(2));
     }
 
     return (

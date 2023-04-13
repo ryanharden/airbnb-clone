@@ -23,7 +23,7 @@ const EditSpotForm = () => {
     const [state, setState] = useState(spot.state);
     const [country, setCountry] = useState(spot.country);
     const [description, setDescription] = useState(spot.description);
-    const [price, setPrice] = useState(spot.price);
+    const [price, setPrice] = useState(spot?.price);
     const [errors, setErrors] = useState([]);
     const [lng, setLng] = useState(spot?.lng);
     const [lat, setLat] = useState(spot?.lat);
