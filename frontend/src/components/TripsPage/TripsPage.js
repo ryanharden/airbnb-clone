@@ -47,6 +47,7 @@ const TripsPage = () => {
         const formatEndDate = new Date(endDateObj.getUTCFullYear(), endDateObj.getUTCMonth(), endDateObj.getUTCDate());
 
         const numDays = (Math.ceil((formatEndDate.getTime() - formatStartDate.getTime()) / 1000 / 60 / 60 / 24));
+        const updatedTotal = spot?.price * numDays + parseInt(spot?.price * numDays * 0.12) + parseInt(spot?.price * numDays * 0.08);
 
         let countDown = '';
         if (formatStartDate.getTime() > today.getTime()) {
@@ -76,7 +77,7 @@ const TripsPage = () => {
                             <div className='booking-period'>•</div>
                             <h3>{`${numDays} ${numDays === 1 ? "night" : "nights"}`}</h3>
                         </div>
-                        <div className='booking-details'>{`${guests} ${guests === 1 ? 'guest' : 'guests'} · `} Total: ${booking.total}</div>
+                        <div className='booking-details'>{`${guests} ${guests === 1 ? 'guest' : 'guests'} · `} Total: ${updatedTotal}</div>
                     </div>
                     <div className='booking-trip'>
                         {countDown}
