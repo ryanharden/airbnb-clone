@@ -106,7 +106,7 @@ const SearchSpots = () => {
                 <div className='search-spots-header'>
                     Displaying {allSpotItems.length} {allSpotItems.length === 1 ? "nest" : "nests"} in this location
                 </div>
-                <ul className="spots-wrapper">
+                <ul className="search-spots-wrapper">
                     {allSpotItems}
                 </ul>
             </div>
