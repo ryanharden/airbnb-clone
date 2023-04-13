@@ -39,6 +39,20 @@ const SpotReviews = () => {
         return <SpotReviewsIndexItem key={review.id} review={review} spot={spot} />
     });
 
+    const userHasReview = () => {
+        if (!user) return false;
+        return spotReviewsArr.some((review) => review.userId === user.id);
+    };
+
+    let createReviewButtonText = "Create a review";
+    let createReviewButtonDisabled = false;
+    if (userHasReview()) {
+        createReviewButtonText = "One review per spot allowed";
+        createReviewButtonDisabled = true;
+    } else if (user && user.id === spot.ownerId) {
+        createReviewButtonText = "Cant Review Own Spot";
+        createReviewButtonDisabled = true;
+    }
 
     let sumOfReviewAverages = 0;
     if (spotReviewsArr.length > 0) {
@@ -87,15 +101,15 @@ const SpotReviews = () => {
                                 <div id='review-period'>•</div>
                                 <div id="numReviewsBig">{spotReviewsArr.length} {spotReviewsArr.length === 1 ? 'review' : 'reviews'}</div>
                             </div>
-                            {user?.id !== spot?.ownerId && <div className='create-review-modal-button'>
+                            <div className='create-review-modal-button'>
                                 <img className='review-icon' src="https://cdn-icons-png.flaticon.com/512/2983/2983706.png" alt="review-icon" />
                                 <OpenModalButton
                                     className="create-review-modal"
                                     modalComponent={user ? <CreateReview /> : <LoginFormModal />}
-                                    buttonText="Create a review"
+                                    buttonText={createReviewButtonText}
+                                    disabled={createReviewButtonDisabled}
                                 />
                             </div>
-                            }
                         </div>
                         <RatingBars reviews={spotReviewsArr} />
                         <div className='spot-reviews-item-container'>
