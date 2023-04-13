@@ -287,7 +287,7 @@ router.get("/search", async (req, res) => {
             avgSpotRating = sumOfReviewAverages / reviews.length;
         }
         if (!avgSpotRating) {
-            spot.avgRating = "This is a new spot, no reviews yet!";
+            spot.avgRating = 0.00;
         } else {
             spot.avgRating = avgSpotRating;
         };
@@ -407,7 +407,7 @@ router.get("/current", requireAuth, async (req, res) => {
         const avgStars = stars / reviews.length;
 
         if (!avgStars) {
-            spot.avgRating = "This is a new spot, no reviews yet!"
+            spot.avgRating = 0.00
         } else {
             spot.avgRating = avgStars;
         };
@@ -434,7 +434,11 @@ router.get("/:spotId", async (req, res) => {
                 model: User,
                 as: "Owner",
                 attributes: ["id", "firstName", "lastName"]
-            }
+            },
+            // {
+            //     model:Review,
+            //     attributes: ["id", "review", "communication", "checkin", "cleanliness", "accuracy", "location", "value"]
+            // }
         ]
     });
 
@@ -448,6 +452,31 @@ router.get("/:spotId", async (req, res) => {
         const numReviews = await Review.count({
             where: { spotId: spot.id }
         })
+        const reviews = await Review.findAll({
+            where: {
+                spotId: spot.id
+            },
+            attributes: ["cleanliness", "communication", "checkin", "accuracy", "location", "value"]
+        });
+        let sumOfReviewAverages = 0;
+        if (reviews.length > 0) {
+            reviews.forEach((review) => {
+                let reviewAverage = (
+                    review.cleanliness + review.accuracy + review.communication + review.location + review.checkin + review.value
+                ) / 6;
+                sumOfReviewAverages += reviewAverage;
+            });
+        }
+        let avgSpotRating = 0;
+        if (reviews.length > 0) {
+            avgSpotRating = sumOfReviewAverages / reviews.length;
+        }
+        if (!avgSpotRating) {
+            spot.avgRating = 0.00;
+        } else {
+            spot.avgRating = avgSpotRating;
+        };
+
 
         return res.json({
             id: spot.id,
@@ -464,7 +493,7 @@ router.get("/:spotId", async (req, res) => {
             createdAt: spot.createdAt,
             updatedAt: spot.updatedAt,
             numReviews: numReviews,
-            // avgStarRating: avgStars,
+            avgRating: spot.avgRating,
             SpotImages: spot.SpotImages,
             Owner: spot.Owner,
             category: spot.category,
