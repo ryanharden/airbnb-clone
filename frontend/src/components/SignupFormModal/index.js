@@ -70,7 +70,7 @@ function SignupFormModal() {
             required
             placeholder="Last Name"
           />
-          <input className='form-input-password'
+          <input className='form-input-password-signup'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

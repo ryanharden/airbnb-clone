@@ -8,16 +8,21 @@ import SpotShow from "./components/SpotShow/SpotShow";
 import TripsPage from "./components/TripsPage/TripsPage";
 import CategorySpots from "./components/CategorySpots/CategorySpots";
 import SearchSpots from "./components/SearchSpots/SearchSpots";
+import Footer from "./components/Footer/Footer";
+import { useLocation } from "react-router-dom";
 
 function App() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const [isLoaded, setIsLoaded] = useState(false);
 
   const isLoggedIn = useSelector(state => state.session.user != null);
 
+  const hideFooter = location.pathname === "/" || location.pathname === "/search"
+
   useEffect(() => {
-    if (!isLoggedIn)  {
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    if (!isLoggedIn) {
+      dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     } else {
       setIsLoaded(true);
     }
@@ -39,6 +44,7 @@ function App() {
           <Route path="/search" element={<SearchSpots />} />
         </Routes>
       )}
+      {!hideFooter && <Footer />}
     </>
   );
 }

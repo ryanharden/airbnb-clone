@@ -4,9 +4,26 @@
         padding-left: 80px;
         padding-right: 80px;
     }
+    .spots-container {
+        padding-left: 80px;
+        padding-right: 80px;
+    }
 }
 
 .spots-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 0px;
+    margin-top: 20px;
+    align-items: center;
+    height: 100%;
+    padding-bottom: 100px;
+    /* width: 100%;
+    justify-content: center; */
+}
+
+.spots-container-show-map {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -22,7 +39,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    /* justify-content: center; */
+    justify-content: center;
     width: 100%;
     margin-top: 0px;
     padding-left: 0;

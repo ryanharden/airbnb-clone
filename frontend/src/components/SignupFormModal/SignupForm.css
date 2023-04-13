@@ -19,7 +19,7 @@
   font-family: 'Circular',-apple-system,'BlinkMacSystemFont','Roboto','Helvetica Neue',sans-serif;
 }
 
-.form-input-username, .form-input-firstname, .form-input-lastname, .form-input-password {
+.form-input-username, .form-input-firstname, .form-input-lastname, .form-input-password-signup {
   /* border-radius: 8px; */
   /* inset: 0px 0px -1px; */
   border-radius: 0;

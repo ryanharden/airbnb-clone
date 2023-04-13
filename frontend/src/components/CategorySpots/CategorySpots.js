@@ -36,7 +36,7 @@ const CategorySpots = () => {
 
     if (!categorySpots.length)
         return (
-            <div className='spots-container'>
+            <div className='category-container'>
                 <FilterBar />
                 <div className='category-header'>
                     No nests in this category yet!
@@ -53,7 +53,7 @@ const CategorySpots = () => {
         )
 
     return (
-        <div className='spots-container'>
+        <div className='category-container'>
             <FilterBar />
             <ul className="spots-wrapper">
                 {allSpotItems}
