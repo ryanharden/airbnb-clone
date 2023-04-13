@@ -8,6 +8,7 @@ import SpotIndexItem from "../SpotsIndexItem/SpotIndexItem";
 import FilterBar from "../FilterBar/FilterBar";
 import Maps from "../Maps/Maps";
 import { getKey } from '../../store/maps';
+import Footer from "../Footer/Footer";
 
 // import MapContainer from "../Maps";
 const center = {
@@ -59,29 +60,32 @@ const AllSpots = () => {
     })
 
     return (
-        <div className="spots-container">
-            <FilterBar />
-            <div className="switch-button-wrapper">
-                <div className="switch-button-container">
-                    <button onClick={switchView}>{showMap ? <p>Show list<i className="fa-solid fa-list-ul fa-show"></i></p> : <p>Show map<i className="fa-solid fa-map fa-show"></i></p>}</button>
+        <>
+            <div className={showMap ? "spots-container-show-map" : "spots-container"}>
+                <FilterBar />
+                <div className="switch-button-wrapper">
+                    <div className="switch-button-container">
+                        <button onClick={switchView}>{showMap ? <p>Show list<i className="fa-solid fa-list-ul fa-show"></i></p> : <p>Show map<i className="fa-solid fa-map fa-show"></i></p>}</button>
+                    </div>
                 </div>
-            </div>
-            {showMap ? (
-                <div className="spots-map-container">
-                    <Maps spots={allSpotsArr} zoom={7} center={center}/>
-                    {/* <Maps apiKey={key} spots={allSpotsArr} /> */}
-                </div>) : (
-                <ul className="spots-wrapper">
-                    {spotItems}
-                </ul>
-            )
-            }
+                {showMap ? (
+                    <div className="spots-map-container">
+                        <Maps spots={allSpotsArr} zoom={7} center={center} />
+                        {/* <Maps apiKey={key} spots={allSpotsArr} /> */}
+                    </div>) : (
+                    <ul className="spots-wrapper">
+                        {spotItems}
+                    </ul>
+                )
+                }
 
-            {/* <SearchViewMapWrapper spots={allSpotsArr} markerEventHandlers={{
+                {/* <SearchViewMapWrapper spots={allSpotsArr} markerEventHandlers={{
                 click: (spot) => navigate(`/spots/${spot.id}`),
             }}
                 mapEventHandlers={mapEventHandlers} /> */}
-        </div>
+            </div>
+            {showMap ? "" : <Footer />}
+        </>
     )
 };
 

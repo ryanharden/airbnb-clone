@@ -25,6 +25,7 @@ const TripsPage = () => {
     const allSpots = useSelector((state) => state.Spots.allSpots);
     const allSpotsArr = Object.values(allSpots);
     const bookingsArr = Object.values(bookings);
+    console.log("bookingsArr: ", bookingsArr);
 
     const first6Spots = allSpotsArr.slice(0, 6);
 
@@ -41,12 +42,14 @@ const TripsPage = () => {
     const BookingItem = ({ booking, spot }) => {
         const { startDate, endDate, guests } = booking;
         // console.log("booking-start: ", booking.startDate);
+        console.log("spot: ", spot);
         const startDateObj = new Date(startDate);
         const endDateObj = new Date(endDate);
         const formatStartDate = new Date(startDateObj.getUTCFullYear(), startDateObj.getUTCMonth(), startDateObj.getUTCDate());
         const formatEndDate = new Date(endDateObj.getUTCFullYear(), endDateObj.getUTCMonth(), endDateObj.getUTCDate());
 
         const numDays = (Math.ceil((formatEndDate.getTime() - formatStartDate.getTime()) / 1000 / 60 / 60 / 24));
+        const updatedTotal = spot?.price * numDays + parseInt(spot?.price * numDays * 0.12) + parseInt(spot?.price * numDays * 0.08);
 
         let countDown = '';
         if (formatStartDate.getTime() > today.getTime()) {
@@ -67,16 +70,16 @@ const TripsPage = () => {
         return (
             <div
                 className='booking-item'>
-                <img onClick={() => navigate(`/spots/${spot?.id}`)} className='booking-image' src={booking?.Spot?.previewImage} alt="loading" />
+                <img onClick={() => navigate(`/spots/${spot?.id}`)} className='booking-image' src={spot?.previewImage} alt="loading" />
                 <div className='booking-info'>
                     <div className='booking-info-top'>
-                        <div onClick={() => navigate(`/spots/${spot?.id}`)} className='booking-name'>{booking?.Spot?.name}</div>
+                        <div onClick={() => navigate(`/spots/${spot?.id}`)} className='booking-name'>{spot?.name}</div>
                         <div className='booking-dates'>
                             <h3>{`${monthNames[formatStartDate.getMonth()]} ${formatStartDate.getDate()}, ${formatStartDate.getFullYear()} - ${monthNames[formatEndDate.getMonth()]} ${formatEndDate.getDate()}, ${formatEndDate.getFullYear()}`}</h3>
                             <div className='booking-period'>•</div>
                             <h3>{`${numDays} ${numDays === 1 ? "night" : "nights"}`}</h3>
                         </div>
-                        <div className='booking-details'>{`${guests} ${guests === 1 ? 'guest' : 'guests'} · `} Total: ${booking.total}</div>
+                        <div className='booking-details'>{`${guests} ${guests === 1 ? 'guest' : 'guests'} · `} Total: ${updatedTotal}</div>
                     </div>
                     <div className='booking-trip'>
                         {countDown}
@@ -100,9 +103,9 @@ const TripsPage = () => {
         )
     }
     const bookingItems = bookingsArr.map((booking) => {
-        // console.log("booking: ", booking);
-        return <BookingItem key={booking.id} booking={booking} spot={booking.Spot} />
-    })
+        const spot = allSpots[booking.spotId];
+        return <BookingItem key={booking.id} booking={booking} spot={spot} />
+    });
 
     if (!bookingsArr.length)
         return (

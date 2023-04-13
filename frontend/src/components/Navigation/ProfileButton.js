@@ -9,6 +9,9 @@ import OpenModalButton from "../OpenModalButton";
 import CreateSpot from "../CreateSpot/CreateSpot";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import githubMark from "../../assets/github-mark.png";
+import githubLogo from "../../assets/GitHub_Logo.png";
+import linkedIn from "../../assets/linked-in-blue.png";
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
@@ -73,6 +76,19 @@ function ProfileButton({ user }) {
                                     buttonText="List your nest"
                                 /></li>
                             </div>
+                            <div className="links-drop">
+                                <li>
+                                    <a rel="noreferrer" target="_blank" href="https://www.linkedin.com/in/ryanharden-dev" className="linked-drop">
+                                        <img className="linked-in-logo-drop" src={linkedIn} alt="linkedin logo" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a rel="noreferrer" target="_blank" href="https://github.com/ryanharden" className="footer-link-drop">
+                                        <img className="github-mark-drop" src={githubMark} alt="github mark" />
+                                        <img className="github-logo-drop" src={githubLogo} alt="github logo" />
+                                    </a>
+                                </li>
+                            </div>
                             <div className="logout">
                                 <li className="logout-button" onClick={logout}>Log Out</li>
                             </div>
@@ -98,8 +114,17 @@ function ProfileButton({ user }) {
                                 </div>
                             </div>
                             <div className="host-help">
-                                <div className="host-experience">Host an experience</div>
-                                <div className="help">Help</div>
+                                <div className="host-experience">
+                                    <a rel="noreferrer" target="_blank" href="https://www.linkedin.com/in/ryanharden-dev" className="footer-link">
+                                        <img className="linked-in-logo-drop" src={linkedIn} alt="linkedin logo" />
+                                    </a>
+                                </div>
+                                <div className="help">
+                                    <a rel="noreferrer" target="_blank" href="https://github.com/ryanharden" className="footer-link">
+                                        <img className="github-mark-drop" src={githubMark} alt="github mark" />
+                                        <img className="github-logo-drop" src={githubLogo} alt="github logo" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </>
