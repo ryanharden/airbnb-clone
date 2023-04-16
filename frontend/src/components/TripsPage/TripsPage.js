@@ -38,6 +38,10 @@ const TripsPage = () => {
         dispatch(getUserBookingsThunk());
     }, [dispatch, updated])
 
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, []);
+
 
     const BookingItem = ({ booking, spot }) => {
         const { startDate, endDate, guests } = booking;
