@@ -145,6 +145,11 @@
     font-weight: 400;
 }
 
+@media (max-width: 905px) {
+    .floating-box-review {
+        display: none
+    }
+}
 
 .floating-box-review {
     font-size: 14.5px;

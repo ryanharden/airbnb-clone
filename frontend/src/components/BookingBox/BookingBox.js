@@ -65,7 +65,7 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (!user) {
             setModalContent(<LoginFormModal />);
             return;
@@ -181,7 +181,7 @@ const BookingBox = ({ spot, startDate, setStartDate, endDate, setEndDate, numDay
                 <div id='float-divider'></div>
                 <div className='float-total'>
                     <div>Total before taxes</div>
-                    <div>$ {spot.price * numDays + parseInt(spot.price * numDays * 0.12) + parseInt(spot.price * numDays * 0.08)}</div>
+                    <div>${spot.price * numDays + parseInt(spot.price * numDays * 0.12) + parseInt(spot.price * numDays * 0.08)}</div>
                 </div>
             </div>
         </div>
