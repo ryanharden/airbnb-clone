@@ -168,7 +168,7 @@ textarea {
     cursor: pointer;
     color: rgb(255, 255, 255);
     transition: opacity 1.25s ease 0s !important;
-    background-image: radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%);
+    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
     width: 100%;
     margin-top: 33px;
 }
